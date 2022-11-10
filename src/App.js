@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Route, Routes } from "react-router";
 import Department from "./components/Department";
+import Department_Post_Edit from "./components/Department_Post_Edit";
 import Home from "./components/Home";
 import { Login } from "./components/Login";
 import { Navbar } from "./components/Navbar";
@@ -30,6 +31,7 @@ function App() {
         <Route path="profile" element={<Profile />} />
         <Route path="department" element={<Department />} />
         <Route path="login" element={<Login />} />
+        <Route path="department_edit" element={<Department_Post_Edit />} />
       </Routes>
     </div>
   );
