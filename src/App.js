@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Route, Routes } from "react-router";
 import Department from "./components/Department";
+
 import Department_Post_Edit from "./components/Department_Post_Edit";
-import Home from "./components/Home";
+
 import { Login } from "./components/Login";
 import { Navbar } from "./components/Navbar";
 import { Profile } from "./components/Profile";
@@ -13,7 +14,7 @@ function App() {
 
   return (
     <div
-      className="App"
+      className="overflow-hidden"
       dir="rtl"
       onClick={() => {
         isOpen && setIsOpen(false);
@@ -27,9 +28,9 @@ function App() {
         setHamburgerOpen={setHamburgerOpen}
       />
       <Routes>
-        <Route path="/" element={<Home />} />
         <Route path="profile" element={<Profile />} />
         <Route path="department" element={<Department />} />
+        <Route path="/" element={<Login />} />
         <Route path="login" element={<Login />} />
         <Route path="department_edit" element={<Department_Post_Edit />} />
       </Routes>
