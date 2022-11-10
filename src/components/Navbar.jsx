@@ -2,7 +2,7 @@ import image from "../images/dimona-logo.png";
 import { Link } from "react-router-dom";
 export const Navbar = (props) => {
   return (
-    <div className="bg-gray-900">
+    <div className="bg-gray-800">
       <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
         <div className="relative flex justify-between items-center ">
           <div
@@ -46,7 +46,7 @@ export const Navbar = (props) => {
                 )}
               </div>
             </div>
-            <div className="text-red-400 font-semibold">
+            <div className="text-green-700 font-semibold">
               <Link to="bonuses">הטבות</Link>
             </div>
             <div className="text-white font-semibold">
@@ -54,7 +54,7 @@ export const Navbar = (props) => {
             </div>
           </div>
           <div
-            className="space-y-2 sm:hidden md:hidden lg:hidden"
+            className="space-y-2 sm:hidden md:hidden lg:hidden mt-3"
             onClick={() => props.setHamburgerOpen(!props.hamburgerOpen)}
           >
             <span className="block w-8 h-1 bg-gray-600"></span>

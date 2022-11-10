@@ -3,24 +3,33 @@ import React from "react";
 function Department() {
   return (
     <div>
-      <div className="text-5xl flex justify-center bg-amber-400 h-14">
+      <div className="text-5xl flex justify-center mb-10 font-semibold text-gray-900">
         <h1>שם אגף</h1>
       </div>
       <div className="flex justify-center ">
-        <div className="text-xl flex justify-items-center justify-center flex-wrap w-5/6 flex-col ">
-          <div className=" mr-64 bg-blue-400 w-1/6 text-center">
+        <div className="text-xl flex justify-items-center justify-center flex-wrap w-4/6 flex-col ">
+          <div className="  text-center">
             <h1>כותרת לכתבה</h1>
           </div>
-          <div className="mr-4 border-2 border-green-500">
+          <div className="mr-4 mt-4">
             <p>
-              פוסט עם מלא תיאור ומילים ומשפטים ושטויות ויופע בו גם תאריך ונוסיף תמונה
+              פוסט עם מלא תיאור ומילים ומשפטים ושטויות ויופע בו גם תאריך ונוסיף
+              תמונה
             </p>
           </div>
         </div>
-        <div className="flex justify-items-center justify-center w-1/6 border-2 border-black">
+        <div className="flex flex-col items-center justify-center w-2/6 ">
+          <h1 className="mb-5 text-2xl font-medium">העובדים באגף</h1>
           <ul>
-            <li>
-              שם מלא + תמונה
+            <li className="m-2">
+              <div className="flex justify-between w-40 items-center flex-row-reverse ">
+                <img
+                  src="https://pps.whatsapp.net/v/t61.24694-24/215742736_169130348833804_5618789588749101516_n.jpg?ccb=11-4&oh=01_AdSC1WCVuXHYd2xh_nnwFPNIXNjqdpTvwP8dIfcHPj8IBw&oe=6379D759"
+                  className="w-14 rounded-full"
+                  alt=""
+                />
+                <h1>Noam Mery</h1>
+              </div>
             </li>
           </ul>
         </div>
