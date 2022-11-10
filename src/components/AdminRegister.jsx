@@ -134,7 +134,12 @@ export const AdminRegister = () => {
                       required: true,
                     })}
                   />
-                  <input type="submit" />
+                  <button
+                    type="submit"
+                    className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-green-700 transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none bg-white w-56"
+                  >
+                    שמור משתמש
+                  </button>
                 </div>
               </form>
             </div>
