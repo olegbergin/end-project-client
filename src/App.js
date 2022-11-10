@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Route, Routes } from "react-router";
 import Home from "./components/Home";
 import { Login } from "./components/Login";
@@ -5,9 +6,24 @@ import { Navbar } from "./components/Navbar";
 import { Profile } from "./components/Profile";
 
 function App() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [hamburgerOpen, setHamburgerOpen] = useState(false);
+
   return (
-    <div className="App" dir="rtl">
-      <Navbar />
+    <div
+      className="App"
+      dir="rtl"
+      onClick={() => {
+        isOpen && setIsOpen(false);
+        hamburgerOpen && setHamburgerOpen(false);
+      }}
+    >
+      <Navbar
+        setIsOpen={setIsOpen}
+        isOpen={isOpen}
+        hamburgerOpen={hamburgerOpen}
+        setHamburgerOpen={setHamburgerOpen}
+      />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="profile" element={<Profile />} />
