@@ -22,12 +22,15 @@ export const AdminRegister = () => {
           </div>
           <div className=" xl:px-8">
             <div className="flex flex-col items-center md:relative lg:relative">
-              <div className=" bg-white rounded shadow-2xl p-7 sm:p-10 w-52 md:w-full lg:w-full sm:w-full">
+              <div className=" bg-white  shadow-2xl p-10   w-full">
                 <h3 className="mb-4 text-xl font-semibold sm:text-center sm:mb-6 sm:text-2xl text-center">
                   הרשמה
                 </h3>
               </div>
-              <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="flex flex-col bg-white"
+              >
                 <div className="text-center">
                   <input
                     className="flex-grow h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline w-32 m-2"
@@ -134,9 +137,11 @@ export const AdminRegister = () => {
                       required: true,
                     })}
                   />
+                </div>
+                <div className="text-center">
                   <button
                     type="submit"
-                    className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-green-700 transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none bg-white w-56"
+                    className="inline-flex items-center justify-center h-10 px-6 font-medium tracking-wide text-green-700 transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none bg-gray-800 w-56"
                   >
                     שמור משתמש
                   </button>
