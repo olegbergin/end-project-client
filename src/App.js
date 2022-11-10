@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Route, Routes } from "react-router";
+import { AdminRegister } from "./components/AdminRegister";
 import Department from "./components/Department";
 import DepartmentPostEdit from "./components/DepartmentPostEdit";
-
 import { Login } from "./components/Login";
 import { Navbar } from "./components/Navbar";
 import { Profile } from "./components/Profile";
@@ -32,6 +32,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="login" element={<Login />} />
         <Route path="department_edit" element={<DepartmentPostEdit />} />
+        <Route path="register" element={<AdminRegister />} />
       </Routes>
     </div>
   );

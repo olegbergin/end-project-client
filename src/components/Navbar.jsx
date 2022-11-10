@@ -52,6 +52,9 @@ export const Navbar = (props) => {
             <div className="text-white font-semibold">
               <Link to="profile">הפרופיל שלי</Link>
             </div>
+            <div className="text-white font-semibold">
+              <Link to="register"> הרשמה</Link>
+            </div>
           </div>
           <div
             className="space-y-2 sm:hidden md:hidden lg:hidden mt-3"
@@ -77,6 +80,9 @@ export const Navbar = (props) => {
                   </div>
                   <div className="p-2">
                     <Link to="department">תחבורה</Link>
+                  </div>
+                  <div className="p-2">
+                    <Link to="register">הרשמה</Link>
                   </div>
                 </div>
               )}
