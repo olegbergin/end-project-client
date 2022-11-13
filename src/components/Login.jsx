@@ -1,6 +1,6 @@
 export const Login = () => {
   return (
-    <div className="bg-gray-900 h-screen ">
+    <div className="bg-gray-900 h-screen flex justify-center items-center ">
       <div className="py-12">
         <div className="flex flex-col items-center justify-between xl:flex-row mt-20">
           <div className="w-full max-w-xl mb-12 xl:pr-16 xl:mb-0 xl:w-7/12 ">
