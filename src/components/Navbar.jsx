@@ -7,7 +7,7 @@ export const Navbar = (props) => {
   // const role = useSelector((state) => state.role.role);
 
   return (
-    <div className="bg-gray-800">
+    <div className="bg-gray-800 w-screen fixed z-50">
       <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
         <div className="relative flex justify-between items-center ">
           <div
@@ -25,9 +25,9 @@ export const Navbar = (props) => {
             </Link>
           </div>
 
-          <div className=" items-center w-80 justify-between  hidden sm:flex md:flex lg:flex">
+          <div className=" items-center  justify-between  hidden sm:flex md:flex lg:flex">
             <div>
-              <div className="flex justify-center">
+              <div className="flex justify-center x-4">
                 <button
                   onClick={() => props.setIsOpen(!props.isOpen)}
                   className="text-white  px-5 py-2 font-semibold"
@@ -51,13 +51,16 @@ export const Navbar = (props) => {
                 )}
               </div>
             </div>
-            <div className="text-green-700 font-semibold">
+            <div className="text-green-700 font-semibold mx-3">
               <Link to="bonuses">הטבות</Link>
             </div>
-            <div className="text-white font-semibold">
+            <div className="text-white font-semibold mx-3">
               <Link to="profile">הפרופיל שלי</Link>
             </div>
-            <div className="text-white font-semibold">
+            <div className="text-white font-semibold mx-3">
+              <Link to="terms">תקנון </Link>
+            </div>
+            <div className="text-white font-semibold mx-3">
               <Link to="register"> הרשמה</Link>
             </div>
           </div>
@@ -73,6 +76,9 @@ export const Navbar = (props) => {
                 <div className=" text-white absolute bg-gray-900 w-44 border-2 border-black text-center mt-10 rounded-md z-10">
                   <div className="p-2">
                     <Link to="profile">הפרופיל שלי</Link>
+                  </div>
+                  <div className="p-2">
+                    <Link to="terms">תקנון</Link>
                   </div>
                   <div className="p-2">
                     <Link to="bonuses">הטבות</Link>

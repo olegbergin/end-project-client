@@ -7,6 +7,7 @@ import { Login } from "./components/Login";
 import { Navbar } from "./components/Navbar";
 import { Profile } from "./components/Profile";
 import { useSelector } from "react-redux"
+import { Terms } from "./components/Terms";
 
 function App() {
   
@@ -40,6 +41,8 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="department_edit" element={<Login />} />
           <Route path="register" element={<Login />} />
+          <Route path="terms" element={<Login />} />
+
         </Routes>
       </div>
     );
@@ -69,6 +72,7 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="department_edit" element={<DepartmentPostEdit />} />
           <Route path="register" element={<AdminRegister />} />
+          <Route path="terms" element={<Terms />} />
         </Routes>
       </div>
     );
