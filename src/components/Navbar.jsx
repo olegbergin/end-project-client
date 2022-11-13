@@ -69,8 +69,18 @@ export const Navbar = (props) => {
                 <Link to="terms">תקנון </Link>
               </div>
               {role === "SUPERADMIN" && (
+                <div>
+                  <div className="text-white font-semibold mx-3">
+                    <Link to="register"> הרשמה</Link>
+                  </div>
+                  <div className="text-white font-semibold mx-3">
+                    <Link to="department-edit"> הוספת אירוע</Link>
+                  </div>
+                </div>
+              )}
+              {role === "ADMIN" && (
                 <div className="text-white font-semibold mx-3">
-                  <Link to="register"> הרשמה</Link>
+                  <Link to="department-edit"> הוספת אירוע</Link>
                 </div>
               )}
             </div>
@@ -105,8 +115,18 @@ export const Navbar = (props) => {
                       <Link to="department">תחבורה</Link>
                     </div>
                     {role === "SUPERADMIN" && (
+                      <div>
+                        <div className="p-2">
+                          <Link to="register">הרשמה</Link>
+                        </div>
+                        <div className="p-2">
+                          <Link to="department-edit">הוספת אירוע</Link>
+                        </div>
+                      </div>
+                    )}
+                    {role === "ADMIN" && (
                       <div className="p-2">
-                        <Link to="register">הרשמה</Link>
+                        <Link to="department-edit">הוספת אירוע</Link>
                       </div>
                     )}
                   </div>
@@ -114,11 +134,15 @@ export const Navbar = (props) => {
               </div>
             </div>
           )}
-          <div>
-            <Link to="/login" className="text-white font-semibold">
-              התחברות
-            </Link>
-          </div>
+          {!role ? (
+            <div>
+              <Link to="/login" className="text-white font-semibold">
+                התחברות
+              </Link>
+            </div>
+          ) : (
+            <dir></dir>
+          )}
         </div>
       </div>
     </div>
