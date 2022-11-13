@@ -1,4 +1,6 @@
 import { useForm } from "react-hook-form";
+import axios from 'axios';
+
 
 export const AdminRegister = () => {
   const {
@@ -6,8 +8,26 @@ export const AdminRegister = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = () => {};
-  console.log(errors);
+
+  const onSubmit = async (data) => {
+    axios.post('http://localhost:5000/auth/registration', {
+      "email": data.email,
+      "password": data.password,
+      "fullname": data.fullname,
+      "phone": data.phone,
+      "sex":data.sex,
+      "adress":data.adress,
+      "birthday": new Date(data.birthday),
+      "department":data.department,
+      "role":data.role,
+      "image": data.image,
+      "contract": data.contract
+    })
+      .then((res) => { alert(res.data.message) })
+      console.log(errors);
+  };
+
+
   return (
     <div className="bg-gray-900  min-h-screen">
       <div className="py-10 ">
@@ -32,7 +52,7 @@ export const AdminRegister = () => {
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
                       type="text"
                       placeholder="Full Name"
-                      {...register("Full Name", {
+                      {...register("fullname", {
                         required: true,
                         maxLength: 80,
                       })}
@@ -46,8 +66,8 @@ export const AdminRegister = () => {
                     <input
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
                       type="text"
-                      placeholder="User Name"
-                      {...register("User Name", {
+                      placeholder="email"
+                      {...register("email", {
                         required: true,
                         maxLength: 80,
                       })}
@@ -62,7 +82,7 @@ export const AdminRegister = () => {
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
                       type="text"
                       placeholder="Adress"
-                      {...register("Adress", {
+                      {...register("adress", {
                         required: true,
                       })}
                     />
@@ -75,8 +95,8 @@ export const AdminRegister = () => {
                     <input
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
                       type="text"
-                      placeholder="Branch"
-                      {...register("Branch", {
+                      placeholder="Department"
+                      {...register("department", {
                         required: true,
                       })}
                     />
@@ -90,12 +110,12 @@ export const AdminRegister = () => {
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
                       type="select"
                       placeholder="Role"
-                      {...register("Role", {
+                      {...register("role", {
                         required: true,
                       })}
                     >
-                      <option value="admin">מנהל גף</option>
-                      <option value="user">משתמש</option>
+                      <option value="ADMIN">מנהל גף</option>
+                      <option value="USER">משתמש</option>
                     </select>
                     <label
                       htmlFor=""
@@ -105,7 +125,7 @@ export const AdminRegister = () => {
                     </label>
                     <input
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
-                      type="file"
+                      type="text"
                       placeholder="contract"
                       {...register("contract", {
                         required: true,
@@ -121,12 +141,10 @@ export const AdminRegister = () => {
                     </label>
                     <input
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
-                      type="tel"
+                      type="text"
                       placeholder="Mobile number"
-                      {...register("Mobile number", {
+                      {...register("phone", {
                         required: true,
-                        minLength: 6,
-                        maxLength: 12,
                       })}
                     />
                     <label
@@ -139,7 +157,7 @@ export const AdminRegister = () => {
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
                       type="select"
                       placeholder="Sex"
-                      {...register("Sex", {
+                      {...register("sex", {
                         required: true,
                       })}
                     >
@@ -156,7 +174,7 @@ export const AdminRegister = () => {
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
                       type="password"
                       placeholder="Password"
-                      {...register("Password", {
+                      {...register("password", {
                         required: true,
                       })}
                     />
@@ -169,8 +187,9 @@ export const AdminRegister = () => {
                     <input
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
                       type="date"
+                      valueAsDate
                       placeholder="Birthday"
-                      {...register("Birthday", {
+                      {...register("birthday", {
                         required: true,
                       })}
                     />
@@ -184,10 +203,9 @@ export const AdminRegister = () => {
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
                       type="email"
                       placeholder="Email"
-                      {...register("Email", {
-                        required: true,
-                        pattern: /^\S+@\S+$/i,
-                      })}
+                      disabled
+
+
                     />
                     <label
                       htmlFor=""
@@ -197,10 +215,10 @@ export const AdminRegister = () => {
                     </label>
                     <input
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
-                      type="file"
-                      accept="image/png/jpg/svg/gif/jpeg"
+                      type="text"
+                      // accept="image/png/jpg/svg/gif/jpeg"
                       placeholder="Image"
-                      {...register("Image", {
+                      {...register("image", {
                         required: true,
                       })}
                     />
