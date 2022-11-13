@@ -6,6 +6,7 @@ import DepartmentPostEdit from "./components/DepartmentPostEdit";
 import { Login } from "./components/Login";
 import { Navbar } from "./components/Navbar";
 import { Profile } from "./components/Profile";
+import { Terms } from "./components/Terms";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,6 +34,7 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="department_edit" element={<DepartmentPostEdit />} />
         <Route path="register" element={<AdminRegister />} />
+        <Route path="terms" element={<Terms />} />
       </Routes>
     </div>
   );

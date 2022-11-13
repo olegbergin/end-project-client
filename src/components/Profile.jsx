@@ -5,7 +5,7 @@ export const Profile = () => {
 
   console.log(status);
   return (
-    <div className="flex j flex-col items-center mt-10">
+    <div className="flex j flex-col items-center mt-32">
       <h1 className="text-3xl font-semibold">הפרופיל שלי</h1>
       <div className="mt-10 flex flex-col items-center">
         <img
