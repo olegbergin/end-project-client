@@ -2,10 +2,10 @@ import React from "react";
 
 function Department() {
   return (
-    <div>
-      <div className="text-5xl flex justify-center mb-10 font-semibold text-gray-900">
-        <h1>שם אגף</h1>
-      </div>
+    <div className="mt-24">
+      <h1 className="text-5xl flex justify-center mb-10 font-semibold text-gray-900">
+        שם אגף
+      </h1>
       <div className="flex justify-center ">
         <div className="text-xl flex justify-items-center justify-center flex-wrap w-4/6 flex-col ">
           <div className="  text-center">
