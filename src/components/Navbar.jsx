@@ -63,7 +63,7 @@ export const Navbar = (props) => {
                 </div>
               </div>
               <div className="text-green-700 font-semibold mx-3">
-                <Link to="bonuses">הטבות</Link>
+                <Link to="bonusses">הטבות</Link>
               </div>
               <div className="text-white font-semibold mx-3">
                 <Link to="profile">הפרופיל שלי</Link>
@@ -106,7 +106,7 @@ export const Navbar = (props) => {
                       <Link to="terms">תקנון</Link>
                     </div>
                     <div className="p-2">
-                      <Link to="bonuses">הטבות</Link>
+                      <Link to="bonusses">הטבות</Link>
                     </div>
                     <div className="p-2">
                       <Link to="department">לוגיסטיקה</Link>
@@ -124,6 +124,9 @@ export const Navbar = (props) => {
                         </div>
                         <div className="p-2">
                           <Link to="department-edit">הוספת אירוע</Link>
+                        </div>
+                        <div className="p-2">
+                          <Link to="updatebonusses">הוספת הטבה</Link>
                         </div>
                       </div>
                     )}
