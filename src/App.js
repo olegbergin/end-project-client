@@ -6,7 +6,6 @@ import DepartmentPostEdit from "./components/DepartmentPostEdit";
 import { Login } from "./components/Login";
 import { Navbar } from "./components/Navbar";
 import { Profile } from "./components/Profile";
-import { useSelector } from "react-redux";
 import { Terms } from "./components/Terms";
 
 import UpdateBonusses from "./components/UpdateBonusses";
@@ -15,6 +14,10 @@ import Calendar from "./components/Calendar";
 
 import { io } from "socket.io-client";
 import { Messanger } from "./components/Messanger";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { updateRole } from "./redux/userSlice";
+
 import { AddEvent } from "./components/AddEvent";
 
 function App() {
@@ -28,9 +31,16 @@ function App() {
   const role = useSelector((state) => state.user.role);
   // USER / ADMIN / SUPERADMIN
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
+    dispatch(updateRole(localStorage.getItem("myRole")))
+
     socket.emit("join_room");
+// eslint-disable-next-line
   }, []);
+
+
   useEffect(() => {
     socket.on("back", (message) => {
       setMessageList((list) => [...list, message]);
@@ -73,6 +83,8 @@ function App() {
           <Route path="profile" element={<Profile />} />
           <Route path="department" element={<Department />} />
           <Route path="terms" element={<Terms />} />
+          <Route path="login" element={<Profile />} />
+          <Route path="/" element={<Profile />} />
           <Route path="bonusses" element={<Bonusses />} />
           <Route path="calendar" element={<Calendar />} />
         </Routes>
@@ -83,6 +95,8 @@ function App() {
           <Route path="department" element={<Department />} />
           <Route path="department-edit" element={<DepartmentPostEdit />} />
           <Route path="terms" element={<Terms />} />
+          <Route path="login" element={<Profile />} />
+          <Route path="/" element={<Profile />} />
           <Route path="bonusses" element={<Bonusses />} />
           <Route path="calendar" element={<Calendar />} />
         </Routes>
@@ -95,6 +109,8 @@ function App() {
           <Route path="register" element={<AdminRegister />} />
           <Route path="updatebonusses" element={<UpdateBonusses />} />
           <Route path="terms" element={<Terms />} />
+          <Route path="login" element={<Profile />} />
+          <Route path="/" element={<Profile />} />
           <Route path="calendar" element={<Calendar />} />
           <Route path="add-event" element={<AddEvent />} />
         </Routes>
