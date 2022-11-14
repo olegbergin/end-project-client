@@ -134,14 +134,12 @@ export const Navbar = (props) => {
               </div>
             </div>
           )}
-          {!role ? (
+          {!role && (
             <div>
               <Link to="/login" className="text-white font-semibold">
                 התחברות
               </Link>
             </div>
-          ) : (
-            <dir></dir>
           )}
         </div>
       </div>
