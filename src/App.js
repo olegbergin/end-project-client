@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router";
 import { AdminRegister } from "./components/AdminRegister";
 import Department from "./components/Department";
@@ -8,15 +8,33 @@ import { Navbar } from "./components/Navbar";
 import { Profile } from "./components/Profile";
 import { useSelector } from "react-redux";
 import { Terms } from "./components/Terms";
+
 import UpdateBonusses from "./components/UpdateBonusses";
 import Bonusses from "./components/Bonusses";
 import Calendar from "./components/Calendar";
 
+import { io } from "socket.io-client";
+import { Messanger } from "./components/Messanger";
+
+
 function App() {
+  const socket = io.connect(`http://localhost:5000`, {
+    transports: ["websocket"],
+  });
+  const [messageList, setMessageList] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
-  const role = useSelector((state) => state.role.role);
+  const role = useSelector((state) => state.user.role);
   // USER / ADMIN / SUPERADMIN
+
+  useEffect(() => {
+    socket.emit("join_room");
+  }, []);
+  useEffect(() => {
+    socket.on("back", (message) => {
+      setMessageList((list) => [...list, message]);
+    });
+  });
 
   return (
     <div
@@ -32,6 +50,12 @@ function App() {
         isOpen={isOpen}
         hamburgerOpen={hamburgerOpen}
         setHamburgerOpen={setHamburgerOpen}
+      />
+
+      <Messanger
+        socket={socket}
+        messageList={messageList}
+        setMessageList={setMessageList}
       />
 
       {!role && (

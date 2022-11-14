@@ -1,9 +1,12 @@
 import image from "../images/dimona-logo.png";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logOut } from "../redux/userSlice";
 
 export const Navbar = (props) => {
-  const role = useSelector((state) => state.role.role);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const role = useSelector((state) => state.user.role);
 
   return (
     <div className="bg-gray-800 w-screen fixed z-50">
@@ -132,19 +135,31 @@ export const Navbar = (props) => {
                         <Link to="department-edit">הוספת אירוע</Link>
                       </div>
                     )}
+                    ""
                   </div>
                 )}
               </div>
             </div>
           )}
-          {!role ? (
+          {!role && (
             <div>
               <Link to="/login" className="text-white font-semibold">
                 התחברות
               </Link>
             </div>
-          ) : (
-            <dir></dir>
+          )}
+          {role && (
+            <div>
+              <button
+                className="text-red-700 font-semibold"
+                onClick={() => {
+                  dispatch(logOut());
+                  navigate("/");
+                }}
+              >
+                התנתק
+              </button>
+            </div>
           )}
         </div>
       </div>
