@@ -6,10 +6,13 @@ import DepartmentPostEdit from "./components/DepartmentPostEdit";
 import { Login } from "./components/Login";
 import { Navbar } from "./components/Navbar";
 import { Profile } from "./components/Profile";
-import { useSelector } from "react-redux";
 import { Terms } from "./components/Terms";
 import { io } from "socket.io-client";
 import { Messanger } from "./components/Messanger";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { updateRole } from "./redux/userSlice";
+
 
 function App() {
   const socket = io.connect(`http://localhost:5000`, {
@@ -18,12 +21,19 @@ function App() {
   const [messageList, setMessageList] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
-  const role = useSelector((state) => state.user.role);
   // USER / ADMIN / SUPERADMIN
+  const role = useSelector((state) => state.user.role);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(updateRole(localStorage.getItem("myRole")))
+
     socket.emit("join_room");
+// eslint-disable-next-line
   }, []);
+
+
   useEffect(() => {
     socket.on("back", (message) => {
       setMessageList((list) => [...list, message]);
@@ -63,6 +73,8 @@ function App() {
           <Route path="profile" element={<Profile />} />
           <Route path="department" element={<Department />} />
           <Route path="terms" element={<Terms />} />
+          <Route path="login" element={<Profile />} />
+          <Route path="/" element={<Profile />} />
         </Routes>
       )}
       {role === "ADMIN" && (
@@ -71,6 +83,8 @@ function App() {
           <Route path="department" element={<Department />} />
           <Route path="department-edit" element={<DepartmentPostEdit />} />
           <Route path="terms" element={<Terms />} />
+          <Route path="login" element={<Profile />} />
+          <Route path="/" element={<Profile />} />
         </Routes>
       )}
       {role === "SUPERADMIN" && (
@@ -80,6 +94,8 @@ function App() {
           <Route path="department_edit" element={<DepartmentPostEdit />} />
           <Route path="register" element={<AdminRegister />} />
           <Route path="terms" element={<Terms />} />
+          <Route path="login" element={<Profile />} />
+          <Route path="/" element={<Profile />} />
         </Routes>
       )}
     </div>
