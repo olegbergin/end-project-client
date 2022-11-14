@@ -1,8 +1,11 @@
 import image from "../images/dimona-logo.png";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logOut } from "../redux/userSlice";
 
 export const Navbar = (props) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const role = useSelector((state) => state.user.role);
 
   return (
@@ -60,7 +63,7 @@ export const Navbar = (props) => {
                 </div>
               </div>
               <div className="text-green-700 font-semibold mx-3">
-                <Link to="bonuses">הטבות</Link>
+                <Link to="bonusses">הטבות</Link>
               </div>
               <div className="text-white font-semibold mx-3">
                 <Link to="profile">הפרופיל שלי</Link>
@@ -69,18 +72,37 @@ export const Navbar = (props) => {
                 <Link to="terms">תקנון </Link>
               </div>
               {role === "SUPERADMIN" && (
-                <div>
-                  <div className="text-white font-semibold mx-3">
-                    <Link to="register"> הרשמה</Link>
-                  </div>
-                  <div className="text-white font-semibold mx-3">
-                    <Link to="department-edit"> הוספת אירוע</Link>
-                  </div>
+                <div className="flex justify-center">
+                  <button
+                    onClick={() => props.setAnotherOpen(!props.anotherOpen)}
+                    className="text-white  px-5 py-2 font-semibold"
+                  >
+                    מנהל
+                  </button>
+                  {props.anotherOpen && (
+                    <div className=" text-white absolute bg-gray-900 w-44 border-2 border-black text-center mt-10 rounded-md z-10">
+                      <div className="p-2">
+                        <Link to="register"> הרשמה</Link>
+                      </div>
+                      <hr />
+                      <div className="p-2">
+                        <Link to="department_edit"> הוספת אירוע</Link>
+                      </div>
+                      <hr />
+                      <div className="p-2">
+                        <Link to="add-event">עריכת יומן</Link>
+                      </div>
+                      <hr />
+                      <div className="p-2">
+                        <Link to="updatebonusses">הוספת הטבה</Link>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
               {role === "ADMIN" && (
                 <div className="text-white font-semibold mx-3">
-                  <Link to="department-edit"> הוספת אירוע</Link>
+                  <Link to="department_edit"> הוספת אירוע</Link>
                 </div>
               )}
             </div>
@@ -103,7 +125,7 @@ export const Navbar = (props) => {
                       <Link to="terms">תקנון</Link>
                     </div>
                     <div className="p-2">
-                      <Link to="bonuses">הטבות</Link>
+                      <Link to="bonusses">הטבות</Link>
                     </div>
                     <div className="p-2">
                       <Link to="department">לוגיסטיקה</Link>
@@ -120,13 +142,19 @@ export const Navbar = (props) => {
                           <Link to="register">הרשמה</Link>
                         </div>
                         <div className="p-2">
-                          <Link to="department-edit">הוספת אירוע</Link>
+                          <Link to="department_edit">הוספת אירוע</Link>
+                        </div>
+                        <div className="p-2">
+                          <Link to="updatebonusses">הוספת הטבה</Link>
+                        </div>
+                        <div className="p-2">
+                          <Link to="add-event">עריכת יומן</Link>
                         </div>
                       </div>
                     )}
                     {role === "ADMIN" && (
                       <div className="p-2">
-                        <Link to="department-edit">הוספת אירוע</Link>
+                        <Link to="department_edit">הוספת אירוע</Link>
                       </div>
                     )}
                   </div>
@@ -139,6 +167,19 @@ export const Navbar = (props) => {
               <Link to="/login" className="text-white font-semibold">
                 התחברות
               </Link>
+            </div>
+          )}
+          {role && (
+            <div>
+              <button
+                className="text-red-700 font-semibold"
+                onClick={() => {
+                  dispatch(logOut());
+                  navigate("/");
+                }}
+              >
+                התנתק
+              </button>
             </div>
           )}
         </div>
