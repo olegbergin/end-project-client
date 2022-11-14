@@ -94,7 +94,7 @@ export const Navbar = (props) => {
                       </div>
                       <hr />
                       <div className="p-2">
-                        <Link to="updatebonusses">הוספת הטבה</Link>
+                        <Link to="updatebonusses">עריכת הטבות</Link>
                       </div>
                     </div>
                   )}
@@ -145,7 +145,7 @@ export const Navbar = (props) => {
                           <Link to="department_edit">הוספת אירוע</Link>
                         </div>
                         <div className="p-2">
-                          <Link to="updatebonusses">הוספת הטבה</Link>
+                          <Link to="updatebonusses">עריכת הטבות</Link>
                         </div>
                         <div className="p-2">
                           <Link to="add-event">עריכת יומן</Link>
