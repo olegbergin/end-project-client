@@ -4,9 +4,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import axios from 'axios';
 import jwt_decode from "jwt-decode";
 import { useDispatch } from "react-redux";
-import { updateRole } from "../redux/userSlice";
-import { updateToken } from "../redux/tokenSlice";
+import { updateToken, updateRole } from "../redux/userSlice";
 import {  useNavigate } from "react-router-dom";
+
 
 
 const schema = yup.object().shape({
@@ -18,6 +18,7 @@ export const Login = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
 
   const {
     register,
