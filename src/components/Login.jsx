@@ -1,23 +1,29 @@
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import axios from 'axios';
+import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { useDispatch } from "react-redux";
-import { updateRole } from "../redux/userSlice";
-import { updateToken } from "../redux/tokenSlice";
+import { updateToken, updateRole, updateName } from "../redux/userSlice";
+
 import {  useNavigate } from "react-router-dom";
+
+
 
 
 const schema = yup.object().shape({
   email: yup.string().required(),
-  password: yup.string().required().min(4, "4-12 symbols").max(12, "4-12 symbols"),
+  password: yup
+    .string()
+    .required()
+    .min(4, "4-12 symbols")
+    .max(12, "4-12 symbols"),
 });
 
 export const Login = () => {
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
 
   const {
     register,
@@ -32,10 +38,11 @@ export const Login = () => {
       dispatch(updateToken(res.data.token))
       var decoded = jwt_decode(res.data.token)
       dispatch(updateRole(decoded.role))
+      dispatch(updateName(decoded.fullname))
     })
     
     reset();
-    navigate('/profile');
+    navigate("/profile");
   };
 
   return (
@@ -74,7 +81,7 @@ export const Login = () => {
                 <h3 className="mb-4 text-xl font-semibold sm:text-center sm:mb-6 sm:text-2xl">
                   התחברות
                 </h3>
-                <form  onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit)}>
                   {/* autoComplete="off" */}
                   <div className="mb-1 sm:mb-2">
                     <label
@@ -89,7 +96,9 @@ export const Login = () => {
                       className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
                     />
                     {errors?.email && (
-                      <p className="text-red-600">{errors?.email?.message || "Error!"}</p>
+                      <p className="text-red-600">
+                        {errors?.email?.message || "Error!"}
+                      </p>
                     )}
                   </div>
                   <div className="mb-1 sm:mb-2">
@@ -104,16 +113,19 @@ export const Login = () => {
                       placeholder="password"
                       className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
                     />
-                    {errors?.password && 
-                    <p className="text-red-600">{errors?.password?.message || "Error!"}</p>}
+                    {errors?.password && (
+                      <p className="text-red-600">
+                        {errors?.password?.message || "Error!"}
+                      </p>
+                    )}
                   </div>
                   <div className="mt-4 mb-2 sm:mb-4">
                     <input
                       value="התחבר"
                       type="submit"
                       disabled={!isValid}
-                      className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-green-700 transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none" />
-                    
+                      className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-green-700 transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                    />
                   </div>
                   <p className="text-xs text-gray-600 sm:text-sm text-center">
                     אין לך משתמש? פנה לממונה עליך.
