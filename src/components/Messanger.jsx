@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 export const Messanger = (props) => {
+  let userName = useSelector((state) => state.user.fullname);
   const [arrow, setArrow] = useState(false);
   const { socket, messageList } = props;
   const [message, setMessage] = useState("");
@@ -8,7 +10,11 @@ export const Messanger = (props) => {
   const HandleSubmit = (e) => {
     e.preventDefault();
     if (message) {
-      socket.emit("send", message);
+      const sentMessage = {
+        name: userName,
+        message: message,
+      };
+      socket.emit("send", sentMessage);
     }
   };
 
@@ -35,7 +41,24 @@ export const Messanger = (props) => {
           <div>
             <div className="w-80 h-80 overflow-scroll scrollbar-hide">
               {messageList.map((message, index) => {
-                return <h1 key={index}>{message}</h1>;
+                return message.name === userName ? (
+                  <div key={index} className="inline-flex w-60 break-all">
+                    <div className="bg-purple-600/80 px-3 rounded-lg mt-2 ml-2">
+                      <p className="text-xs italic">אתה</p>
+                      <h1 className="text-md">{message.message}</h1>
+                    </div>
+                  </div>
+                ) : (
+                  <div
+                    key={index}
+                    className="inline-flex justify-end w-85 break-all "
+                  >
+                    <div className="bg-white px-3 rounded-lg mt-2 ml-2">
+                      <p className="text-xs italic">{message.name}</p>
+                      <h1 className="text-md">{message.message}</h1>
+                    </div>
+                  </div>
+                );
               })}
             </div>
           </div>
