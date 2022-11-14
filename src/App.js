@@ -12,7 +12,7 @@ import { Terms } from "./components/Terms";
 function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
-  const role = useSelector((state) => state.role.role);
+  const role = useSelector((state) => state.user.role);
   // USER / ADMIN / SUPERADMIN
 
   return (

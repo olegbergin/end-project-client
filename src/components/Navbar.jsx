@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export const Navbar = (props) => {
-  const role = useSelector((state) => state.role.role);
+  const role = useSelector((state) => state.user.role);
 
   return (
     <div className="bg-gray-800 w-screen fixed z-50">
