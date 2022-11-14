@@ -45,11 +45,13 @@ function App() {
         hamburgerOpen={hamburgerOpen}
         setHamburgerOpen={setHamburgerOpen}
       />
+
       <Messanger
         socket={socket}
         messageList={messageList}
         setMessageList={setMessageList}
       />
+
       {!role && (
         <Routes>
           <Route path="login" element={<Login />} />
