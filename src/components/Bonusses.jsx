@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import axios from 'axios'
 import { useEffect } from "react";
-
+import UpdateBonusses from "./UpdateBonusses";
 
 
 
@@ -40,13 +40,11 @@ axios.post("http://localhost:5000/bonuses/get").then((res) => setBonuses(res.dat
         {linktitle}</button></a>
   </div>
 </div>
-
 )
 })
 }
-            </div>
-            
-        
+         </div> ,
+         <UpdateBonusses/>
         )
   }
 

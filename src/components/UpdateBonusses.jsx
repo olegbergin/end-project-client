@@ -42,7 +42,8 @@ const url = 'http://localhost:5000/bonuses';
 
         const postDelete = (title, e) => {
             e.preventDefault();
-            axios.delete(`http://localhost:5000/bonuses`)
+            axios.delete(`http://localhost:5000/bonuses/${title}`)
+            .then(res => console.log('deleted!', res)).catch(err => console.log(err))
         }
 
 
