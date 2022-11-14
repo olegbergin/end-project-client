@@ -18,7 +18,8 @@ const url = 'http://localhost:5000/bonuses/update';
         const handleSubmit = async (e) => {
           e.preventDefault();
           try {
-            await axios.post(url,{title:title, description:description, image:image, link:link, linkTitle:linkTitle, date:date}).then((res) => console.log(res.data))
+            await axios.post(url,{title:title, description:description, image:image, link:link, linkTitle:linkTitle, date:date})
+            .then((res) => console.log(res.data))
           } catch (error) 
           {console.log("error!")}
         };
@@ -147,44 +148,6 @@ const url = 'http://localhost:5000/bonuses/update';
         );
       };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//     const {updatebonusses, handlesubmit, errors} = useForm();
-
-// const onSubmit = (data) => {
-//     console.log(data);
-// }
-
-//     return(
-//         <form onSubmit={handlesubmit(onSubmit)}>
-//         <input type="text" placeholder="title" name="title" ref={updatebonusses({required: true})}/>
-//         {errors.title && <p>title is required</p>}
-//         <input type="text" placeholder="description" name="description" ref={updatebonusses({required: true})}/>
-//         {errors.title && <p>description is required</p>}
-//         <input type="submit"/>
-//         </form>
-//     );
 
 
 export default UpdateBonusses;

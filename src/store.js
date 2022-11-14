@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { exampleSlice } from "./redux/newSlice";
+import tokenReducer from "./redux/tokenSlice";
+import userReducer from "./redux/userSlice";
 
 export default configureStore({
   reducer: {
-    example: exampleSlice,
-  },
+    role: userReducer,
+    token: tokenReducer,  },
 });
