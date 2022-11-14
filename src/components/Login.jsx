@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { useDispatch } from "react-redux";
-import { updateToken, updateName } from "../redux/userSlice";
+import { updateToken, updateName, updateRole } from "../redux/userSlice";
 
 import {  useNavigate } from "react-router-dom";
 
@@ -38,6 +38,7 @@ export const Login = () => {
       dispatch(updateToken(res.data.token))
       var decoded = jwt_decode(res.data.token)
       localStorage.setItem("myRole",  decoded.role)
+      dispatch(updateRole(decoded.role))
       dispatch(updateName(decoded.fullname))
     })
     
