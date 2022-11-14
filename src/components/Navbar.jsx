@@ -72,18 +72,37 @@ export const Navbar = (props) => {
                 <Link to="terms">תקנון </Link>
               </div>
               {role === "SUPERADMIN" && (
-                <div>
-                  <div className="text-white font-semibold mx-3">
-                    <Link to="register"> הרשמה</Link>
-                  </div>
-                  <div className="text-white font-semibold mx-3">
-                    <Link to="department-edit"> הוספת אירוע</Link>
-                  </div>
+                <div className="flex justify-center">
+                  <button
+                    onClick={() => props.setAnotherOpen(!props.anotherOpen)}
+                    className="text-white  px-5 py-2 font-semibold"
+                  >
+                    מנהל
+                  </button>
+                  {props.anotherOpen && (
+                    <div className=" text-white absolute bg-gray-900 w-44 border-2 border-black text-center mt-10 rounded-md z-10">
+                      <div className="p-2">
+                        <Link to="register"> הרשמה</Link>
+                      </div>
+                      <hr />
+                      <div className="p-2">
+                        <Link to="department_edit"> הוספת אירוע</Link>
+                      </div>
+                      <hr />
+                      <div className="p-2">
+                        <Link to="add-event">עריכת יומן</Link>
+                      </div>
+                      <hr />
+                      <div className="p-2">
+                        <Link to="updatebonusses">הוספת הטבה</Link>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
               {role === "ADMIN" && (
                 <div className="text-white font-semibold mx-3">
-                  <Link to="department-edit"> הוספת אירוע</Link>
+                  <Link to="department_edit"> הוספת אירוע</Link>
                 </div>
               )}
             </div>
@@ -123,19 +142,21 @@ export const Navbar = (props) => {
                           <Link to="register">הרשמה</Link>
                         </div>
                         <div className="p-2">
-                          <Link to="department-edit">הוספת אירוע</Link>
+                          <Link to="department_edit">הוספת אירוע</Link>
                         </div>
                         <div className="p-2">
                           <Link to="updatebonusses">הוספת הטבה</Link>
+                        </div>
+                        <div className="p-2">
+                          <Link to="add-event">עריכת יומן</Link>
                         </div>
                       </div>
                     )}
                     {role === "ADMIN" && (
                       <div className="p-2">
-                        <Link to="department-edit">הוספת אירוע</Link>
+                        <Link to="department_edit">הוספת אירוע</Link>
                       </div>
                     )}
-                    ""
                   </div>
                 )}
               </div>

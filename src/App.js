@@ -15,7 +15,7 @@ import Calendar from "./components/Calendar";
 
 import { io } from "socket.io-client";
 import { Messanger } from "./components/Messanger";
-
+import { AddEvent } from "./components/AddEvent";
 
 function App() {
   const socket = io.connect(`http://localhost:5000`, {
@@ -24,6 +24,7 @@ function App() {
   const [messageList, setMessageList] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
+  const [anotherOpen, setAnotherOpen] = useState(false);
   const role = useSelector((state) => state.user.role);
   // USER / ADMIN / SUPERADMIN
 
@@ -43,6 +44,7 @@ function App() {
       onClick={() => {
         isOpen && setIsOpen(false);
         hamburgerOpen && setHamburgerOpen(false);
+        anotherOpen && setAnotherOpen(false);
       }}
     >
       <Navbar
@@ -50,6 +52,8 @@ function App() {
         isOpen={isOpen}
         hamburgerOpen={hamburgerOpen}
         setHamburgerOpen={setHamburgerOpen}
+        anotherOpen={anotherOpen}
+        setAnotherOpen={setAnotherOpen}
       />
 
       <Messanger
@@ -92,6 +96,7 @@ function App() {
           <Route path="updatebonusses" element={<UpdateBonusses />} />
           <Route path="terms" element={<Terms />} />
           <Route path="calendar" element={<Calendar />} />
+          <Route path="add-event" element={<AddEvent />} />
         </Routes>
       )}
     </div>
