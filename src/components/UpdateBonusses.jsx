@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useState } from "react";
 
-const url = 'http://localhost:5000/bonuses/update';
+const url = 'http://localhost:5000/bonuses';
 
 
      const UpdateBonusses = () => {
@@ -11,24 +11,49 @@ const url = 'http://localhost:5000/bonuses/update';
         const [description ,setDescription] = useState('');
         const [image, setImage] = useState('');
         const [link,setLink] = useState('');
-        const [linkTitle,setLinkTitle] = useState('');
+        const [linktitle,setLinktitle] = useState('');
         const [date,setDate] = useState();
+        const [deletebonus, setDeletebonus] = useState("");
         
         
         const handleSubmit = async (e) => {
           e.preventDefault();
           try {
-            await axios.post(url,{title:title, description:description, image:image, link:link, linkTitle:linkTitle, date:date})
+            await axios.post(`${url}/update`,{title:title, description:description, image:image, link:link, linktitle:linktitle, date:date})
             .then((res) => console.log(res.data))
           } catch (error) 
           {console.log("error!")}
         };
 
+
+        
+
+        const handledelete = async (elemant) =>{
+            elemant.preventDefault();
+            const deleteObj = JSON.parse('{"title": deletebonus}')
+            console.log(deleteObj);
+            try{
+                await axios.delete(`${url}/delete/:title`,deleteObj)
+                .then((res) => console.log(res.data));
+            }catch (error)
+            {console.log("error!!!!");}
+
+        }
+
+        const postDelete = (title, e) => {
+            e.preventDefault();
+            axios.delete(`http://localhost:5000/bonuses`)
+        }
+
+
+
+
+
         return (
           <div className="bg-gray-200">
             <div className="py-12 flex justify-center">
                 <div className="w-screen max-w-xl xl:px-8 xl:w-5/12">
-                    <div className="relative bg-white rounded shadow-2x1 p-7 sm:p-10">
+                    <div className="relative bg-white rounded shadow-2x1 p-7 sm:p-10 mt-24">
                       <h3 className="mb-4 text-xl font-semibold sm:text-center sm:mb-6 sm:text-2xl">
                              הוסף הטבה לעובדים:
                       </h3>
@@ -110,9 +135,9 @@ const url = 'http://localhost:5000/bonuses/update';
                             type="text"
                             className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
                             id="Linktitle"
-                            value={linkTitle}
+                            value={linktitle}
                             name="Linktitle"
-                            onChange={(e) => setLinkTitle(e.target.value)}/>
+                            onChange={(e) => setLinktitle(e.target.value)}/>
                         </div>
 
 
@@ -142,6 +167,40 @@ const url = 'http://localhost:5000/bonuses/update';
                         </div>
                       </form>
                   </div>
+                            
+                 <div className="relative bg-white rounded shadow-2x1 p-7 sm:p-10 mt-24">
+                    <h3 className="mb-4 text-xl font-semibold sm:text-center sm:mb-6 sm:text-2xl">
+                    מחק הטבה לעובדים:
+                    </h3>
+                    <form onSubmit={handledelete}>
+  
+                 <div className="mb-1 sm:mb-2">
+                 <label
+                     htmlFor="email"
+                     className="inline-block mb-1 font-medium">
+                          שם ההטבה שתרצה למחוק:
+                </label>
+                  <input
+                       placeholder="שם ההטבה המדויק"
+                       mrequired
+                       type="text"
+                      className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
+                      id="deletebonus"
+                    //   value={deletebonus}
+                      name="deletebonus"
+                      onChange={(elemant) => setDeletebonus(elemant.target.value)}/>
+                     </div>
+  
+                      <div className="mt-4 mb-2 sm:mb-4">
+                      <button
+                    type="submit"
+                    className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-green-700 transition duration-200 rounded shadow-md  hover:bg-gray-700 hover:border-2 hover:border-gray-900 hover:text-white focus:shadow-outline focus:outline-none" 
+                       >
+                         מחק הטבה
+                      </button>
+                   </div>
+                    </form>
+                 </div> 
                 </div>
             </div>
           </div>
@@ -151,3 +210,13 @@ const url = 'http://localhost:5000/bonuses/update';
 
 
 export default UpdateBonusses;
+
+
+
+
+
+
+
+
+
+
