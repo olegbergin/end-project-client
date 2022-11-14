@@ -18,7 +18,7 @@ function App() {
   const [messageList, setMessageList] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
-  const role = useSelector((state) => state.role.role);
+  const role = useSelector((state) => state.user.role);
   // USER / ADMIN / SUPERADMIN
 
   useEffect(() => {
