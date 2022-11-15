@@ -43,10 +43,7 @@ const UpdateBonusses = () => {
     }
   };
 
-  const postDelete = (title, e) => {
-    e.preventDefault();
-    axios.delete(`http://localhost:5000/bonuses`);
-  };
+ 
 
   return (
     <div className="bg-gray-200">
@@ -174,6 +171,9 @@ const UpdateBonusses = () => {
               </div>
             </form>
           </div>
+
+
+
 
           <div className="relative bg-white rounded shadow-2x1 p-7 sm:p-10 mt-24">
             <h3 className="mb-4 text-xl font-semibold sm:text-center sm:mb-6 sm:text-2xl">
