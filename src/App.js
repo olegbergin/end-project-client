@@ -7,19 +7,17 @@ import { Login } from "./components/Login";
 import { Navbar } from "./components/Navbar";
 import { Profile } from "./components/Profile";
 import { Terms } from "./components/Terms";
-
 import UpdateBonusses from "./components/UpdateBonusses";
 import Bonusses from "./components/Bonusses";
 import Calendar from "./components/Calendar";
-
 import { io } from "socket.io-client";
 import { Messanger } from "./components/Messanger";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { updateEmail, updateName, updateRole } from "./redux/userSlice";
 import jwt_decode from "jwt-decode";
-
 import AddEvent from "./components/AddEventCalendar";
+import { Home } from "./components/Home";
 
 function App() {
   const socket = io.connect(`http://localhost:5000`, {
@@ -93,29 +91,30 @@ function App() {
       )}
       {role === "USER" && (
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="profile" element={<Profile />} />
           <Route path="department" element={<Department />} />
           <Route path="terms" element={<Terms />} />
           <Route path="login" element={<Profile />} />
-          <Route path="/" element={<Profile />} />
           <Route path="bonusses" element={<Bonusses />} />
           <Route path="calendar" element={<Calendar />} />
         </Routes>
       )}
       {role === "ADMIN" && (
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="profile" element={<Profile />} />
           <Route path="department" element={<Department />} />
           <Route path="department_edit" element={<DepartmentPostEdit />} />
           <Route path="terms" element={<Terms />} />
           <Route path="login" element={<Profile />} />
-          <Route path="/" element={<Profile />} />
           <Route path="bonusses" element={<Bonusses />} />
           <Route path="calendar" element={<Calendar />} />
         </Routes>
       )}
       {role === "SUPERADMIN" && (
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="profile" element={<Profile />} />
           <Route path="department" element={<Department />} />
           <Route path="department_edit" element={<DepartmentPostEdit />} />
@@ -123,7 +122,6 @@ function App() {
           <Route path="updatebonusses" element={<UpdateBonusses />} />
           <Route path="terms" element={<Terms />} />
           <Route path="login" element={<Profile />} />
-          <Route path="/" element={<Profile />} />
           <Route path="calendar" element={<Calendar />} />
           <Route path="add-event" element={<AddEvent />} />
           <Route path="bonusses" element={<Bonusses />} />
