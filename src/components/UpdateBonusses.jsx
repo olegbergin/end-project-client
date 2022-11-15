@@ -25,12 +25,9 @@ const url = 'http://localhost:5000/bonuses';
           {console.log("error!")}
         };
 
-
-        
-
         const handledelete = async (elemant) =>{
             elemant.preventDefault();
-            const deleteObj = JSON.parse('{"title": deletebonus}')
+            const deleteObj = JSON.parse({ deletebonus: title })
             console.log(deleteObj);
             try{
                 await axios.delete(`${url}/delete/:title`,deleteObj)
@@ -38,12 +35,6 @@ const url = 'http://localhost:5000/bonuses';
             }catch (error)
             {console.log("error!!!!");}
 
-        }
-
-        const postDelete = (title, e) => {
-            e.preventDefault();
-            axios.delete(`http://localhost:5000/bonuses/${title}`)
-            .then(res => console.log('deleted!', res)).catch(err => console.log(err))
         }
 
 
@@ -187,7 +178,7 @@ const url = 'http://localhost:5000/bonuses';
                        type="text"
                       className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
                       id="deletebonus"
-                    //   value={deletebonus}
+                     value={deletebonus}
                       name="deletebonus"
                       onChange={(elemant) => setDeletebonus(elemant.target.value)}/>
                      </div>
