@@ -43,10 +43,7 @@ const UpdateBonusses = () => {
     }
   };
 
-  // const postDelete = (title, e) => {
-  //   e.preventDefault();
-  //   axios.delete(`http://localhost:5000/bonuses`);
-  // };
+ 
 
   return (
     <div className="bg-gray-200">
