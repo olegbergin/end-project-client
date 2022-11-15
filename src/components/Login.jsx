@@ -36,8 +36,8 @@ export const Login = () => {
     axios.post('http://localhost:5000/auth/login', { "email": data.email, "password": data.password })
     .then((res) => {
       dispatch(updateToken(res.data.token))
+      localStorage.setItem("myToken", res.data.token)
       var decoded = jwt_decode(res.data.token)
-      localStorage.setItem("myRole",  decoded.role)
       dispatch(updateRole(decoded.role))
       dispatch(updateName(decoded.fullname))
     })
