@@ -1,6 +1,23 @@
 import React from "react";
+import axios from 'axios'
+import { useEffect } from "react";
+import { useState } from "react";
+
+
+
 
 function Department() {
+  // const [events,setevents ] = useState('');
+  // const [contact,setcontact ] = useState('');
+  // useEffect(() => {
+  // axios.get("http://localhost:5000/department/departmentedit").then((res) => setevents(res.data))
+  // },[])
+ 
+ 
+ 
+  
+  // {bonuses?.map(({department, title, description, date, image}) => {
+
   return (
     <div className="mt-24">
       <h1 className="text-5xl flex justify-center mb-10 font-semibold text-gray-900">
@@ -35,7 +52,9 @@ function Department() {
         </div>
       </div>
     </div>
-  );
+  )
 }
-
+//   )
+//   }
+// }
 export default Department;
