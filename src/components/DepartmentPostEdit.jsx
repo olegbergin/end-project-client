@@ -15,6 +15,7 @@ function DepartmentPostEdit() {
   const [department, setdepartment] = useState("");
   const [date, setDate] = useState();
   const [deletepost, setDeletepost] = useState("");
+  const [imgeUrl, setImageUrl] = useState("");
   const {
     register,
     formState: { errors },
@@ -23,28 +24,24 @@ function DepartmentPostEdit() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newObj = {
-      title: title,
-      department: department,
-      description: description,
-      date: date,
-      image: image,
-    }
-    console.log(newObj);
-    try {
+    await uploadImage()
+    try { imgeUrl && 
       await axios
         .post(`${url}/departmentedit`, {
           title: title,
           department: department,
           description: description,
           date: date,
-          image: image,
+          image: imgeUrl,
         })
         .then((res) => console.log(res.data));
     } catch (error) {
       console.log("error!!");
     }
   };
+
+  
+  
   
   const handledelete = async (elemant) => {
     elemant.preventDefault();
@@ -56,7 +53,16 @@ function DepartmentPostEdit() {
       console.log("error!!!!");
     }
   };
+   
+  const uploadImage=()=>{
+    const formData = new FormData()
+    formData.append('file',image)
+    formData.append('upload_preset',"oo2ebqls")
 
+    axios.post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload",formData)
+    .then((response)=>setImageUrl(response.data.secure_url))
+
+  }
 
 
   return (
@@ -124,9 +130,9 @@ function DepartmentPostEdit() {
           </label>
           <input
            className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1"
-            type="text"
+            type="file"
             accept="image/png/jpeg/svg/gif/jpg"
-            onChange={(e) => setImage(e.target.value)}
+            onChange={(e) => setImage(e.target.files[0])}
           />
           <div className="text-center">
             <button
