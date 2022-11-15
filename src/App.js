@@ -16,19 +16,25 @@ import { io } from "socket.io-client";
 import { Messanger } from "./components/Messanger";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { updateName, updateRole } from "./redux/userSlice";
+import { updateEmail, updateName, updateRole } from "./redux/userSlice";
 import jwt_decode from "jwt-decode";
 
 import { AddEvent } from "./components/AddEvent";
 
 function App() {
+
   const socket = io.connect(`http://localhost:5000`, {
     transports: ["websocket"],
   });
+
   const [messageList, setMessageList] = useState([]);
+
   const [isOpen, setIsOpen] = useState(false);
+
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
+
   const [anotherOpen, setAnotherOpen] = useState(false);
+
   const role = useSelector((state) => state.user.role);
   // USER / ADMIN / SUPERADMIN
 
@@ -39,6 +45,7 @@ function App() {
     if (storage) {
       const decoded = jwt_decode(storage)
       dispatch(updateRole(decoded.role))
+      dispatch(updateEmail(decoded.email))
       dispatch(updateName(decoded.fullname))
     }else {
       redirect("/login")
