@@ -1,32 +1,35 @@
 import { useForm } from "react-hook-form";
-import axios from 'axios';
-
+import axios from "axios";
 
 export const AdminRegister = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
   const onSubmit = async (data) => {
-    axios.post('http://localhost:5000/auth/registration', {
-      "email": data.email,
-      "password": data.password,
-      "fullname": data.fullname,
-      "phone": data.phone,
-      "sex":data.sex,
-      "adress":data.adress,
-      "birthday": new Date(data.birthday),
-      "department":data.department,
-      "role":data.role,
-      "image": data.image,
-      "contract": data.contract
-    })
-      .then((res) => { alert(res.data.message) })
-      console.log(errors);
+    axios
+      .post("http://localhost:5000/auth/registration", {
+        email: data.email,
+        password: data.password,
+        fullname: data.fullname,
+        phone: data.phone,
+        sex: data.sex,
+        adress: data.adress,
+        birthday: new Date(data.birthday),
+        department: data.department,
+        role: data.role,
+        image: data.image,
+        contract: data.contract,
+      })
+      .then((res) => {
+        alert(res.data.message);
+      });
+    reset();
+    console.log(errors);
   };
-
 
   return (
     <div className="bg-gray-900  min-h-screen">
@@ -204,8 +207,6 @@ export const AdminRegister = () => {
                       type="email"
                       placeholder="Email"
                       disabled
-
-
                     />
                     <label
                       htmlFor=""

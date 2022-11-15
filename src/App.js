@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { redirect, Route, Routes,  } from "react-router";
+import { redirect, Route, Routes } from "react-router";
 import { AdminRegister } from "./components/AdminRegister";
 import Department from "./components/Department";
 import DepartmentPostEdit from "./components/DepartmentPostEdit";
@@ -22,7 +22,6 @@ import jwt_decode from "jwt-decode";
 import AddEvent from "./components/AddEventCalendar";
 
 function App() {
-
   const socket = io.connect(`http://localhost:5000`, {
     transports: ["websocket"],
   });
@@ -41,20 +40,19 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const storage = localStorage.getItem("myToken")
+    const storage = localStorage.getItem("myToken");
     if (storage) {
-      const decoded = jwt_decode(storage)
-      dispatch(updateRole(decoded.role))
-      dispatch(updateEmail(decoded.email))
-      dispatch(updateName(decoded.fullname))
-    }else {
-      redirect("/login")
+      const decoded = jwt_decode(storage);
+      dispatch(updateRole(decoded.role));
+      dispatch(updateEmail(decoded.id));
+      dispatch(updateName(decoded.fullname));
+    } else {
+      redirect("/login");
     }
 
     socket.emit("join_room");
     // eslint-disable-next-line
   }, []);
-
 
   useEffect(() => {
     socket.on("back", (message) => {
@@ -129,7 +127,6 @@ function App() {
           <Route path="calendar" element={<Calendar />} />
           <Route path="add-event" element={<AddEvent />} />
           <Route path="bonusses" element={<Bonusses />} />
-
         </Routes>
       )}
     </div>
