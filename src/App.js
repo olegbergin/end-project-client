@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { redirect, Route, Routes,  } from "react-router";
+import { redirect, Route, Routes } from "react-router";
 import { AdminRegister } from "./components/AdminRegister";
 import Department from "./components/Department";
 import DepartmentPostEdit from "./components/DepartmentPostEdit";
@@ -16,7 +16,7 @@ import { io } from "socket.io-client";
 import { Messanger } from "./components/Messanger";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { updateName, updateRole } from "./redux/userSlice";
+import { updateEmail, updateName, updateRole } from "./redux/userSlice";
 import jwt_decode from "jwt-decode";
 
 import AddEvent from "./components/AddEventCalendar";
@@ -25,29 +25,34 @@ function App() {
   const socket = io.connect(`http://localhost:5000`, {
     transports: ["websocket"],
   });
+
   const [messageList, setMessageList] = useState([]);
+
   const [isOpen, setIsOpen] = useState(false);
+
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
+
   const [anotherOpen, setAnotherOpen] = useState(false);
+
   const role = useSelector((state) => state.user.role);
   // USER / ADMIN / SUPERADMIN
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const storage = localStorage.getItem("myToken")
+    const storage = localStorage.getItem("myToken");
     if (storage) {
-      const decoded = jwt_decode(storage)
-      dispatch(updateRole(decoded.role))
-      dispatch(updateName(decoded.fullname))
-    }else {
-      redirect("/login")
+      const decoded = jwt_decode(storage);
+      dispatch(updateRole(decoded.role));
+      dispatch(updateEmail(decoded.id));
+      dispatch(updateName(decoded.fullname));
+    } else {
+      redirect("/login");
     }
 
     socket.emit("join_room");
     // eslint-disable-next-line
   }, []);
-
 
   useEffect(() => {
     socket.on("back", (message) => {
@@ -122,7 +127,6 @@ function App() {
           <Route path="calendar" element={<Calendar />} />
           <Route path="add-event" element={<AddEvent />} />
           <Route path="bonusses" element={<Bonusses />} />
-
         </Routes>
       )}
     </div>
