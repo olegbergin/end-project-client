@@ -63,10 +63,11 @@ function DepartmentPostEdit() {
     <div className="bg-gray-900 min-h-screen mt-24 w-screen">
       <div className=" flex justify-center space-x-7 ">
         <form
+
           onSubmit={handleSubmit}
-          className="flex justify-center flex-col text-3xl  bg-white m-16 p-5"
+          className="flex justify-center flex-col text-xl  bg-white m-16 p-5"
         >
-          <h1 className="text-center text-3xl">הוספת אירוע</h1>
+          <h1 className="text-center text-3xl font-bold">הוספת אירוע</h1>
           <label
             htmlFor=""
             className="flex  text-blue-900 text-sm font-semibold "
@@ -74,7 +75,7 @@ function DepartmentPostEdit() {
           אגף
           </label>
           <input
-            className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6"
+            className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1"
             type="text"
             placeholder="אגף"
             onChange={(e) => setdepartment(e.target.value)}
@@ -86,7 +87,7 @@ function DepartmentPostEdit() {
             כותרת
           </label>
           <input
-            className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6"
+            className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1"
             type="text"
             placeholder="כותרת"
             {...register("Title", { required: true, pattern: /"[A-Za-z]+"/i })}
@@ -98,7 +99,9 @@ function DepartmentPostEdit() {
           >
             מלל
           </label>
-          <textarea type="text" placeholder="מלל" {...register}  onChange={(e) => setDescription(e.target.value)} />
+
+          <textarea type="text" placeholder="מלל" {...register} className="border-2 border-black/10 rounded-md"  onChange={(e) => setDescription(e.target.value)} />
+
           <label
             htmlFor=""
             className="flex  text-blue-900 text-sm font-semibold "
@@ -107,7 +110,7 @@ function DepartmentPostEdit() {
             תאריך
           </label>
           <input
-            className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6"
+            className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1"
             type="date"
             placeholder="תאריך"
             {...register}
@@ -120,7 +123,7 @@ function DepartmentPostEdit() {
             תמונה
           </label>
           <input
-            className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6"
+           className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1"
             type="text"
             accept="image/png/jpeg/svg/gif/jpg"
             onChange={(e) => setImage(e.target.value)}

@@ -27,7 +27,7 @@ export const Navbar = (props) => {
                 </h1>
               </Link>
             ) : (
-              <Link to="profile">
+              <Link to="/">
                 <h1 className="text-white font-semibold text-lg">
                   עיריית דימונה
                 </h1>
