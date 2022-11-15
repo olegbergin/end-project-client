@@ -19,6 +19,7 @@ export const Profile = () => {
     "דצמבר",
   ];
   const [theUser, setTheUser] = useState();
+  // eslint-disable-next-line
   const [status, setStatus] = useState("לא נמצא");
   const fullname = useSelector((state) => state.user.fullname);
   const day = new Date(theUser?.birthday).getDate();
@@ -28,7 +29,6 @@ export const Profile = () => {
   // updatedBirthday = updatedBirthday.toUTCString();
 
   const setTheStatus = async (e) => {
-    await setStatus(e);
     const requestObj = {
       fullname: fullname,
       status: e,
@@ -42,39 +42,58 @@ export const Profile = () => {
     axios
       .post("http://localhost:5000/auth/findUser", { fullname: fullname })
       .then((res) => setTheUser(res.data));
-  }, []);
+  }, [fullname, status]);
 
   return (
     <div className="flex j flex-col items-center mt-32">
-      <h1 className="text-3xl font-semibold">הפרופיל שלי</h1>
-      <div className="mt-10 flex flex-col items-center">
+      <div className="mt-2 flex flex-col items-center">
+        <h1 className="text-3xl font-semibold mb-10">{theUser?.fullname}</h1>
         <img
           src={theUser?.image}
-          className="w-28 rounded-full border-2 border-gray-900"
+          className="w-32 rounded-md border-2 border-gray-900 mb-2"
           alt=""
         />
-        <ul className="list-none mt-10 text-center">
-          <li>שם: {theUser?.fullname}</li>
-          <li>מס' טלפון: {theUser?.phone}</li>
-          <li>אימייל: {theUser?.email}</li>
-          <li>אגף: {theUser?.department}</li>
-          <li>יום הולדת: {updatedBirthday}</li>
-        </ul>
+        <div className="mt-10 md:flex lg:flex sm:flex">
+          <div className="shadow-black/30 shadow-md m-2 p-2 rounded-lg font-bold text-gray-700">
+            מס' טלפון: {theUser?.phone}
+          </div>
+          <div className="shadow-black/30 shadow-md m-2 p-2 rounded-lg font-bold text-gray-700">
+            אימייל: {theUser?.email}
+          </div>
+          <div className="shadow-black/30 shadow-md m-2 p-2 rounded-lg font-bold text-gray-700">
+            אגף: {theUser?.department}
+          </div>
+          <div className="shadow-black/30 shadow-md m-2 p-2 rounded-lg font-bold text-gray-700">
+            יום הולדת: {updatedBirthday}
+          </div>
+        </div>
         <div className="mt-5 text-center">
-          <h1 className="font-semibold text-xl mb-5">
-            סטטוס: {theUser?.status}
-          </h1>
+          <span className="font-semibold text-xl mb-5">סטטוס: </span>
+          <span
+            className={
+              theUser?.status === "לא נמצא"
+                ? "font-semibold text-xl mb-5 text-red-500"
+                : theUser?.status === "בעבודה"
+                ? "font-semibold text-xl mb-5 text-green-700"
+                : "font-semibold text-xl mb-5 "
+            }
+          >
+            {theUser?.status}
+          </span>
+          <br />
           <select
             name=""
             id=""
             onChange={async (e) => {
-              e.target.value && setTheStatus(e.target.value);
+              e.target.value && setStatus(e.target.value);
+              setTheStatus(e.target.value);
             }}
           >
             <option value="">שנה סטטוס</option>
             <option value="בעבודה">בעבודה</option>
             <option value="בחופשה">בחופשה</option>
             <option value="מחלה">מחלה</option>
+            <option value="לא נמצא">לא נמצא</option>
           </select>
         </div>
       </div>
