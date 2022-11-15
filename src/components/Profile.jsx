@@ -21,7 +21,7 @@ export const Profile = () => {
   const [theUser, setTheUser] = useState();
   // eslint-disable-next-line
   const [status, setStatus] = useState("לא נמצא");
-  const fullname = useSelector((state) => state.user.fullname);
+  const email = useSelector((state) => state.user.email);
   const day = new Date(theUser?.birthday).getDate();
   const month = new Date(theUser?.birthday).getMonth();
   const updatedBirthday = `${day} ב${monthNames[month]}`;
@@ -30,7 +30,7 @@ export const Profile = () => {
 
   const setTheStatus = async (e) => {
     const requestObj = {
-      fullname: fullname,
+      email: email,
       status: e,
     };
     axios
@@ -40,9 +40,9 @@ export const Profile = () => {
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/auth/findUser", { fullname: fullname })
+      .post("http://localhost:5000/auth/findUser", { email: email })
       .then((res) => setTheUser(res.data));
-  }, [fullname, status]);
+  }, [email, status]);
 
   return (
     <div className="flex j flex-col items-center mt-32">
