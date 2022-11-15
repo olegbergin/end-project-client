@@ -4,28 +4,31 @@ const userSlice = createSlice({
     name: 'user',
     initialState: {
         fullname: "",
-        token:"",
-        role:""
+        token: "",
+        role: ""
     },
     reducers: {
         updateName(state, action) {
             state.fullname = (action.payload)
         },
+        updateEmail(state, action) {
+            state.email = (action.payload)
+        },
         updateToken(state, action) {
-            state.token =(action.payload)
-            localStorage.setItem( "myToken", state.token );
+            state.token = (action.payload)
+            localStorage.setItem("myToken", state.token);
         },
         updateRole(state, action) {
-            state.role =(action.payload)
+            state.role = (action.payload)
         },
-        logOut(state){
+        logOut(state) {
             state.role = "";
             state.fullname = "";
             state.token = "";
-            localStorage.setItem("myRole", "");
+            localStorage.setItem("myToken", "");
         }
     },
 })
 
-export const { updateName,updateToken, updateRole, logOut} = userSlice.actions;
+export const { updateEmail, updateName, updateToken, updateRole, logOut } = userSlice.actions;
 export default userSlice.reducer;
