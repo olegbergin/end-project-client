@@ -19,7 +19,7 @@ import { useDispatch } from "react-redux";
 import { updateName, updateRole } from "./redux/userSlice";
 import jwt_decode from "jwt-decode";
 
-import { AddEvent } from "./components/AddEvent";
+import AddEvent from "./components/AddEventCalendar";
 
 function App() {
   const socket = io.connect(`http://localhost:5000`, {
