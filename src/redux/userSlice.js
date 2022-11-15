@@ -21,6 +21,7 @@ const userSlice = createSlice({
             state.role = "";
             state.fullname = "";
             state.token = "";
+            localStorage.setItem("myRole", "");
         }
     },
 })

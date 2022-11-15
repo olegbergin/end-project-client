@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from 'axios'
 import { useEffect } from "react";
 import UpdateBonusses from "./UpdateBonusses";
+import Calendar from "./Calendar";
 
 
 
@@ -43,8 +44,10 @@ axios.post("http://localhost:5000/bonuses/get").then((res) => setBonuses(res.dat
 )
 })
 }
-         </div> ,
-         <UpdateBonusses/>
+         </div> 
+        
+       
+
         )
   }
 
