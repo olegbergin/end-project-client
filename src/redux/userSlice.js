@@ -13,6 +13,7 @@ const userSlice = createSlice({
         },
         updateToken(state, action) {
             state.token =(action.payload)
+            localStorage.setItem( "myToken", state.token );
         },
         updateRole(state, action) {
             state.role =(action.payload)

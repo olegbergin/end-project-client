@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Route, Routes } from "react-router";
+import { redirect, Route, Routes,  } from "react-router";
 import { AdminRegister } from "./components/AdminRegister";
 import Department from "./components/Department";
 import DepartmentPostEdit from "./components/DepartmentPostEdit";
@@ -16,7 +16,8 @@ import { io } from "socket.io-client";
 import { Messanger } from "./components/Messanger";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { updateRole } from "./redux/userSlice";
+import { updateName, updateRole } from "./redux/userSlice";
+import jwt_decode from "jwt-decode";
 
 import { AddEvent } from "./components/AddEvent";
 
@@ -34,10 +35,17 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(updateRole(localStorage.getItem("myRole")))
+    const storage = localStorage.getItem("myToken")
+    if (storage) {
+      const decoded = jwt_decode(storage)
+      dispatch(updateRole(decoded.role))
+      dispatch(updateName(decoded.fullname))
+    }else {
+      redirect("/login")
+    }
 
     socket.emit("join_room");
-// eslint-disable-next-line
+    // eslint-disable-next-line
   }, []);
 
 
@@ -113,6 +121,8 @@ function App() {
           <Route path="/" element={<Profile />} />
           <Route path="calendar" element={<Calendar />} />
           <Route path="add-event" element={<AddEvent />} />
+          <Route path="bonusses" element={<Bonusses />} />
+
         </Routes>
       )}
     </div>
