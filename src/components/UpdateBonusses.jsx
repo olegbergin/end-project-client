@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
+// import { useRef } from "react";
+// import { useEffect } from "react";
 
 const url = "http://localhost:5000/bonuses";
 
@@ -12,7 +14,10 @@ const UpdateBonusses = () => {
   const [linktitle, setLinktitle] = useState("");
   const [date, setDate] = useState();
   const [deletebonus, setDeletebonus] = useState("");
+
   console.log(deletebonus);
+
+ 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,6 +35,11 @@ const UpdateBonusses = () => {
     } catch (error) {
       console.log("error!");
     }
+    setTitle('')
+    setDescription('')
+    setImage('')
+    setLink('')
+    setLinktitle('')
   };
 
   const handledelete = async (elemant) => {
@@ -41,6 +51,7 @@ const UpdateBonusses = () => {
     } catch (error) {
       console.log("error!!!!");
     }
+    setDeletebonus('')
   };
 
  
@@ -67,6 +78,7 @@ const UpdateBonusses = () => {
                   value={title}
                   name="title"
                   onChange={(e) => setTitle(e.target.value)}
+                 
                 />
               </div>
               <div className="mb-1 sm:mb-2">
@@ -163,6 +175,7 @@ const UpdateBonusses = () => {
               </div>
               <div className="mt-4 mb-2 sm:mb-4">
                 <button
+                  // onClick={setsubmitReset(false)}
                   type="submit"
                   className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-green-700 transition duration-200 rounded shadow-md  hover:bg-gray-700 hover:border-2 hover:border-gray-900 hover:text-white focus:shadow-outline focus:outline-none"
                 >

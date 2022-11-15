@@ -30,7 +30,6 @@ function DepartmentPostEdit() {
       date: date,
       image: image,
     }
-    console.log(newObj);
     try {
       await axios
         .post(`${url}/departmentedit`, {
@@ -44,17 +43,24 @@ function DepartmentPostEdit() {
     } catch (error) {
       console.log("error!!");
     }
+    setTitle('')
+    setDescription('')
+    setImage('')
+    setdepartment('')
   };
   
+
+
   const handledelete = async (elemant) => {
     elemant.preventDefault();
     try {
       await axios
-        .delete(`http://localhost:5000/departments/${deletepost}`)
+        .delete(`http://localhost:5000/departments/delete/${deletepost}`)
         .then((res) => console.log(res.data));
     } catch (error) {
       console.log("error!!!!");
     }
+    setDeletepost('')
   };
 
 
@@ -91,6 +97,7 @@ function DepartmentPostEdit() {
             placeholder="כותרת"
             {...register("Title", { required: true, pattern: /"[A-Za-z]+"/i })}
             onChange={(e) => setTitle(e.target.value)}
+            
           />
           <label
             htmlFor=""

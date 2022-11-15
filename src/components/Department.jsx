@@ -7,16 +7,15 @@ import { useState } from "react";
 
 
 function Department() {
-  // const [events,setevents ] = useState('');
-  // const [contact,setcontact ] = useState('');
+ 
+  // const [userdepartmentData, setUserdepartmentData] = useState();
   // useEffect(() => {
-  // axios.get("http://localhost:5000/department/departmentedit").then((res) => setevents(res.data))
+  // axios.post("http://localhost:5000/auth/userbydepartment").then((res) => setsetUserdepartmentData(res.data))
   // },[])
- 
- 
+  
  
   
-  // {bonuses?.map(({department, title, description, date, image}) => {
+
 
   return (
     <div className="mt-24">
@@ -54,7 +53,5 @@ function Department() {
     </div>
   )
 }
-//   )
-//   }
-// }
+
 export default Department;
