@@ -22,43 +22,44 @@ const Bonusses = () => {
         התרבות והפנאי, שירותי הרווחה וההטבות השונות שיש אצלנו. הטוב הזה ברובו
         עוטף לא רק את עובדי החברה אלא גם את בני משפחותיהם, כי כאלה אנחנו.
       </p>
-      {bonuses?.map(
-        ({
-          _id,
-          image,
-          title,
-          description,
-          Link,
-          linktitle,
-          date,
-          isimage,
-        }) => {
-          return (
-            <div
-              className="py-8 px-8 max-w mx-auto bg-white rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex  sm:space-y-0 sm:space-x-6"
-              key={_id}
-            >
-              <p className="text-lg text-black font-semibold text-decoration-line: underline text-center">
-                {title}
-              </p>
-              <img className="h-24   " src={image} alt="Woman's Face" />
-              <div className="space-y-2 ">
-                <div className="space-y-0.5">
-                  <p className="text-slate-500 font-medium w-2/3 ">
-                    {description}
-                  </p>
-                  <date className="text-slate-500 font-medium">{date}</date>
+      <div className="flex flex-wrap w-screen justify-center">
+        {bonuses?.map(
+          ({
+            _id,
+            image,
+            title,
+            description,
+            link,
+            linktitle,
+            date,
+            isimage,
+          }) => {
+            return (
+              <div class="max-w-sm rounded overflow-hidden shadow-lg mx-10 h-2/3 my-5">
+                <img
+                  class="lg:h-56  min-w-full object-fill"
+                  src={image}
+                  alt="Sunset in the mountains"
+                />
+                <div class="px-6 py-4">
+                  <div class="font-bold text-xl mb-2">{title}</div>
+                  <p class="text-gray-700 text-base">{description}</p>
                 </div>
-                <a href={`${Link}`} target="_blank" rel="noreferrer">
-                  <button className="px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2">
-                    {linktitle}
-                  </button>
-                </a>
+                <div class="px-6 pt-4 pb-2 text-center">
+                  <a
+                    href={link}
+                    target="_blank"
+                    rel="noreferrer"
+                    class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                  >
+                    #{linktitle}
+                  </a>
+                </div>
               </div>
-            </div>
-          );
-        }
-      )}
+            );
+          }
+        )}
+      </div>
     </div>
   );
 };
