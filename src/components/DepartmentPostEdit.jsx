@@ -23,6 +23,7 @@ function DepartmentPostEdit() {
   const [department, setdepartment] = useState("");
   const [date, setDate] = useState();
   const [deletepost, setDeletepost] = useState("");
+
   const [departmentNames, setDepartmentNames] = useState();
 
 
@@ -30,6 +31,7 @@ function DepartmentPostEdit() {
     register,
     reset,
   } = useForm({ mode: "all", resolver: yupResolver(schema) });
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,7 +61,7 @@ function DepartmentPostEdit() {
     } catch (error) {
       console.log("error!!!!");
     }
-    setDeletepost('')
+    setDeletepost('') 
   };
    
   

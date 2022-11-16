@@ -1,8 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
-// import { useRef } from "react";
-// import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 
 const url = "http://localhost:5000/bonuses";
 
@@ -14,32 +13,35 @@ const UpdateBonusses = () => {
   const [date, setDate] = useState();
   const [deletebonus, setDeletebonus] = useState("");
   const [image, setImage] = useState("");
-  
-  
+
+  const {
+    register,
+    reset,
+    formState: { errors },
+  } = useForm();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    
-    const formData = new FormData()
-    formData.append('file',image)
-    formData.append('upload_preset',"oo2ebqls")
+    const formData = new FormData();
+    formData.append("file", image);
+    formData.append("upload_preset", "oo2ebqls");
 
-    axios.post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload",formData)
-    .then((response)=>
-      axios
-         .post(`${url}/update`, {
-           title: title,
-           description: description,
-           image: response.data.secure_url,
-           link: link,
-           linktitle: linktitle,
-           date: date,
-         })
-         .then((res) => console.log(res.data))
-    )
-      
-    } 
-
+    axios
+      .post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload", formData)
+      .then((response) =>
+        axios
+          .post(`${url}/update`, {
+            title: title,
+            description: description,
+            image: response.data.secure_url,
+            link: link,
+            linktitle: linktitle,
+            date: date,
+          })
+          .then((res) => console.log(res.data))
+          .then(reset())
+      );
+  };
 
   const handledelete = async (elemant) => {
     elemant.preventDefault();
@@ -50,7 +52,6 @@ const UpdateBonusses = () => {
     } catch (error) {
       console.log("error!!!!");
     }
-    setDeletebonus('')
   };
 
   return (
@@ -70,15 +71,16 @@ const UpdateBonusses = () => {
                   כותרת:
                 </label>
                 <input
-                  placeholder="כותרת"
-                  required
                   type="text"
+                  placeholder="title"
                   className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1"
-                  id="title"
-                  value={title}
-                  name="title"
+                  {...register("title", {
+                    required: true,
+                    max: 80,
+                    min: 1,
+                    maxLength: 80,
+                  })}
                   onChange={(e) => setTitle(e.target.value)}
-                 
                 />
               </div>
               <div className="mb-1 sm:mb-2">
@@ -89,13 +91,15 @@ const UpdateBonusses = () => {
                   תיאור ההטבה:
                 </label>
                 <input
-                  placeholder="תיאור ההטבה"
-                  required
                   type="text"
                   className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1"
-                  id="description"
-                  value={description}
-                  name="description"
+                  placeholder="description"
+                  {...register("desctiption", {
+                    required: true,
+                    max: 80,
+                    min: 1,
+                    maxLength: 80,
+                  })}
                   onChange={(e) => setDescription(e.target.value)}
                 />
               </div>
@@ -108,8 +112,8 @@ const UpdateBonusses = () => {
                 </label>
                 <br />
                 <input
-                  placeholder="הוסף תמונה"
                   type="file"
+                  placeholder="הוסף תמונה"
                   className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1"
                   accept="image/png/jpeg/svg/gif/jpg"
                   onChange={(e) => setImage(e.target.files[0])}
@@ -130,6 +134,12 @@ const UpdateBonusses = () => {
                   id="Link"
                   value={link}
                   name="Link"
+                  {...register("desctiption", {
+                    required: true,
+                    max: 80,
+                    min: 1,
+                    maxLength: 80,
+                  })}
                   onChange={(e) => setLink(e.target.value)}
                 />
               </div>
@@ -148,6 +158,12 @@ const UpdateBonusses = () => {
                   id="Linktitle"
                   value={linktitle}
                   name="Linktitle"
+                  {...register("desctiption", {
+                    required: true,
+                    max: 80,
+                    min: 1,
+                    maxLength: 80,
+                  })}
                   onChange={(e) => setLinktitle(e.target.value)}
                 />
               </div>
@@ -165,16 +181,14 @@ const UpdateBonusses = () => {
                   type="date"
                   className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1"
                   id="date"
-                  value={date}
                   name="date"
                   onChange={(e) => setDate(e.target.value)}
                 />
               </div>
               <div className="mt-4 mb-2 sm:mb-4 text-center">
                 <button
-                  // onClick={setsubmitReset(false)}
                   type="submit"
-                  className="w-56    h-12 px-6 font-medium tracking-wide text-green-700 transition duration-200 rounded shadow-md  hover:bg-gray-700 hover:border-2 hover:border-gray-900 hover:text-white focus:shadow-outline focus:outline-none mb-4"
+                  className="w-56 h-12 px-6 font-medium tracking-wide text-green-700 transition duration-200 rounded shadow-md  hover:bg-gray-700 hover:border-2 hover:border-gray-900 hover:text-white focus:shadow-outline focus:outline-none mb-4"
                 >
                   הוסף הטבה
                 </button>
@@ -201,6 +215,12 @@ const UpdateBonusses = () => {
                   className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1"
                   id="deletebonus"
                   name="deletebonus"
+                  {...register("deletebonus", {
+                    required: true,
+                    max: 80,
+                    min: 1,
+                    maxLength: 80,
+                  })}
                   onChange={(elemant) => setDeletebonus(elemant.target.value)}
                 />
               </div>
