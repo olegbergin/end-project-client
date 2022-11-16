@@ -17,6 +17,7 @@ import { useDispatch } from "react-redux";
 import { updateEmail, updateName, updateRole } from "./redux/userSlice";
 import jwt_decode from "jwt-decode";
 import { Home } from "./components/Home";
+import { AddDepartments } from "./components/AddDepartment";
 
 function App() {
   const socket = io.connect(`http://localhost:5000`, {
@@ -123,6 +124,7 @@ function App() {
           <Route path="login" element={<Profile />} />
           <Route path="calendar" element={<Calendar />} />
           <Route path="bonusses" element={<Bonusses />} />
+          <Route path="departmentedit" element={<AddDepartments />} />
         </Routes>
       )}
     </div>

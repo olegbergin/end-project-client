@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import axios from "axios";
+import { useEffect } from "react";
 
 const url = "http://localhost:5000/departments";
 
@@ -13,6 +14,7 @@ function DepartmentPostEdit() {
   const [date, setDate] = useState();
   const [deletepost, setDeletepost] = useState("");
   const [imgeUrl, setImageUrl] = useState("");
+  const [departmentNames, setDepartmentNames] = useState();
   const {
     register,
     formState: { errors },
@@ -60,6 +62,12 @@ function DepartmentPostEdit() {
       .then((response) => setImageUrl(response.data.secure_url));
   };
 
+  useEffect(() => {
+    axios
+      .post("http://localhost:5000/name/getnames")
+      .then((res) => setDepartmentNames(res.data));
+  }, []);
+
   return (
     <div className="bg-gray-200 min-h-screen mt-24 w-screen">
       <div className=" flex justify-around  flex-col items-center">
@@ -81,10 +89,13 @@ function DepartmentPostEdit() {
             onChange={(e) => setdepartment(e.target.value)}
           >
             <option value="">בחר ענף</option>
-            <option value="ראשי">ראשי</option>
-            <option value="לוגיסטיקה">לוגיסטיקה</option>
-            <option value="בריאות">בריאות</option>
-            <option value="תחבורה">תחבורה</option>
+            {departmentNames?.map((name, index) => {
+              return (
+                <option key={index} value={name.theName}>
+                  {name.theName}
+                </option>
+              );
+            })}
           </select>
           <label
             htmlFor=""
