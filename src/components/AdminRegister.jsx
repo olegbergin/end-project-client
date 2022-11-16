@@ -2,11 +2,32 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import axios from "axios";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
+
+const schema = yup.object().shape({
+  email: yup.string().required(),
+  password: yup.string().required(),
+  fullname: yup.string().required(),
+  phone: yup.string().required(),
+  sex: yup.string().required(),
+  adress: yup.string().required(),
+  birthday: yup.string().required(),
+  department: yup.string().required(),
+  role: yup.string().required(),
+  image: yup.string().required(),
+  contract: yup.string().required()
+});
 
 export const AdminRegister = () => {
   const [image, setImage] = useState("");
-  const { register, handleSubmit, reset } = useForm();
-  const [departmentNames, setDepartmentNames] = useState();
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+  } = useForm({ mode: "all", resolver: yupResolver(schema) });
+
 
   useEffect(() => {
     axios
