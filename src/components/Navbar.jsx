@@ -2,11 +2,20 @@ import image from "../images/dimona-logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../redux/userSlice";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export const Navbar = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const role = useSelector((state) => state.user.role);
+  const [departmentNames, setDepartmentNames] = useState();
+
+  useEffect(() => {
+    axios
+      .post("http://localhost:5000/name/getnames")
+      .then((res) => setDepartmentNames(res.data));
+  }, []);
 
   return (
     <div className="bg-gray-800 w-screen fixed z-50">
@@ -47,17 +56,20 @@ export const Navbar = (props) => {
                   </button>
                   {props.isOpen && (
                     <div className=" text-white absolute bg-gray-900 w-44 border-2 border-black text-center mt-12 rounded-md z-10">
-                      <div className="p-2">
-                        <Link to="department"  state={{department:"לוגיסטיקה"}}>לוגיסטיקה</Link>
-                      </div>
-                      <hr />
-                      <div className="p-2">
-                        <Link to="department" state={{department:"בריאות"}}>בריאות</Link>
-                      </div>
-                      <hr />
-                      <div className="p-2">
-                        <Link to="department" state={{department:"תחבורה"}}>תחבורה</Link>
-                      </div>
+                      {departmentNames?.map((theName, index) => {
+                        return (
+                          theName.theName !== "ראשי" && (
+                            <div key={index} className="p-2">
+                              <Link
+                                to="department"
+                                state={{ department: theName.theName }}
+                              >
+                                {theName.theName}
+                              </Link>
+                            </div>
+                          )
+                        );
+                      })}
                     </div>
                   )}
                 </div>
@@ -86,11 +98,7 @@ export const Navbar = (props) => {
                       </div>
                       <hr />
                       <div className="p-2">
-                        <Link to="department_edit"> הוספת אירוע</Link>
-                      </div>
-                      <hr />
-                      <div className="p-2">
-                        <Link to="add-event">עריכת יומן</Link>
+                        <Link to="department_edit"> עריכת אירוע</Link>
                       </div>
                       <hr />
                       <div className="p-2">
@@ -106,7 +114,7 @@ export const Navbar = (props) => {
               )}
               {role === "ADMIN" && (
                 <div className="text-white font-semibold mx-3">
-                  <Link to="department_edit"> הוספת אירוע</Link>
+                  <Link to="department_edit"> עריכת אירוע</Link>
                 </div>
               )}
             </div>
@@ -122,6 +130,20 @@ export const Navbar = (props) => {
               <div className="flex justify-center">
                 {props.hamburgerOpen && (
                   <div className=" text-white absolute bg-gray-900 w-44 border-2 border-black text-center mt-10 rounded-md z-10">
+                    {departmentNames?.map((theName, index) => {
+                      return (
+                        theName.theName !== "ראשי" && (
+                          <div key={index} className="p-2">
+                            <Link
+                              to="department"
+                              state={{ department: theName.theName }}
+                            >
+                              {theName.theName}
+                            </Link>
+                          </div>
+                        )
+                      );
+                    })}
                     <div className="p-2">
                       <Link to="profile">הפרופיל שלי</Link>
                     </div>
@@ -131,15 +153,7 @@ export const Navbar = (props) => {
                     <div className="p-2">
                       <Link to="bonusses">הטבות</Link>
                     </div>
-                    <div className="p-2">
-                      <Link to="department" state={{department:"לוגיסטיקה"}}>לוגיסטיקה</Link>
-                    </div>
-                    <div className="p-2">
-                      <Link to="department">בריאות</Link>
-                    </div>
-                    <div className="p-2">
-                      <Link to="department">תחבורה</Link>
-                    </div>
+
                     {role === "SUPERADMIN" && (
                       <div>
                         <div className="p-2">
@@ -150,9 +164,6 @@ export const Navbar = (props) => {
                         </div>
                         <div className="p-2">
                           <Link to="updatebonusses">עריכת הטבות</Link>
-                        </div>
-                        <div className="p-2">
-                          <Link to="add-event">עריכת יומן</Link>
                         </div>
                       </div>
                     )}

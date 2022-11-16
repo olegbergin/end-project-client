@@ -1,44 +1,48 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import axios from "axios";
 
 export const AdminRegister = () => {
   const [image, setImage] = useState("");
-  const {
-    register,
-    handleSubmit,
-    reset,
-  } = useForm();
+  const { register, handleSubmit, reset } = useForm();
+  const [departmentNames, setDepartmentNames] = useState();
 
-  const onSubmit = async (data,e) => {
+  useEffect(() => {
+    axios
+      .post("http://localhost:5000/name/getnames")
+      .then((res) => setDepartmentNames(res.data));
+  }, []);
+
+  const onSubmit = async (data, e) => {
     e.preventDefault();
-    const formData = new FormData()
-    formData.append('file',image)
-    formData.append('upload_preset',"oo2ebqls")
+    const formData = new FormData();
+    formData.append("file", image);
+    formData.append("upload_preset", "oo2ebqls");
 
-    axios.post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload",formData)
-    .then((response)=>
- axios
-      .post("http://localhost:5000/auth/registration", {
-        email: data.email,
-        password: data.password,
-        fullname: data.fullname,
-        phone: data.phone,
-        sex: data.sex,
-        adress: data.adress,
-        birthday: new Date(data.birthday),
-        department: data.department,
-        role: data.role,
-        image: response.data.secure_url,
-        contract: data.contract,
-      })
-      .then((res) => {
-        alert(res.data.message);
-      }))
+    axios
+      .post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload", formData)
+      .then((response) =>
+        axios
+          .post("http://localhost:5000/auth/registration", {
+            email: data.email,
+            password: data.password,
+            fullname: data.fullname,
+            phone: data.phone,
+            sex: data.sex,
+            adress: data.adress,
+            birthday: new Date(data.birthday),
+            department: data.department,
+            role: data.role,
+            image: response.data.secure_url,
+            contract: data.contract,
+          })
+          .then((res) => {
+            alert(res.data.message);
+          })
+      );
     reset();
   };
-
 
   return (
     <div className="bg-gray-900  min-h-screen">
@@ -107,14 +111,23 @@ export const AdminRegister = () => {
                     >
                       אגף{" "}
                     </label>
-                    <input
+                    <select
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
-                      type="text"
+                      type="select"
                       placeholder="Department"
                       {...register("department", {
                         required: true,
                       })}
-                    />
+                    >
+                      {departmentNames?.map((theName, index) => {
+                        return (
+                          <option key={index} value={theName.theName}>
+                            {theName.theName}
+                          </option>
+                        );
+                      })}
+                    </select>
+
                     <label
                       htmlFor=""
                       className="flex  text-blue-900 text-xs font-semibold mx-2"
