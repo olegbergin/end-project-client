@@ -36,9 +36,6 @@ const UpdateBonusses = () => {
       
     } 
 
-
-
-
   const handledelete = async (elemant) => {
     elemant.preventDefault();
     try {
