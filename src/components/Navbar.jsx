@@ -96,6 +96,10 @@ export const Navbar = (props) => {
                       <div className="p-2">
                         <Link to="updatebonusses">עריכת הטבות</Link>
                       </div>
+                      <hr />
+                      <div className="p-2">
+                        <Link to="departmentedit">עריכת אגפים</Link>
+                      </div>
                     </div>
                   )}
                 </div>
