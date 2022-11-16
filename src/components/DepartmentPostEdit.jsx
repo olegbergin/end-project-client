@@ -13,54 +13,47 @@ function DepartmentPostEdit() {
   const [department, setdepartment] = useState("");
   const [date, setDate] = useState();
   const [deletepost, setDeletepost] = useState("");
-  const [imgeUrl, setImageUrl] = useState("");
+
   const [departmentNames, setDepartmentNames] = useState();
+
+
   const {
     register,
-    formState: { errors },
     reset,
   } = useForm();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await uploadImage();
-    try {
-      imgeUrl &&
-        (await axios
-          .post(`${url}/departmentedit`, {
-            title: title,
-            department: department,
-            description: description,
-            date: date,
-            image: imgeUrl,
-          })
-          .then((res) => console.log(res.data))
-          .then(reset()));
-    } catch (error) {
-      console.log("error!!");
-    }
+    const formData = new FormData()
+    formData.append('file',image)
+    formData.append('upload_preset',"oo2ebqls")
+    axios.post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload",formData)
+    .then((response)=> axios
+        .post(`${url}/departmentedit`, {
+          title: title,
+          department: department,
+          description: description,
+          date: date,
+          image: response.data.secure_url,
+        })
+        .then((res) => console.log(res.data))
+        .then(reset()))
+
   };
 
   const handledelete = async (elemant) => {
     elemant.preventDefault();
     try {
       await axios
-        .delete(`http://localhost:5000/departments/${deletepost}`)
+        .delete(`http://localhost:5000/departments/delete/${deletepost}`)
         .then((res) => console.log(res.data));
     } catch (error) {
       console.log("error!!!!");
     }
+    setDeletepost('')
   };
-
-  const uploadImage = () => {
-    const formData = new FormData();
-    formData.append("file", image);
-    formData.append("upload_preset", "oo2ebqls");
-
-    axios
-      .post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload", formData)
-      .then((response) => setImageUrl(response.data.secure_url));
-  };
+   
+  
 
   useEffect(() => {
     axios
@@ -109,6 +102,7 @@ function DepartmentPostEdit() {
             placeholder="כותרת"
             {...register("Title", { required: true, pattern: /"[A-Za-z]+"/i })}
             onChange={(e) => setTitle(e.target.value)}
+            
           />
           <label
             htmlFor=""

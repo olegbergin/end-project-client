@@ -48,15 +48,15 @@ export const Navbar = (props) => {
                   {props.isOpen && (
                     <div className=" text-white absolute bg-gray-900 w-44 border-2 border-black text-center mt-12 rounded-md z-10">
                       <div className="p-2">
-                        <Link to="department">לוגיסטיקה</Link>
+                        <Link to="department"  state={{department:"לוגיסטיקה"}}>לוגיסטיקה</Link>
                       </div>
                       <hr />
                       <div className="p-2">
-                        <Link to="department">בריאות</Link>
+                        <Link to="department" state={{department:"בריאות"}}>בריאות</Link>
                       </div>
                       <hr />
                       <div className="p-2">
-                        <Link to="department">תחבורה</Link>
+                        <Link to="department" state={{department:"תחבורה"}}>תחבורה</Link>
                       </div>
                     </div>
                   )}
@@ -132,7 +132,7 @@ export const Navbar = (props) => {
                       <Link to="bonusses">הטבות</Link>
                     </div>
                     <div className="p-2">
-                      <Link to="department">לוגיסטיקה</Link>
+                      <Link to="department" state={{department:"לוגיסטיקה"}}>לוגיסטיקה</Link>
                     </div>
                     <div className="p-2">
                       <Link to="department">בריאות</Link>
