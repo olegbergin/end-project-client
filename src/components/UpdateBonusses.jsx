@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
+// import { useRef } from "react";
+// import { useEffect } from "react";
 
 const url = "http://localhost:5000/bonuses";
 
@@ -13,9 +15,11 @@ const UpdateBonusses = () => {
   const [deletebonus, setDeletebonus] = useState("");
   const [image, setImage] = useState("");
   
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    
     const formData = new FormData()
     formData.append('file',image)
     formData.append('upload_preset',"oo2ebqls")
@@ -36,6 +40,7 @@ const UpdateBonusses = () => {
       
     } 
 
+
   const handledelete = async (elemant) => {
     elemant.preventDefault();
     try {
@@ -45,6 +50,7 @@ const UpdateBonusses = () => {
     } catch (error) {
       console.log("error!!!!");
     }
+    setDeletebonus('')
   };
 
   return (
@@ -72,6 +78,7 @@ const UpdateBonusses = () => {
                   value={title}
                   name="title"
                   onChange={(e) => setTitle(e.target.value)}
+                 
                 />
               </div>
               <div className="mb-1 sm:mb-2">
@@ -165,6 +172,7 @@ const UpdateBonusses = () => {
               </div>
               <div className="mt-4 mb-2 sm:mb-4 text-center">
                 <button
+                  // onClick={setsubmitReset(false)}
                   type="submit"
                   className="w-56    h-12 px-6 font-medium tracking-wide text-green-700 transition duration-200 rounded shadow-md  hover:bg-gray-700 hover:border-2 hover:border-gray-900 hover:text-white focus:shadow-outline focus:outline-none mb-4"
                 >

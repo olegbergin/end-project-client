@@ -19,6 +19,8 @@ function DepartmentPostEdit() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+<
+
     const formData = new FormData()
     formData.append('file',image)
     formData.append('upload_preset',"oo2ebqls")
@@ -34,17 +36,19 @@ function DepartmentPostEdit() {
         })
         .then((res) => console.log(res.data))
         .then(reset()))
+
   };
 
   const handledelete = async (elemant) => {
     elemant.preventDefault();
     try {
       await axios
-        .delete(`http://localhost:5000/departments/${deletepost}`)
+        .delete(`http://localhost:5000/departments/delete/${deletepost}`)
         .then((res) => console.log(res.data));
     } catch (error) {
       console.log("error!!!!");
     }
+    setDeletepost('')
   };
    
   
@@ -87,6 +91,7 @@ function DepartmentPostEdit() {
             placeholder="כותרת"
             {...register("Title", { required: true, pattern: /"[A-Za-z]+"/i })}
             onChange={(e) => setTitle(e.target.value)}
+            
           />
           <label
             htmlFor=""
