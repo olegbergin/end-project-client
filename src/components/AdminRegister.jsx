@@ -4,20 +4,22 @@ import { useState } from "react";
 import axios from "axios";
 
 export const AdminRegister = () => {
-  const [imgeUrl, setImageUrl] = useState("");
   const [image, setImage] = useState("");
   const {
     register,
     handleSubmit,
-    formState: { errors },
     reset,
   } = useForm();
 
   const onSubmit = async (data,e) => {
     e.preventDefault();
-    await uploadImage()
-    try { imgeUrl && 
-      await axios
+    const formData = new FormData()
+    formData.append('file',image)
+    formData.append('upload_preset',"oo2ebqls")
+
+    axios.post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload",formData)
+    .then((response)=>
+ axios
       .post("http://localhost:5000/auth/registration", {
         email: data.email,
         password: data.password,
@@ -28,28 +30,15 @@ export const AdminRegister = () => {
         birthday: new Date(data.birthday),
         department: data.department,
         role: data.role,
-        image: imgeUrl,
+        image: response.data.secure_url,
         contract: data.contract,
       })
       .then((res) => {
         alert(res.data.message);
-      });
+      }))
     reset();
-    console.log(errors);
-    } catch (error) {
-    console.log("error!!");
-  }
   };
 
-  const uploadImage=()=>{
-    const formData = new FormData()
-    formData.append('file',image)
-    formData.append('upload_preset',"oo2ebqls")
-
-    axios.post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload",formData)
-    .then((response)=>setImageUrl(response.data.secure_url))
-    console.log(imgeUrl);
-  }
 
   return (
     <div className="bg-gray-900  min-h-screen">
@@ -228,7 +217,7 @@ export const AdminRegister = () => {
                     <input
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
                       type="file"
-                      accept="image/png/jpg/svg/gif/jpeg"
+                      accept="image/png/jpg/svg/gif/jpeg/pneg"
                       placeholder="Image"
                       onChange={(e) => setImage(e.target.files[0])}
                     />
