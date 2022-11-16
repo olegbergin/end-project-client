@@ -12,31 +12,28 @@ function DepartmentPostEdit() {
   const [department, setdepartment] = useState("");
   const [date, setDate] = useState();
   const [deletepost, setDeletepost] = useState("");
-  const [imgeUrl, setImageUrl] = useState("");
   const {
     register,
-    formState: { errors },
     reset,
   } = useForm();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await uploadImage();
-    try {
-      imgeUrl &&
-        (await axios
-          .post(`${url}/departmentedit`, {
-            title: title,
-            department: department,
-            description: description,
-            date: date,
-            image: imgeUrl,
-          })
-          .then((res) => console.log(res.data))
-          .then(reset()));
-    } catch (error) {
-      console.log("error!!");
-    }
+    const formData = new FormData()
+    formData.append('file',image)
+    formData.append('upload_preset',"oo2ebqls")
+
+    axios.post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload",formData)
+    .then((response)=> axios
+        .post(`${url}/departmentedit`, {
+          title: title,
+          department: department,
+          description: description,
+          date: date,
+          image: response.data.secure_url,
+        })
+        .then((res) => console.log(res.data))
+        .then(reset()))
   };
 
   const handledelete = async (elemant) => {
@@ -49,17 +46,9 @@ function DepartmentPostEdit() {
       console.log("error!!!!");
     }
   };
-
-  const uploadImage = () => {
-    const formData = new FormData();
-    formData.append("file", image);
-    formData.append("upload_preset", "oo2ebqls");
-
-    axios
-      .post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload", formData)
-      .then((response) => setImageUrl(response.data.secure_url));
-  };
+   
   
+
   return (
     <div className="bg-gray-200 min-h-screen mt-24 w-screen">
       <div className=" flex justify-around  flex-col items-center">
