@@ -9,38 +9,37 @@ const url = "http://localhost:5000/bonuses";
 const UpdateBonusses = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
   const [link, setLink] = useState("");
   const [linktitle, setLinktitle] = useState("");
   const [date, setDate] = useState();
   const [deletebonus, setDeletebonus] = useState("");
-
-  console.log(deletebonus);
-
- 
-
+  const [image, setImage] = useState("");
+  
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await axios
-        .post(`${url}/update`, {
-          title: title,
-          description: description,
-          image: image,
-          link: link,
-          linktitle: linktitle,
-          date: date,
-        })
-        .then((res) => console.log(res.data));
-    } catch (error) {
-      console.log("error!");
-    }
-    setTitle('')
-    setDescription('')
-    setImage('')
-    setLink('')
-    setLinktitle('')
-  };
+    
+    
+    const formData = new FormData()
+    formData.append('file',image)
+    formData.append('upload_preset',"oo2ebqls")
+
+    axios.post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload",formData)
+    .then((response)=>
+      axios
+         .post(`${url}/update`, {
+           title: title,
+           description: description,
+           image: response.data.secure_url,
+           link: link,
+           linktitle: linktitle,
+           date: date,
+         })
+         .then((res) => console.log(res.data))
+    )
+      
+    } 
+
 
   const handledelete = async (elemant) => {
     elemant.preventDefault();
@@ -110,10 +109,10 @@ const UpdateBonusses = () => {
                 <br />
                 <input
                   placeholder="הוסף תמונה"
+                  type="file"
                   className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1"
-                  required
-                  type="text"
-                  onChange={(e) => setImage(e.target.value)}
+                  accept="image/png/jpeg/svg/gif/jpg"
+                  onChange={(e) => setImage(e.target.files[0])}
                 />
               </div>
               <div className="mb-1 sm:mb-2">
