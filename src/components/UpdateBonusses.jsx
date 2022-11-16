@@ -17,7 +17,6 @@ const UpdateBonusses = () => {
   const {
     register,
     reset,
-    formState: { errors },
   } = useForm();
 
   const handleSubmit = async (e) => {
@@ -50,7 +49,7 @@ const UpdateBonusses = () => {
         .delete(`http://localhost:5000/bonuses/delete/${deletebonus}`)
         .then((res) => console.log(res.data));
     } catch (error) {
-      console.log("error!!!!");
+      console.log(error);
     }
   };
 
