@@ -21,7 +21,8 @@ const schema = yup.object().shape({
 
 export const AdminRegister = () => {
   const [image, setImage] = useState("");
-
+  const [departmentNames, setDepartmentNames] = useState();
+  
   const {
     register,
     handleSubmit,
