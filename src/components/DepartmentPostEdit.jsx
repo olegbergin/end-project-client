@@ -3,6 +3,16 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
+
+const schema = yup.object().shape({
+  title: yup.string().required(),
+  department: yup.string().required(),
+  description: yup.string().required(),
+  date: yup.string().required(),
+  image: yup.string().required()
+});
 
 const url = "http://localhost:5000/departments";
 
@@ -13,14 +23,13 @@ function DepartmentPostEdit() {
   const [department, setdepartment] = useState("");
   const [date, setDate] = useState();
   const [deletepost, setDeletepost] = useState("");
-
   const [departmentNames, setDepartmentNames] = useState();
 
 
   const {
     register,
     reset,
-  } = useForm();
+  } = useForm({ mode: "all", resolver: yupResolver(schema) });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
