@@ -1,7 +1,11 @@
+import React from "react";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import axios from "axios";
 
 export const AdminRegister = () => {
+  const [imgeUrl, setImageUrl] = useState("");
+  const [image, setImage] = useState("");
   const {
     register,
     handleSubmit,
@@ -9,8 +13,11 @@ export const AdminRegister = () => {
     reset,
   } = useForm();
 
-  const onSubmit = async (data) => {
-    axios
+  const onSubmit = async (data,e) => {
+    e.preventDefault();
+    await uploadImage()
+    try { imgeUrl && 
+      await axios
       .post("http://localhost:5000/auth/registration", {
         email: data.email,
         password: data.password,
@@ -21,7 +28,7 @@ export const AdminRegister = () => {
         birthday: new Date(data.birthday),
         department: data.department,
         role: data.role,
-        image: data.image,
+        image: imgeUrl,
         contract: data.contract,
       })
       .then((res) => {
@@ -29,7 +36,20 @@ export const AdminRegister = () => {
       });
     reset();
     console.log(errors);
+    } catch (error) {
+    console.log("error!!");
+  }
   };
+
+  const uploadImage=()=>{
+    const formData = new FormData()
+    formData.append('file',image)
+    formData.append('upload_preset',"oo2ebqls")
+
+    axios.post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload",formData)
+    .then((response)=>setImageUrl(response.data.secure_url))
+    console.log(imgeUrl);
+  }
 
   return (
     <div className="bg-gray-900  min-h-screen">
@@ -207,12 +227,10 @@ export const AdminRegister = () => {
                     </label>
                     <input
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
-                      type="text"
-                      // accept="image/png/jpg/svg/gif/jpeg"
+                      type="file"
+                      accept="image/png/jpg/svg/gif/jpeg"
                       placeholder="Image"
-                      {...register("image", {
-                        required: true,
-                      })}
+                      onChange={(e) => setImage(e.target.files[0])}
                     />
                   </div>
                 </div>

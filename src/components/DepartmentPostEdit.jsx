@@ -59,7 +59,7 @@ function DepartmentPostEdit() {
       .post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload", formData)
       .then((response) => setImageUrl(response.data.secure_url));
   };
-
+  
   return (
     <div className="bg-gray-200 min-h-screen mt-24 w-screen">
       <div className=" flex justify-around  flex-col items-center">
