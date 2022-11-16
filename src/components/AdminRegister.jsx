@@ -1,32 +1,35 @@
 import { useForm } from "react-hook-form";
-import axios from 'axios';
-
+import axios from "axios";
 
 export const AdminRegister = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
   const onSubmit = async (data) => {
-    axios.post('http://localhost:5000/auth/registration', {
-      "email": data.email,
-      "password": data.password,
-      "fullname": data.fullname,
-      "phone": data.phone,
-      "sex":data.sex,
-      "adress":data.adress,
-      "birthday": new Date(data.birthday),
-      "department":data.department,
-      "role":data.role,
-      "image": data.image,
-      "contract": data.contract
-    })
-      .then((res) => { alert(res.data.message) })
-      console.log(errors);
+    axios
+      .post("http://localhost:5000/auth/registration", {
+        email: data.email,
+        password: data.password,
+        fullname: data.fullname,
+        phone: data.phone,
+        sex: data.sex,
+        adress: data.adress,
+        birthday: new Date(data.birthday),
+        department: data.department,
+        role: data.role,
+        image: data.image,
+        contract: data.contract,
+      })
+      .then((res) => {
+        alert(res.data.message);
+      });
+    reset();
+    console.log(errors);
   };
-
 
   return (
     <div className="bg-gray-900  min-h-screen">
@@ -39,24 +42,27 @@ export const AdminRegister = () => {
           </div>
           <div className=" xl:px-8 ">
             <div className="flex flex-col items-center md:relative lg:relative">
-              <form onSubmit={handleSubmit(onSubmit)} className="bg-white ">
-                <div className="flex p-8">
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="bg-white flex flex-col justify-center items-center"
+              >
+                <label
+                  htmlFor=""
+                  className="flex  text-blue-900 text-xs font-semibold mx-2 mt-4"
+                >
+                  שם מלא{" "}
+                </label>
+                <input
+                  className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline mx-2 w-5/6"
+                  type="text"
+                  placeholder="Full Name"
+                  {...register("fullname", {
+                    required: true,
+                    maxLength: 80,
+                  })}
+                />
+                <div className="flex p-2">
                   <div>
-                    <label
-                      htmlFor=""
-                      className="flex  text-blue-900 text-xs font-semibold mx-2"
-                    >
-                      שם מלא{" "}
-                    </label>
-                    <input
-                      className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
-                      type="text"
-                      placeholder="Full Name"
-                      {...register("fullname", {
-                        required: true,
-                        maxLength: 80,
-                      })}
-                    />
                     <label
                       htmlFor=""
                       className="flex  text-blue-900 text-xs font-semibold mx-2"
@@ -192,20 +198,6 @@ export const AdminRegister = () => {
                       {...register("birthday", {
                         required: true,
                       })}
-                    />
-                    <label
-                      htmlFor=""
-                      className="flex  text-blue-900 text-xs font-semibold mx-2"
-                    >
-                      אימייל{" "}
-                    </label>
-                    <input
-                      className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
-                      type="email"
-                      placeholder="Email"
-                      disabled
-
-
                     />
                     <label
                       htmlFor=""

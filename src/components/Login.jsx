@@ -4,12 +4,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { useDispatch } from "react-redux";
-import { updateToken, updateName, updateRole } from "../redux/userSlice";
+import {
+  updateToken,
+  updateName,
+  updateRole,
+  updateEmail,
+} from "../redux/userSlice";
 
-import {  useNavigate } from "react-router-dom";
-
-
-
+import { useNavigate } from "react-router-dom";
 
 const schema = yup.object().shape({
   email: yup.string().required(),
@@ -24,7 +26,6 @@ export const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
   const {
     register,
     formState: { errors, isValid },
@@ -33,15 +34,20 @@ export const Login = () => {
   } = useForm({ mode: "all", resolver: yupResolver(schema) });
 
   const onSubmit = async (data) => {
-    axios.post('http://localhost:5000/auth/login', { "email": data.email, "password": data.password })
-    .then((res) => {
-      dispatch(updateToken(res.data.token))
-      localStorage.setItem("myToken", res.data.token)
-      var decoded = jwt_decode(res.data.token)
-      dispatch(updateRole(decoded.role))
-      dispatch(updateName(decoded.fullname))
-    })
-    
+    axios
+      .post("http://localhost:5000/auth/login", {
+        email: data.email,
+        password: data.password,
+      })
+      .then((res) => {
+        dispatch(updateToken(res.data.token));
+        localStorage.setItem("myToken", res.data.token);
+        var decoded = jwt_decode(res.data.token);
+        dispatch(updateRole(decoded.role));
+        dispatch(updateName(decoded.fullname));
+        dispatch(updateEmail(decoded.id));
+      });
+
     reset();
     navigate("/profile");
   };

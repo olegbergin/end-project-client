@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 
 export const Messanger = (props) => {
   const userName = useSelector((state) => state.user.fullname);
-  console.log(userName);
   const [arrow, setArrow] = useState(false);
   const [inputValue, setInputValue] = useState();
   const { socket, messageList } = props;
