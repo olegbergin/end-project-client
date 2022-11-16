@@ -21,18 +21,19 @@ function DepartmentPostEdit() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await uploadImage()
-    try { imgeUrl && 
-      await axios
-        .post(`${url}/departmentedit`, {
-          title: title,
-          department: department,
-          description: description,
-          date: date,
-          image: imgeUrl,
-        })
-        .then((res) => console.log(res.data))
-        .then(reset());
+    await uploadImage();
+    try {
+      imgeUrl &&
+        (await axios
+          .post(`${url}/departmentedit`, {
+            title: title,
+            department: department,
+            description: description,
+            date: date,
+            image: imgeUrl,
+          })
+          .then((res) => console.log(res.data))
+          .then(reset()));
     } catch (error) {
       console.log("error!!");
     }
@@ -48,23 +49,23 @@ function DepartmentPostEdit() {
       console.log("error!!!!");
     }
   };
-   
-  const uploadImage=()=>{
-    const formData = new FormData()
-    formData.append('file',image)
-    formData.append('upload_preset',"oo2ebqls")
 
-    axios.post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload",formData)
-    .then((response)=>setImageUrl(response.data.secure_url))
+  const uploadImage = () => {
+    const formData = new FormData();
+    formData.append("file", image);
+    formData.append("upload_preset", "oo2ebqls");
 
-  }
+    axios
+      .post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload", formData)
+      .then((response) => setImageUrl(response.data.secure_url));
+  };
 
   return (
-    <div className="bg-gray-900 min-h-screen mt-24 w-screen">
-      <div className=" flex justify-center space-x-7 ">
+    <div className="bg-gray-200 min-h-screen mt-24 w-screen">
+      <div className=" flex justify-around  flex-col items-center">
         <form
           onSubmit={handleSubmit}
-          className="flex justify-center flex-col text-xl  bg-white m-16 p-5"
+          className="flex justify-center flex-col text-xl  bg-white m-10 p-5"
         >
           <h1 className="text-center text-3xl font-bold">הוספת אירוע</h1>
           <label
@@ -147,36 +148,40 @@ function DepartmentPostEdit() {
             </button>
           </div>
         </form>
+        <div className="m-10">
+          <div className=" bg-white rounded  sm:p-10 p-5">
+            <h3 className="text-center text-3xl font-bold mb-5">
+              מחק אירוע לעובדים:
+            </h3>
+            <form onSubmit={handledelete}>
+              <div className="mb-1 sm:mb-2 ">
+                <label
+                  htmlFor="email"
+                  className="flex  text-blue-900 text-sm font-semibold "
+                >
+                  שם האירוע שתרצה למחוק:
+                </label>
+                <input
+                  placeholder="שם האירוע המדויק"
+                  required
+                  type="text"
+                  className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-3"
+                  id="deletebonus"
+                  name="deletebonus"
+                  onChange={(elemant) => setDeletepost(elemant.target.value)}
+                />
+              </div>
 
-        <div className="relative bg-white rounded shadow-2x1 p-7 sm:p-10 mt-24">
-          <h3 className="mb-4 text-xl font-semibold sm:text-center sm:mb-6 sm:text-2xl">
-            מחק אירוע לעובדים:
-          </h3>
-          <form onSubmit={handledelete}>
-            <div className="mb-1 sm:mb-2">
-              <label htmlFor="email" className="inline-block mb-1 font-medium">
-                שם האירוע שתרצה למחוק:
-              </label>
-              <input
-                placeholder="שם האירוע המדויק"
-                required
-                type="text"
-                className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
-                id="deletebonus"
-                name="deletebonus"
-                onChange={(elemant) => setDeletepost(elemant.target.value)}
-              />
-            </div>
-
-            <div className="mt-4 mb-2 sm:mb-4">
-              <button
-                type="submit"
-                className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-green-700 transition duration-200 rounded shadow-md  hover:bg-gray-700 hover:border-2 hover:border-gray-900 hover:text-white focus:shadow-outline focus:outline-none"
-              >
-                מחק הטבה
-              </button>
-            </div>
-          </form>
+              <div className="mt-4 mb-2 sm:mb-4 text-center">
+                <button
+                  type="submit"
+                  className="w-56 h-12 px-6 font-medium tracking-wide text-green-700 transition duration-200 rounded shadow-md  hover:bg-gray-700 hover:border-2 hover:border-gray-900 hover:text-white focus:shadow-outline focus:outline-none"
+                >
+                  מחק הטבה
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
