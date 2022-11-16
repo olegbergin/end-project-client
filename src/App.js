@@ -16,7 +16,6 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { updateEmail, updateName, updateRole } from "./redux/userSlice";
 import jwt_decode from "jwt-decode";
-import AddEvent from "./components/AddEventCalendar";
 import { Home } from "./components/Home";
 
 function App() {
@@ -123,7 +122,6 @@ function App() {
           <Route path="terms" element={<Terms />} />
           <Route path="login" element={<Profile />} />
           <Route path="calendar" element={<Calendar />} />
-          <Route path="add-event" element={<AddEvent />} />
           <Route path="bonusses" element={<Bonusses />} />
         </Routes>
       )}
