@@ -17,6 +17,8 @@ import { useDispatch } from "react-redux";
 import { updateEmail, updateName, updateRole } from "./redux/userSlice";
 import jwt_decode from "jwt-decode";
 import { Home } from "./components/Home";
+import { AddDepartments } from "./components/AddDepartment";
+import { PropsProfile } from "./components/PropsProfile";
 
 function App() {
   const socket = io.connect(`http://localhost:5000`, {
@@ -97,6 +99,8 @@ function App() {
           <Route path="login" element={<Profile />} />
           <Route path="bonusses" element={<Bonusses />} />
           <Route path="calendar" element={<Calendar />} />
+          <Route path="calendar" element={<Calendar />} />
+          <Route path="companyuser" element={<PropsProfile />} />
         </Routes>
       )}
       {role === "ADMIN" && (
@@ -109,6 +113,7 @@ function App() {
           <Route path="login" element={<Profile />} />
           <Route path="bonusses" element={<Bonusses />} />
           <Route path="calendar" element={<Calendar />} />
+          <Route path="companyuser" element={<PropsProfile />} />
         </Routes>
       )}
       {role === "SUPERADMIN" && (
@@ -123,6 +128,8 @@ function App() {
           <Route path="login" element={<Profile />} />
           <Route path="calendar" element={<Calendar />} />
           <Route path="bonusses" element={<Bonusses />} />
+          <Route path="departmentedit" element={<AddDepartments />} />
+          <Route path="companyuser" element={<PropsProfile />} />
         </Routes>
       )}
     </div>
