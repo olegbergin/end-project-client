@@ -12,10 +12,10 @@ const schema = yup.object().shape({
   phone: yup.string().required(),
   sex: yup.string().required(),
   adress: yup.string().required(),
-  birthday: yup.string().required(),
+  birthday: yup.date().required(),
   department: yup.string().required(),
   role: yup.string().required(),
-  image: yup.mixed().required(),
+  // image: yup.string().required(),
   contract: yup.string().required()
 });
 
@@ -27,6 +27,7 @@ export const AdminRegister = () => {
     register,
     handleSubmit,
     reset,
+    formState: { errors },
   } = useForm({ mode: "all", resolver: yupResolver(schema) });
 
 
@@ -93,6 +94,11 @@ export const AdminRegister = () => {
                   placeholder="Full Name"
                   {...register("fullname")}
                 />
+                {errors?.fullname && (
+                  <p className="text-red-600">
+                    {errors?.fullname?.message || "Error!"}
+                  </p>
+                )}
                 <div className="flex p-2">
                   <div>
                     <label
@@ -107,6 +113,11 @@ export const AdminRegister = () => {
                       placeholder="email"
                       {...register("email")}
                     />
+                    {errors?.email && (
+                      <p className="text-red-600">
+                        {errors?.email?.message || "Error!"}
+                      </p>
+                    )}
                     <label
                       htmlFor=""
                       className="flex  text-blue-900 text-xs font-semibold mx-2"
@@ -119,6 +130,11 @@ export const AdminRegister = () => {
                       placeholder="Adress"
                       {...register("adress")}
                     />
+                    {errors?.adress && (
+                      <p className="text-red-600">
+                        {errors?.adress?.message || "Error!"}
+                      </p>
+                    )}
                     <label
                       htmlFor=""
                       className="flex  text-blue-900 text-xs font-semibold mx-2"
@@ -139,7 +155,11 @@ export const AdminRegister = () => {
                         );
                       })}
                     </select>
-
+                    {errors?.department && (
+                      <p className="text-red-600">
+                        {errors?.department?.message || "Error!"}
+                      </p>
+                    )}
                     <label
                       htmlFor=""
                       className="flex  text-blue-900 text-xs font-semibold mx-2"
@@ -155,6 +175,11 @@ export const AdminRegister = () => {
                       <option value="ADMIN">מנהל גף</option>
                       <option value="USER">משתמש</option>
                     </select>
+                    {errors?.role && (
+                      <p className="text-red-600">
+                        {errors?.role?.message || "Error!"}
+                      </p>
+                    )}
                     <label
                       htmlFor=""
                       className="flex  text-blue-900 text-xs font-semibold mx-2"
@@ -167,6 +192,11 @@ export const AdminRegister = () => {
                       placeholder="contract"
                       {...register("contract")}
                     />
+                    {errors?.contract && (
+                      <p className="text-red-600">
+                        {errors?.contract?.message || "Error!"}
+                      </p>
+                    )}
                   </div>
                   <div>
                     <label
@@ -181,6 +211,11 @@ export const AdminRegister = () => {
                       placeholder="Mobile number"
                       {...register("phone")}
                     />
+                    {errors?.phone && (
+                      <p className="text-red-600">
+                        {errors?.phone?.message || "Error!"}
+                      </p>
+                    )}
                     <label
                       htmlFor=""
                       className="flex  text-blue-900 text-xs font-semibold mx-2"
@@ -196,6 +231,11 @@ export const AdminRegister = () => {
                       <option value="Male">זכר</option>
                       <option value="Female">נקבה</option>
                     </select>
+                    {errors?.sex && (
+                      <p className="text-red-600">
+                        {errors?.sex?.message || "Error!"}
+                      </p>
+                    )}
                     <label
                       htmlFor=""
                       className="flex  text-blue-900 text-xs font-semibold mx-2"
@@ -208,6 +248,11 @@ export const AdminRegister = () => {
                       placeholder="Password"
                       {...register("password")}
                     />
+                    {errors?.password && (
+                      <p className="text-red-600">
+                        {errors?.password?.message || "Error!"}
+                      </p>
+                    )}
                     <label
                       htmlFor=""
                       className="flex  text-blue-900 text-xs font-semibold mx-2"
@@ -221,6 +266,7 @@ export const AdminRegister = () => {
                       placeholder="Birthday"
                       {...register("birthday")}
                     />
+                    
                     <label
                       htmlFor=""
                       className="flex  text-blue-900 text-xs font-semibold mx-2"
@@ -234,6 +280,7 @@ export const AdminRegister = () => {
                       placeholder="Image"
                       onChange={(e) => setImage(e.target.files[0])}
                     />
+                    
                   </div>
                 </div>
                 <div className="text-center">
