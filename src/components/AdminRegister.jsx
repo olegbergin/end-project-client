@@ -17,6 +17,7 @@ const schema = yup.object().shape({
   role: yup.string().required(),
   // image: yup.string().required(),
   contract: yup.string().required()
+
 });
 
 export const AdminRegister = () => {
@@ -27,8 +28,10 @@ export const AdminRegister = () => {
     register,
     handleSubmit,
     reset,
+
     formState: { errors },
   } = useForm({ mode: "all", resolver: yupResolver(schema) });
+
 
 
   useEffect(() => {
