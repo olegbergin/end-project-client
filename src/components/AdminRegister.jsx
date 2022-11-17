@@ -12,21 +12,22 @@ const schema = yup.object().shape({
   phone: yup.string().required(),
   sex: yup.string().required(),
   adress: yup.string().required(),
-  birthday: yup.string().required(),
+  birthday: yup.date().required(),
   department: yup.string().required(),
   role: yup.string().required(),
-  image: yup.string().required(),
+  // image: yup.string().required(),
   contract: yup.string().required()
 });
 
 export const AdminRegister = () => {
   const [image, setImage] = useState("");
   const [departmentNames, setDepartmentNames] = useState();
-  
+
   const {
     register,
     handleSubmit,
     reset,
+    formState: { errors },
   } = useForm({ mode: "all", resolver: yupResolver(schema) });
 
 
@@ -91,11 +92,13 @@ export const AdminRegister = () => {
                   className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline mx-2 w-5/6"
                   type="text"
                   placeholder="Full Name"
-                  {...register("fullname", {
-                    required: true,
-                    maxLength: 80,
-                  })}
+                  {...register("fullname")}
                 />
+                {errors?.fullname && (
+                  <p className="text-red-600">
+                    {errors?.fullname?.message || "Error!"}
+                  </p>
+                )}
                 <div className="flex p-2">
                   <div>
                     <label
@@ -108,11 +111,13 @@ export const AdminRegister = () => {
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
                       type="text"
                       placeholder="email"
-                      {...register("email", {
-                        required: true,
-                        maxLength: 80,
-                      })}
+                      {...register("email")}
                     />
+                    {errors?.email && (
+                      <p className="text-red-600">
+                        {errors?.email?.message || "Error!"}
+                      </p>
+                    )}
                     <label
                       htmlFor=""
                       className="flex  text-blue-900 text-xs font-semibold mx-2"
@@ -123,10 +128,13 @@ export const AdminRegister = () => {
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
                       type="text"
                       placeholder="Adress"
-                      {...register("adress", {
-                        required: true,
-                      })}
+                      {...register("adress")}
                     />
+                    {errors?.adress && (
+                      <p className="text-red-600">
+                        {errors?.adress?.message || "Error!"}
+                      </p>
+                    )}
                     <label
                       htmlFor=""
                       className="flex  text-blue-900 text-xs font-semibold mx-2"
@@ -137,9 +145,7 @@ export const AdminRegister = () => {
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
                       type="select"
                       placeholder="Department"
-                      {...register("department", {
-                        required: true,
-                      })}
+                      {...register("department")}
                     >
                       {departmentNames?.map((theName, index) => {
                         return (
@@ -149,7 +155,11 @@ export const AdminRegister = () => {
                         );
                       })}
                     </select>
-
+                    {errors?.department && (
+                      <p className="text-red-600">
+                        {errors?.department?.message || "Error!"}
+                      </p>
+                    )}
                     <label
                       htmlFor=""
                       className="flex  text-blue-900 text-xs font-semibold mx-2"
@@ -160,13 +170,16 @@ export const AdminRegister = () => {
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
                       type="select"
                       placeholder="Role"
-                      {...register("role", {
-                        required: true,
-                      })}
+                      {...register("role")}
                     >
                       <option value="ADMIN">מנהל גף</option>
                       <option value="USER">משתמש</option>
                     </select>
+                    {errors?.role && (
+                      <p className="text-red-600">
+                        {errors?.role?.message || "Error!"}
+                      </p>
+                    )}
                     <label
                       htmlFor=""
                       className="flex  text-blue-900 text-xs font-semibold mx-2"
@@ -177,10 +190,13 @@ export const AdminRegister = () => {
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
                       type="text"
                       placeholder="contract"
-                      {...register("contract", {
-                        required: true,
-                      })}
+                      {...register("contract")}
                     />
+                    {errors?.contract && (
+                      <p className="text-red-600">
+                        {errors?.contract?.message || "Error!"}
+                      </p>
+                    )}
                   </div>
                   <div>
                     <label
@@ -193,10 +209,13 @@ export const AdminRegister = () => {
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
                       type="text"
                       placeholder="Mobile number"
-                      {...register("phone", {
-                        required: true,
-                      })}
+                      {...register("phone")}
                     />
+                    {errors?.phone && (
+                      <p className="text-red-600">
+                        {errors?.phone?.message || "Error!"}
+                      </p>
+                    )}
                     <label
                       htmlFor=""
                       className="flex  text-blue-900 text-xs font-semibold mx-2"
@@ -207,13 +226,16 @@ export const AdminRegister = () => {
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
                       type="select"
                       placeholder="Sex"
-                      {...register("sex", {
-                        required: true,
-                      })}
+                      {...register("sex")}
                     >
                       <option value="Male">זכר</option>
                       <option value="Female">נקבה</option>
                     </select>
+                    {errors?.sex && (
+                      <p className="text-red-600">
+                        {errors?.sex?.message || "Error!"}
+                      </p>
+                    )}
                     <label
                       htmlFor=""
                       className="flex  text-blue-900 text-xs font-semibold mx-2"
@@ -222,12 +244,15 @@ export const AdminRegister = () => {
                     </label>
                     <input
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
-                      type="password"
+                      type="text"
                       placeholder="Password"
-                      {...register("password", {
-                        required: true,
-                      })}
+                      {...register("password")}
                     />
+                    {errors?.password && (
+                      <p className="text-red-600">
+                        {errors?.password?.message || "Error!"}
+                      </p>
+                    )}
                     <label
                       htmlFor=""
                       className="flex  text-blue-900 text-xs font-semibold mx-2"
@@ -239,10 +264,9 @@ export const AdminRegister = () => {
                       type="date"
                       valueAsDate
                       placeholder="Birthday"
-                      {...register("birthday", {
-                        required: true,
-                      })}
+                      {...register("birthday")}
                     />
+                    
                     <label
                       htmlFor=""
                       className="flex  text-blue-900 text-xs font-semibold mx-2"
@@ -252,10 +276,11 @@ export const AdminRegister = () => {
                     <input
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
                       type="file"
-                      accept="image/png/jpg/svg/gif/jpeg/pneg"
+                      accept="image/png/jpg/svg/gif/jpeg/pneg/pdf"
                       placeholder="Image"
                       onChange={(e) => setImage(e.target.files[0])}
                     />
+                    
                   </div>
                 </div>
                 <div className="text-center">
