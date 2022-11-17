@@ -15,14 +15,14 @@ const schema = yup.object().shape({
   birthday: yup.string().required(),
   department: yup.string().required(),
   role: yup.string().required(),
-  image: yup.string().required(),
+  image: yup.mixed().required(),
   contract: yup.string().required()
 });
 
 export const AdminRegister = () => {
   const [image, setImage] = useState("");
   const [departmentNames, setDepartmentNames] = useState();
-  
+
   const {
     register,
     handleSubmit,
@@ -91,10 +91,7 @@ export const AdminRegister = () => {
                   className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline mx-2 w-5/6"
                   type="text"
                   placeholder="Full Name"
-                  {...register("fullname", {
-                    required: true,
-                    maxLength: 80,
-                  })}
+                  {...register("fullname")}
                 />
                 <div className="flex p-2">
                   <div>
@@ -108,10 +105,7 @@ export const AdminRegister = () => {
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
                       type="text"
                       placeholder="email"
-                      {...register("email", {
-                        required: true,
-                        maxLength: 80,
-                      })}
+                      {...register("email")}
                     />
                     <label
                       htmlFor=""
@@ -123,9 +117,7 @@ export const AdminRegister = () => {
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
                       type="text"
                       placeholder="Adress"
-                      {...register("adress", {
-                        required: true,
-                      })}
+                      {...register("adress")}
                     />
                     <label
                       htmlFor=""
@@ -137,9 +129,7 @@ export const AdminRegister = () => {
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
                       type="select"
                       placeholder="Department"
-                      {...register("department", {
-                        required: true,
-                      })}
+                      {...register("department")}
                     >
                       {departmentNames?.map((theName, index) => {
                         return (
@@ -160,9 +150,7 @@ export const AdminRegister = () => {
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
                       type="select"
                       placeholder="Role"
-                      {...register("role", {
-                        required: true,
-                      })}
+                      {...register("role")}
                     >
                       <option value="ADMIN">מנהל גף</option>
                       <option value="USER">משתמש</option>
@@ -177,9 +165,7 @@ export const AdminRegister = () => {
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
                       type="text"
                       placeholder="contract"
-                      {...register("contract", {
-                        required: true,
-                      })}
+                      {...register("contract")}
                     />
                   </div>
                   <div>
@@ -193,9 +179,7 @@ export const AdminRegister = () => {
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
                       type="text"
                       placeholder="Mobile number"
-                      {...register("phone", {
-                        required: true,
-                      })}
+                      {...register("phone")}
                     />
                     <label
                       htmlFor=""
@@ -207,9 +191,7 @@ export const AdminRegister = () => {
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
                       type="select"
                       placeholder="Sex"
-                      {...register("sex", {
-                        required: true,
-                      })}
+                      {...register("sex")}
                     >
                       <option value="Male">זכר</option>
                       <option value="Female">נקבה</option>
@@ -222,11 +204,9 @@ export const AdminRegister = () => {
                     </label>
                     <input
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
-                      type="password"
+                      type="text"
                       placeholder="Password"
-                      {...register("password", {
-                        required: true,
-                      })}
+                      {...register("password")}
                     />
                     <label
                       htmlFor=""
@@ -239,9 +219,7 @@ export const AdminRegister = () => {
                       type="date"
                       valueAsDate
                       placeholder="Birthday"
-                      {...register("birthday", {
-                        required: true,
-                      })}
+                      {...register("birthday")}
                     />
                     <label
                       htmlFor=""
@@ -252,7 +230,7 @@ export const AdminRegister = () => {
                     <input
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
                       type="file"
-                      accept="image/png/jpg/svg/gif/jpeg/pneg"
+                      accept="image/png/jpg/svg/gif/jpeg/pneg/pdf"
                       placeholder="Image"
                       onChange={(e) => setImage(e.target.files[0])}
                     />
