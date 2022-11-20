@@ -6,6 +6,8 @@ import { useEffect } from "react";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 
+const url = "http://localhost:5000/departments";
+
 const schema = yup.object().shape({
   department: yup.string().required(),
   title: yup.string().required(),
@@ -20,16 +22,9 @@ const schema = yup.object().shape({
   }),
 });
 
-const url = "http://localhost:5000/departments";
-
 function DepartmentPostEdit() {
-  // const [title, setTitle] = useState("");
-  // const [description, setDescription] = useState("");
-  // const [image, setImage] = useState("");
-  // const [department, setdepartment] = useState("");
-  // const [date, setDate] = useState();
-  const [deletepost, setDeletepost] = useState("");
 
+  const [deletepost, setDeletepost] = useState("");
   const [departmentNames, setDepartmentNames] = useState();
 
 
@@ -66,6 +61,7 @@ function DepartmentPostEdit() {
       await axios
         .delete(`http://localhost:5000/departments/delete/${deletepost}`)
         .then((res) => console.log(res.data));
+        
     } catch (error) {
       console.log(error);
     }
@@ -176,6 +172,9 @@ function DepartmentPostEdit() {
           <input
             className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1"
             type="file"
+            {...register("image", {
+              required: true,
+            })}
             accept="image/png/jpeg/svg/gif/jpg"
             {...register("image")}
           // onChange={(e) => setImage(e.target.files[0])}
@@ -197,18 +196,14 @@ function DepartmentPostEdit() {
             {...register("publish")}
 
           />
-          {errors?.publish && (
-            <p className="text-red-600">
-              {errors?.publish?.message || "Error!"}
-            </p>
-          )}
+        
           <div className="text-center">
-            <button
+            <input
               type="submit"
               className="w-56    h-12 px-6 font-medium tracking-wide text-green-700 transition duration-200 rounded shadow-md  hover:bg-gray-700 hover:border-2 hover:border-gray-900 hover:text-white focus:shadow-outline focus:outline-none mb-4"
-            >
-              פרסם
-            </button>
+              value="הוסף אירוע"
+            />
+
           </div>
         </form>
         <div className="m-10">
@@ -229,8 +224,6 @@ function DepartmentPostEdit() {
                   required
                   type="text"
                   className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-3"
-                  id="deletebonus"
-                  name="deletebonus"
                   onChange={(elemant) => setDeletepost(elemant.target.value)}
                 />
               </div>
@@ -240,7 +233,7 @@ function DepartmentPostEdit() {
                   type="submit"
                   className="w-56 h-12 px-6 font-medium tracking-wide text-green-700 transition duration-200 rounded shadow-md  hover:bg-gray-700 hover:border-2 hover:border-gray-900 hover:text-white focus:shadow-outline focus:outline-none"
                 >
-                  מחק הטבה
+                  מחק אירוע
                 </button>
               </div>
             </form>
