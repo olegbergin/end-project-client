@@ -6,51 +6,51 @@ import { useEffect } from "react";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 
+const url = "http://localhost:5000/departments";
+
 const schema = yup.object().shape({
   title: yup.string().required(),
   department: yup.string().required(),
   description: yup.string().required(),
   date: yup.string().required(),
-  image: yup.string().required()
+  // image: yup.string().required()
 });
 
-const url = "http://localhost:5000/departments";
-
 function DepartmentPostEdit() {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
-  const [department, setdepartment] = useState("");
-  const [date, setDate] = useState();
+
   const [deletepost, setDeletepost] = useState("");
-
   const [departmentNames, setDepartmentNames] = useState();
+  const [image, setImage] = useState("");
+
+  const { register, handleSubmit, reset } = useForm({
+    mode: "all",
+    resolver: yupResolver(schema),
+  });
 
 
-  const {
-    register,
-    reset,
-  } = useForm({ mode: "all", resolver: yupResolver(schema) });
-
-
-  const handleSubmit = async (e) => {
+  const onSubmit  = async (data, e) => {
     e.preventDefault();
+
     const formData = new FormData()
     formData.append('file',image)
     formData.append('upload_preset',"oo2ebqls")
-    axios.post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload",formData)
-    .then((response)=> axios
-        .post(`${url}/departmentedit`, {
-          title: title,
-          department: department,
-          description: description,
-          date: date,
-          image: response.data.secure_url,
+    axios
+         .post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload",formData)
+         .then((response)=> 
+          axios
+          .post(`${url}/departmentedit`, {
+           department: data.department,
+           title: data.title,
+           description: data.description,
+           date: data.date,
+           image: response.data.secure_url,
         })
         .then((res) => console.log(res.data))
+         .then(console.log(data))
         .then(reset()))
 
   };
+
 
   const handledelete = async (elemant) => {
     elemant.preventDefault();
@@ -58,10 +58,10 @@ function DepartmentPostEdit() {
       await axios
         .delete(`http://localhost:5000/departments/delete/${deletepost}`)
         .then((res) => console.log(res.data));
+        
     } catch (error) {
       console.log("error!!!!");
     }
-    setDeletepost('') 
   };
    
   
@@ -76,7 +76,7 @@ function DepartmentPostEdit() {
     <div className="bg-gray-200 min-h-screen mt-24 w-screen">
       <div className=" flex justify-around  flex-col items-center">
         <form
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(onSubmit)}
           className="flex justify-center flex-col text-xl  bg-white m-10 p-5"
         >
           <h1 className="text-center text-3xl font-bold">הוספת אירוע</h1>
@@ -88,9 +88,7 @@ function DepartmentPostEdit() {
           </label>
           <select
             className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1"
-            name=""
-            id=""
-            onChange={(e) => setdepartment(e.target.value)}
+            {...register("department", { required: true})}
           >
             <option value="">בחר ענף</option>
             {departmentNames?.map((name, index) => {
@@ -111,9 +109,7 @@ function DepartmentPostEdit() {
             className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1"
             type="text"
             placeholder="כותרת"
-            {...register("Title", { required: true, pattern: /"[A-Za-z]+"/i })}
-            onChange={(e) => setTitle(e.target.value)}
-            
+            {...register("title", { required: true, pattern: /"[A-Za-z]+"/i })}
           />
           <label
             htmlFor=""
@@ -125,9 +121,13 @@ function DepartmentPostEdit() {
           <textarea
             type="text"
             placeholder="מלל"
-            {...register}
+            {...register("description", {
+              required: true,
+              max: 80,
+              min: 1,
+              maxLength: 80,
+            })}
             className="border-2 border-black/10 rounded-md"
-            onChange={(e) => setDescription(e.target.value)}
           />
 
           <label
@@ -140,8 +140,9 @@ function DepartmentPostEdit() {
             className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1"
             type="date"
             placeholder="תאריך"
-            {...register}
-            onChange={(e) => setDate(e.target.value)}
+            {...register("date", {
+              required: true,
+            })}
           />
           <label
             htmlFor=""
@@ -152,16 +153,19 @@ function DepartmentPostEdit() {
           <input
             className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1"
             type="file"
+            {...register("image", {
+              required: true,
+            })}
             accept="image/png/jpeg/svg/gif/jpg"
             onChange={(e) => setImage(e.target.files[0])}
           />
           <div className="text-center">
-            <button
+            <input
               type="submit"
               className="w-56    h-12 px-6 font-medium tracking-wide text-green-700 transition duration-200 rounded shadow-md  hover:bg-gray-700 hover:border-2 hover:border-gray-900 hover:text-white focus:shadow-outline focus:outline-none mb-4"
-            >
-              פרסם
-            </button>
+              value="הוסף אירוע"
+            />
+
           </div>
         </form>
         <div className="m-10">
@@ -182,8 +186,6 @@ function DepartmentPostEdit() {
                   required
                   type="text"
                   className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-3"
-                  id="deletebonus"
-                  name="deletebonus"
                   onChange={(elemant) => setDeletepost(elemant.target.value)}
                 />
               </div>
@@ -193,7 +195,7 @@ function DepartmentPostEdit() {
                   type="submit"
                   className="w-56 h-12 px-6 font-medium tracking-wide text-green-700 transition duration-200 rounded shadow-md  hover:bg-gray-700 hover:border-2 hover:border-gray-900 hover:text-white focus:shadow-outline focus:outline-none"
                 >
-                  מחק הטבה
+                  מחק אירוע
                 </button>
               </div>
             </form>
