@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { useEffect } from "react";
+import { BsFillPhoneFill } from "react-icons/bs";
+import { MdEmail } from "react-icons/md";
+import { FaBirthdayCake } from "react-icons/fa";
 
 export const Profile = () => {
   const monthNames = [
@@ -19,14 +22,11 @@ export const Profile = () => {
     "דצמבר",
   ];
   const [theUser, setTheUser] = useState();
-  // eslint-disable-next-line
   const [status, setStatus] = useState("לא נמצא");
   const email = useSelector((state) => state.user.email);
   const day = new Date(theUser?.birthday).getDate();
   const month = new Date(theUser?.birthday).getMonth();
   const updatedBirthday = `${day} ב${monthNames[month]}`;
-
-  // updatedBirthday = updatedBirthday.toUTCString();
 
   const setTheStatus = async (e) => {
     const requestObj = {
@@ -45,58 +45,88 @@ export const Profile = () => {
   }, [email, status]);
 
   return (
-    <div className="flex j flex-col items-center mt-32">
-      <div className="mt-2 flex flex-col items-center">
-        <h1 className="text-3xl font-semibold mb-10">{theUser?.fullname}</h1>
-        <img
-          src={theUser?.image}
-          className="w-32 rounded-md border-2 border-gray-900 mb-2"
-          alt=""
-        />
-        <div className="mt-10 md:flex lg:flex sm:flex">
-          <div className="shadow-black/30 shadow-md m-2 p-2 rounded-lg font-bold text-gray-700">
-            מס' טלפון: {theUser?.phone}
+    <section className="pt-16 min-h-screen flex items-center bg-gray-200">
+      <div className="w-full  px-4 m-auto ">
+        <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16">
+          <div className="px-6">
+            <div className="flex flex-wrap justify-center items-center">
+              <div className="w-full px-4 flex justify-center pt-5">
+                <img
+                  alt="..."
+                  src={theUser?.image}
+                  className="w-44 shadow-xl rounded-full relative"
+                />
+              </div>
+            </div>
+            <div className="text-center mt-3 ">
+              <h3 className="text-3xl font-semibold leading-normal">
+                ברוך הבא: {theUser?.fullname}
+              </h3>
+              <div className="text-xl leading-normal mb-2 font-bold">
+                אגף: {theUser?.department}
+              </div>
+              <div className=" w-full mt-5 flex flex-col items-center">
+                <div>
+                  <div className="mb-1  mx-3 p-2 rounded-lg font-semibold">
+                    <h1 className="flex items-center text-xl">
+                      <MdEmail className="mt-1" />: {theUser?.email}
+                    </h1>
+                  </div>
+                  <div className="mb-1  mx-3 p-2 rounded-lg font-semibold">
+                    <span className="flex items-center text-xl">
+                      <BsFillPhoneFill />:{" "}
+                      <span dir="ltr" className="mx-1">
+                        {theUser?.phone}
+                      </span>
+                    </span>
+                  </div>
+                  <div className="mb-1  mx-3 p-2 rounded-lg font-semibold">
+                    <span className="flex items-center text-xl">
+                      <FaBirthdayCake />: {updatedBirthday}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="mt-10 py-10 border-t  text-center">
+              <div className="flex flex-wrap justify-center">
+                <div className="w-full lg:w-9/12 px-4">
+                  <span className="font-semibold text-2xl mb-5">
+                    סטטוס נוכחי:{" "}
+                  </span>
+                  <span
+                    className={
+                      theUser?.status === "לא נמצא"
+                        ? "font-semibold text-2xl mb-5 text-red-500"
+                        : theUser?.status === "בעבודה"
+                        ? "font-semibold text-2xl mb-5 text-green-700"
+                        : "font-semibold text-2xl mb-5 "
+                    }
+                  >
+                    {theUser?.status}
+                  </span>
+                  <br />
+                  <select
+                    name=""
+                    id=""
+                    onChange={async (e) => {
+                      e.target.value && setStatus(e.target.value);
+                      setTheStatus(e.target.value);
+                    }}
+                    className="text-2xl font-bold mt-5"
+                  >
+                    <option value="">שנה סטטוס</option>
+                    <option value="בעבודה">בעבודה</option>
+                    <option value="בחופשה">בחופשה</option>
+                    <option value="מחלה">מחלה</option>
+                    <option value="לא נמצא">לא נמצא</option>
+                  </select>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="shadow-black/30 shadow-md m-2 p-2 rounded-lg font-bold text-gray-700">
-            אימייל: {theUser?.email}
-          </div>
-          <div className="shadow-black/30 shadow-md m-2 p-2 rounded-lg font-bold text-gray-700">
-            אגף: {theUser?.department}
-          </div>
-          <div className="shadow-black/30 shadow-md m-2 p-2 rounded-lg font-bold text-gray-700">
-            יום הולדת: {updatedBirthday}
-          </div>
-        </div>
-        <div className="mt-5 text-center">
-          <span className="font-semibold text-xl mb-5">סטטוס: </span>
-          <span
-            className={
-              theUser?.status === "לא נמצא"
-                ? "font-semibold text-xl mb-5 text-red-500"
-                : theUser?.status === "בעבודה"
-                ? "font-semibold text-xl mb-5 text-green-700"
-                : "font-semibold text-xl mb-5 "
-            }
-          >
-            {theUser?.status}
-          </span>
-          <br />
-          <select
-            name=""
-            id=""
-            onChange={async (e) => {
-              e.target.value && setStatus(e.target.value);
-              setTheStatus(e.target.value);
-            }}
-          >
-            <option value="">שנה סטטוס</option>
-            <option value="בעבודה">בעבודה</option>
-            <option value="בחופשה">בחופשה</option>
-            <option value="מחלה">מחלה</option>
-            <option value="לא נמצא">לא נמצא</option>
-          </select>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
