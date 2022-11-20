@@ -12,17 +12,12 @@ const Bonusses = () => {
   }, []);
 
   return (
-    <div>
-      <div className="mt-32">
-        <div className="text-center m-4 text-3xl font-bold text-blue-900">
-          הטבות לעובדי העירייה
-        </div>
-        <p className="w-4/5 text-xl font-semibold pr-10">
-          אמנם היצע מגוון ההטבות המוענק לעובדים שלנו ידוע ומוערך בשוק בעבודה אבל
-          בכל זאת החלטנו לתת לכם טעימה משלל הביטוחים, הפעילויות המשפחתיות,
-          יוזמות התרבות והפנאי, שירותי הרווחה וההטבות השונות שיש אצלנו. הטוב הזה
-          ברובו עוטף לא רק את עובדי החברה אלא גם את בני משפחותיהם, כי כאלה
-          אנחנו.
+    <div className="bg-gray-200">
+      <div className="pt-32  text-center">
+        <h1 className="text-3xl font-bold text-black mb-10">הטבות</h1>
+        <p className="text-black">
+          ברוכים הבאים לאזור ההטבות. בעמוד זה יפורטו ההטבות אשר מגיעות לכם/ן
+          ופירוטן.
         </p>
       </div>
       <div className="flex flex-wrap w-screen justify-center mt-20">
@@ -38,7 +33,7 @@ const Bonusses = () => {
             isimage,
           }) => {
             return (
-              <div className="max-w-sm rounded overflow-hidden shadow-lg mx-10 h-2/3 my-5">
+              <div className="max-w-sm rounded-lg shadow-black/50 overflow-hidden shadow-lg mx-10 h-2/3 my-5 bg-white ">
                 <img
                   className="lg:h-56  min-w-full object-fill"
                   src={image}

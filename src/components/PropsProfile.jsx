@@ -45,7 +45,7 @@ export const PropsProfile = () => {
                 <img
                   alt="..."
                   src={theUser?.image}
-                  className="w-44 shadow-xl rounded-full relative"
+                  className="w-44 h-44 shadow-xl rounded-full relative"
                 />
               </div>
             </div>
