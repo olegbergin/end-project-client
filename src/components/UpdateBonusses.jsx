@@ -187,6 +187,7 @@ const UpdateBonusses = () => {
                 />
               </div>
             </form>
+            
           </div>
 
           <div className="relative bg-white rounded shadow-2x1 p-7 sm:p-10 mt-24">

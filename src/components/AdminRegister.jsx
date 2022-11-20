@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import axios from "axios";
-import { yupResolver } from '@hookform/resolvers/yup';
+import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 const schema = yup.object().shape({
@@ -16,13 +16,13 @@ const schema = yup.object().shape({
   department: yup.string().required(),
   role: yup.string().required(),
   // image: yup.string().required(),
-  contract: yup.string().required()
-
+  contract: yup.string().required(),
 });
 
 export const AdminRegister = () => {
   const [image, setImage] = useState("");
   const [departmentNames, setDepartmentNames] = useState();
+  const [deleteUser, setDeleteUser] = useState("");
 
   const {
     register,
@@ -31,8 +31,6 @@ export const AdminRegister = () => {
 
     formState: { errors },
   } = useForm({ mode: "all", resolver: yupResolver(schema) });
-
-
 
   useEffect(() => {
     axios
@@ -70,6 +68,17 @@ export const AdminRegister = () => {
     reset();
   };
 
+  const handledelete = async (elemant) => {
+    elemant.preventDefault();
+    try {
+      await axios
+        .delete(`http://localhost:5000/auth/delete/${deleteUser}`)
+        .then((res) => console.log(res.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="bg-gray-900  min-h-screen">
       <div className="py-10 ">
@@ -79,7 +88,7 @@ export const AdminRegister = () => {
               הכנסת עובדים למערכת
             </h2>
           </div>
-          <div className=" xl:px-8 ">
+          <div className=" xl:px-8 flex justify-center items-center flex-col ">
             <div className="flex flex-col items-center md:relative lg:relative">
               <form
                 onSubmit={handleSubmit(onSubmit)}
@@ -269,7 +278,7 @@ export const AdminRegister = () => {
                       placeholder="Birthday"
                       {...register("birthday")}
                     />
-                    
+
                     <label
                       htmlFor=""
                       className="flex  text-blue-900 text-xs font-semibold mx-2"
@@ -283,7 +292,6 @@ export const AdminRegister = () => {
                       placeholder="Image"
                       onChange={(e) => setImage(e.target.files[0])}
                     />
-                    
                   </div>
                 </div>
                 <div className="text-center">
@@ -293,6 +301,43 @@ export const AdminRegister = () => {
                   >
                     שמור משתמש
                   </button>
+                </div>
+              </form>
+            </div>
+            <div className=" bg-white rounded shadow-2x1 mt-20 w-1/2 flex flex-col items-center justify-center">
+              <h3 className="mb-4 text-xl font-semibold sm:text-center sm:mb-6 sm:text-2xl">
+                מחיקת משתמשים:
+              </h3>
+              <form onSubmit={handledelete}>
+                <div className="mb-1 sm:mb-2">
+                  <label
+                    htmlFor=""
+                    className="flex justify-center text-blue-900 text-xs  font-semibold "
+                  >
+                    שם המשתמש שתרצה למחוק:
+                  </label>
+                  <input
+                    placeholder="שם המשתמש המדויק"
+                    required
+                    type="text"
+                    className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1 justify-center "
+                    id="deletebonus"
+                    name="deletebonus"
+                    {...register("deletebonus", {
+                      required: true,
+                      max: 80,
+                      min: 1,
+                      maxLength: 80,
+                    })}
+                    onChange={(elemant) => setDeleteUser(elemant.target.value)}
+                  />
+                </div>
+                <div className="mt-4 mb-2 sm:mb-4 text-center">
+                  <input
+                    value="מחק משתמש"
+                    type="submit"
+                    className="w-56    h-12 px-6 font-medium tracking-wide text-green-700 transition duration-200 rounded shadow-md  hover:bg-gray-700 hover:border-2 hover:border-gray-900 hover:text-white focus:shadow-outline focus:outline-none mb-4"
+                  />
                 </div>
               </form>
             </div>
