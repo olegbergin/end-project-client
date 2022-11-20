@@ -9,48 +9,51 @@ import * as yup from "yup";
 const url = "http://localhost:5000/departments";
 
 const schema = yup.object().shape({
-  title: yup.string().required(),
   department: yup.string().required(),
+  title: yup.string().required(),
   description: yup.string().required(),
-  date: yup.string().required(),
-  // image: yup.string().required()
+  date: yup.date().required(),
+  publish: yup.bool().required(),
+  image: yup.mixed().test("file", "You need to provide a file", (value) => {
+    if (value.length > 0) {
+      return true;
+    }
+    return false;
+  }),
 });
 
 function DepartmentPostEdit() {
 
   const [deletepost, setDeletepost] = useState("");
   const [departmentNames, setDepartmentNames] = useState();
-  const [image, setImage] = useState("");
-
-  const { register, handleSubmit, reset } = useForm({
-    mode: "all",
-    resolver: yupResolver(schema),
-  });
 
 
-  const onSubmit  = async (data, e) => {
-    e.preventDefault();
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ mode: "all", resolver: yupResolver(schema) });
 
+
+  const onSubmit = async (data, e) => {
+    e.preventDefault()
     const formData = new FormData()
-    formData.append('file',image)
-    formData.append('upload_preset',"oo2ebqls")
-    axios
-         .post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload",formData)
-         .then((response)=> 
-          axios
-          .post(`${url}/departmentedit`, {
-           department: data.department,
-           title: data.title,
-           description: data.description,
-           date: data.date,
-           image: response.data.secure_url,
+    formData.append('file', data.image[0])
+    formData.append('upload_preset', "oo2ebqls")
+    axios.post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload", formData)
+      .then((response) => axios
+        .post(`${url}/departmentedit`, {
+          title: data.title,
+          department: data.department,
+          description: data.description,
+          date: new Date(data.date),
+          image: response.data.secure_url,
+          publish: data.publish
         })
         .then((res) => console.log(res.data))
-         .then(console.log(data))
         .then(reset()))
-
-  };
-
+  }
 
   const handledelete = async (elemant) => {
     elemant.preventDefault();
@@ -60,11 +63,12 @@ function DepartmentPostEdit() {
         .then((res) => console.log(res.data));
         
     } catch (error) {
-      console.log("error!!!!");
+      console.log(error);
     }
+    setDeletepost('')
   };
-   
-  
+
+
 
   useEffect(() => {
     axios
@@ -88,7 +92,9 @@ function DepartmentPostEdit() {
           </label>
           <select
             className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1"
-            {...register("department", { required: true})}
+            name=""
+            id=""
+            {...register("department")}
           >
             <option value="">בחר ענף</option>
             {departmentNames?.map((name, index) => {
@@ -99,6 +105,11 @@ function DepartmentPostEdit() {
               );
             })}
           </select>
+          {errors?.department && (
+            <p className="text-red-600">
+              {errors?.department?.message || "Error!"}
+            </p>
+          )}
           <label
             htmlFor=""
             className="flex  text-blue-900 text-sm font-semibold "
@@ -109,8 +120,13 @@ function DepartmentPostEdit() {
             className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1"
             type="text"
             placeholder="כותרת"
-            {...register("title", { required: true, pattern: /"[A-Za-z]+"/i })}
+            {...register("title")}
           />
+          {errors?.title && (
+            <p className="text-red-600">
+              {errors?.title?.message || "Error!"}
+            </p>
+          )}
           <label
             htmlFor=""
             className="flex  text-blue-900 text-sm font-semibold "
@@ -121,14 +137,14 @@ function DepartmentPostEdit() {
           <textarea
             type="text"
             placeholder="מלל"
-            {...register("description", {
-              required: true,
-              max: 80,
-              min: 1,
-              maxLength: 80,
-            })}
+            {...register("description")}
             className="border-2 border-black/10 rounded-md"
           />
+          {errors?.description && (
+            <p className="text-red-600">
+              {errors?.description?.message || "Error!"}
+            </p>
+          )}
 
           <label
             htmlFor=""
@@ -140,10 +156,13 @@ function DepartmentPostEdit() {
             className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1"
             type="date"
             placeholder="תאריך"
-            {...register("date", {
-              required: true,
-            })}
+            {...register("date")}
           />
+          {errors?.date && (
+            <p className="text-red-600">
+              {errors?.date?.message || "Error!"}
+            </p>
+          )}
           <label
             htmlFor=""
             className="flex  text-blue-900 text-sm font-semibold "
@@ -157,8 +176,27 @@ function DepartmentPostEdit() {
               required: true,
             })}
             accept="image/png/jpeg/svg/gif/jpg"
-            onChange={(e) => setImage(e.target.files[0])}
+            {...register("image")}
+          // onChange={(e) => setImage(e.target.files[0])}
           />
+          {errors?.image && (
+            <p className="text-red-600">
+              {errors?.image?.message || "Error!"}
+            </p>
+          )}
+          <label
+            htmlFor=""
+            className="flex  text-blue-900 text-sm font-semibold "
+          >
+            עדכן את כלל העובדים ?
+          </label>
+          <input
+            // className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1"
+            type="checkbox"
+            {...register("publish")}
+
+          />
+        
           <div className="text-center">
             <input
               type="submit"

@@ -42,7 +42,7 @@ export const Login = () => {
       .then((res) => {
         dispatch(updateToken(res.data.token));
         localStorage.setItem("myToken", res.data.token);
-        var decoded = jwt_decode(res.data.token);
+        const decoded = jwt_decode(res.data.token);
         dispatch(updateRole(decoded.role));
         dispatch(updateName(decoded.fullname));
         dispatch(updateEmail(decoded.id));
