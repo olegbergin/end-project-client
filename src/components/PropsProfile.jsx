@@ -6,6 +6,8 @@ import { BsFillPhoneFill } from "react-icons/bs";
 import { MdEmail } from "react-icons/md";
 import { FaBirthdayCake } from "react-icons/fa";
 
+
+
 export const PropsProfile = () => {
   const monthNames = [
     "ינואר",
@@ -30,7 +32,7 @@ export const PropsProfile = () => {
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/auth/findUser", {
+      .post(`${process.env.REACT_APP_SERVER}/auth/findUser`, {
         email: email,
       })
       .then((res) => setTheUser(res.data));

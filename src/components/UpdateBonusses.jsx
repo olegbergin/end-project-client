@@ -5,7 +5,9 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-const url = "http://localhost:5000/bonuses";
+
+
+const url = `${process.env.REACT_APP_SERVER}/bonuses`;
 
 const schema = yup.object().shape({
   title: yup.string().required(),
@@ -51,7 +53,7 @@ const UpdateBonusses = () => {
     elemant.preventDefault();
     try {
       await axios
-        .delete(`http://localhost:5000/bonuses/delete/${deletebonus}`)
+        .delete(`${process.env.REACT_APP_SERVER}/bonuses/delete/${deletebonus}`)
         .then((res) => console.log(res.data));
     } catch (error) {
       console.log(error);

@@ -5,6 +5,8 @@ import axios from "axios";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 
+
+
 const schema = yup.object().shape({
   email: yup.string().required(),
   password: yup.string().required(),
@@ -36,7 +38,7 @@ export const AdminRegister = () => {
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/name/getnames")
+      .post(`${process.env.REACT_APP_SERVER}/name/getnames`)
       .then((res) => setDepartmentNames(res.data));
   }, []);
 
@@ -50,7 +52,7 @@ export const AdminRegister = () => {
       .post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload", formData)
       .then((response) =>
         axios
-          .post("http://localhost:5000/auth/registration", {
+          .post(`${process.env.REACT_APP_SERVER}/auth/registration`, {
             email: data.email,
             password: data.password,
             fullname: data.fullname,

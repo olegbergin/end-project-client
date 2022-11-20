@@ -5,6 +5,8 @@ import { logOut } from "../redux/userSlice";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+
+
 export const Navbar = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -13,7 +15,7 @@ export const Navbar = (props) => {
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/name/getnames")
+      .post(`${process.env.REACT_APP_SERVER}/name/getnames`)
       .then((res) => setDepartmentNames(res.data));
   }, []);
 

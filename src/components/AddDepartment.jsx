@@ -1,12 +1,14 @@
 import axios from "axios";
 import { useState } from "react";
 
+
+
 export const AddDepartments = () => {
   const [departmentName, setDepartmentName] = useState();
   const [departmentName1, setDepartmentName1] = useState();
   const handleCreateSubmit = () => {
     axios
-      .post("http://localhost:5000/name/setname", {
+      .post(`${process.env.REACT_APP_SERVER}/name/setname`, {
         theName: departmentName,
       })
       .then((res) => console.log(res.data + "נוצרה בהצלחה"));
@@ -14,7 +16,7 @@ export const AddDepartments = () => {
   };
   const handleDeleteSubmit = () => {
     axios
-      .delete("http://localhost:5000/name/deletename", {
+      .delete(`${process.env.REACT_APP_SERVER}/name/deletename`, {
         data: {
           theName: departmentName1,
         },
