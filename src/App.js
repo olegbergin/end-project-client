@@ -19,6 +19,7 @@ import jwt_decode from "jwt-decode";
 import { Home } from "./components/Home";
 import { AddDepartments } from "./components/AddDepartment";
 import { PropsProfile } from "./components/PropsProfile";
+// import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   const socket = io.connect(`http://localhost:5000`, {
