@@ -28,7 +28,6 @@ export const AdminRegister = () => {
     register,
     handleSubmit,
     reset,
-
     formState: { errors },
   } = useForm({ mode: "all", resolver: yupResolver(schema) });
 

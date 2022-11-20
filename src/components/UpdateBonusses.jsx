@@ -19,7 +19,7 @@ const UpdateBonusses = () => {
   const [deletebonus, setDeletebonus] = useState("");
   const [image, setImage] = useState("");
 
-  const { register, handleSubmit, reset,} = useForm({
+  const { register, handleSubmit, reset,  } = useForm({
     mode: "all",
     resolver: yupResolver(schema),
   });
@@ -187,7 +187,6 @@ const UpdateBonusses = () => {
                 />
               </div>
             </form>
-            
           </div>
 
           <div className="relative bg-white rounded shadow-2x1 p-7 sm:p-10 mt-24">
