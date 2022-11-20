@@ -200,8 +200,8 @@ export const AdminRegister = () => {
                     </label>
                     <input
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
-                      type="text"
-                      placeholder="contract"
+                      type="String"
+                      placeholder="contract url"
                       {...register("contract")}
                     />
                     {errors?.contract && (

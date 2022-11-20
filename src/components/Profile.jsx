@@ -82,8 +82,13 @@ export const Profile = () => {
                   </div>
                   <div className="mb-1  mx-3 p-2 rounded-lg font-semibold">
                     <span className="flex items-center text-xl">
-                      <FaBirthdayCake />: {updatedBirthday}
+                      <FaBirthdayCake /> : {updatedBirthday}
                     </span>
+                  </div>
+                  <div>
+                    <a href={theUser?.contract} target="_blank">
+                      חוזה העסקה
+                    </a>
                   </div>
                 </div>
               </div>
