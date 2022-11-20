@@ -93,6 +93,7 @@ export const Profile = () => {
                       className="flex items-center text-xl"
                       href={theUser?.contract}
                       target="_blank"
+                      rel="noreferrer"
                     >
                       <FaFileContract /> : חוזה העסקה
                     </a>
