@@ -13,9 +13,7 @@ export const Home = () => {
   return (
     <div className="bg-gray-200 min-h-screen">
       <div className="pt-28 w-screen">
-        <h1 className="text-4xl font-bold text-center text-blue-900 ">
-          אירועים אחרונים
-        </h1>
+        <h1 className="text-4xl font-bold text-center  ">אירועים אחרונים</h1>
         <div className="p-10">
           {events?.map((post, index) => {
             return (
