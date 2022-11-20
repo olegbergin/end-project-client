@@ -1,6 +1,6 @@
 const Calendar = () => {
   return (
-    <div className="m-10">
+    <div className="p-10">
       <iframe
         src="https://embed.styledcalendar.com/#JZeCYjV6QXCDmqRQEnfM"
         title="calendar"
