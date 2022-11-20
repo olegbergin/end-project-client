@@ -34,6 +34,7 @@ function Department() {
       </h1>
       <div className="mt-5 sm:flex-row md:flex-row lf:flex-row flex flex-col sm:items-start md:items-start lg:items-start items-center">
         <div className="p-10 w-5/6">
+
           {postData?.map((post, index) => {
             return (
               <div
@@ -52,10 +53,14 @@ function Department() {
             );
           })}
         </div>
+
+        
         <div className="sm:w-1/6 md:w-1/6 lg:w-1/6">
           <h1 className="text-center text-xl font-bold mt-10">עובדים באגף</h1>
           <div className="flex flex-col  ml-5 border-2 border-gray-400/50 rounded-lg px-4 md:h-5/6 sm:h-5/6 lg:h-5/6 mb-4 overflow-scroll scrollbar-hide">
-            {userData?.map((user, index) => {
+
+             {
+            userData?.map((user, index) => {
               return (
                 <Link
                   to="/companyuser"
