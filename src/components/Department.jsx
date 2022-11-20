@@ -29,7 +29,7 @@ function Department() {
   }, [department]);
 
   return (
-    <div className="flex flex-col items-center ">
+    <div className="flex flex-col items-center bg-gray-200">
       {modal && (
         <div className="fixed bg-black bg-opacity-25 backdrop-blur-sm inset-0  flex flex-col items-center">
           <div className="w-screen min-h-screen pt-32 flex flex-col items-center ">
@@ -63,7 +63,7 @@ function Department() {
               })}
             </ul>
             <button
-              className="w-56  inline-flex items-center justify-center  h-12 px-6 font-medium tracking-wide text-green-700 transition duration-200 rounded shadow-md  hover:bg-gray-700 hover:border-2 hover:border-gray-900 hover:text-white focus:shadow-outline focus:outline-none mb-4 bg-white"
+              className="inline-flex items-center justify-center  h-12 px-6 font-medium border-2 border-black rounded-lg bg-gray-600 text-white hover:bg-gray-900 mb-4 transition duration-300"
               onClick={() => setModal(!modal)}
             >
               סגור
@@ -76,7 +76,7 @@ function Department() {
           אגף ה{department}
         </h1>
         <button
-          className="w-56  inline-flex items-center justify-center  h-12 px-6 font-medium tracking-wide text-green-700 transition duration-200 rounded shadow-md  hover:bg-gray-700 hover:border-2 hover:border-gray-900 hover:text-white focus:shadow-outline focus:outline-none mb-4"
+          className="inline-flex items-center justify-center  h-12 px-6 font-medium border-2 border-black rounded-lg bg-gray-600 text-white hover:bg-gray-900 mb-4 transition duration-300"
           onClick={() => setModal(!modal)}
         >
           הצג עובדים באגף
@@ -88,9 +88,9 @@ function Department() {
             return (
               <div
                 key={index}
-                className="lg:flex-row md:flex-row sm:flex-row my-10 flex flex-col items-center "
+                className="lg:flex-row md:flex-row sm:flex-row my-10 flex flex-col items-center  bg-white p-2 border-2 border-gray-700 rounded-lg"
               >
-                <img src={post.image} alt="" className="w-40 mb-5" />
+                <img src={post.image} alt="" className="w-40 " />
                 <div className="flex flex-col md:pr-10 lg:pr-10 space-y-3 justify-center items-center">
                   <h1 className="text-xl font-bold">{post.title}</h1>
                   <h1 className="text-lg font-semibold w-5/6">

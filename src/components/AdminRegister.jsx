@@ -79,11 +79,11 @@ export const AdminRegister = () => {
   };
 
   return (
-    <div className="bg-gray-900  min-h-screen">
+    <div className="bg-gray-200  min-h-screen">
       <div className="py-10 ">
         <div className=" items-center justify-between xl:flex-row mt-20">
           <div className="flex justify-center">
-            <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-white sm:text-4xl sm:leading-none">
+            <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight  sm:text-4xl sm:leading-none">
               הכנסת עובדים למערכת
             </h2>
           </div>
@@ -199,8 +199,8 @@ export const AdminRegister = () => {
                     </label>
                     <input
                       className=" flex h-12 px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 sm:w-44 w-32  mb-2 mx-2"
-                      type="text"
-                      placeholder="contract"
+                      type="String"
+                      placeholder="contract url"
                       {...register("contract")}
                     />
                     {errors?.contract && (
@@ -335,7 +335,7 @@ export const AdminRegister = () => {
                   <input
                     value="מחק משתמש"
                     type="submit"
-                    className="w-56    h-12 px-6 font-medium tracking-wide text-green-700 transition duration-200 rounded shadow-md  hover:bg-gray-700 hover:border-2 hover:border-gray-900 hover:text-white focus:shadow-outline focus:outline-none mb-4"
+                    className="w-56 cursor-pointer h-12 px-6 font-medium tracking-wide text-green-700 transition duration-200 rounded shadow-md  hover:bg-gray-700 hover:border-2 hover:border-gray-900 hover:text-white focus:shadow-outline focus:outline-none mb-4"
                   />
                 </div>
               </form>
