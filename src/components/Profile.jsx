@@ -74,7 +74,10 @@ export const Profile = () => {
                   </div>
                   <div className="mb-1  mx-3 p-2 rounded-lg font-semibold">
                     <span className="flex items-center text-xl">
-                      <BsFillPhoneFill />: {theUser?.phone}
+                      <BsFillPhoneFill />:{" "}
+                      <span dir="ltr" className="mx-1">
+                        {theUser?.phone}
+                      </span>
                     </span>
                   </div>
                   <div className="mb-1  mx-3 p-2 rounded-lg font-semibold">

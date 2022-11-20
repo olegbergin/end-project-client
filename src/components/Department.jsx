@@ -10,6 +10,7 @@ function Department() {
   const [userData, setuserData] = useState();
   const location = useLocation();
   const { department } = location.state;
+  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     axios
@@ -28,14 +29,61 @@ function Department() {
   }, [department]);
 
   return (
-    <div>
-      <div className="pt-36">
+    <div className="flex flex-col items-center ">
+      {modal && (
+        <div className="fixed bg-black bg-opacity-25 backdrop-blur-sm inset-0  flex flex-col items-center">
+          <div className="w-screen min-h-screen pt-32 flex flex-col items-center ">
+            <ul className="flex flex-col divide divide-y h-96 overflow-scroll scrollbar-hide border-2 rounded-lg mb-2 bg-white">
+              {userData?.map((user, i) => {
+                return (
+                  <Link to="/companyuser" key={i} state={{ email: user.email }}>
+                    <li className="flex flex-row p-2">
+                      <div className="select-none cursor-pointer flex flex-1 items-center p-4">
+                        <div className="flex flex-col w-10 h-10 justify-center items-center mr-4">
+                          <div className="block relative">
+                            <img
+                              alt="profil"
+                              src={user.image}
+                              className="mx-auto object-cover rounded-full h-10 w-10 "
+                            />
+                          </div>
+                        </div>
+                        <div className="flex-1 pl-1 mr-16">
+                          <div className="font-medium dark:text-white">
+                            {user.fullname}
+                          </div>
+                          <div className="text-gray-600 dark:text-gray-200 text-sm">
+                            {department}
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </Link>
+                );
+              })}
+            </ul>
+            <button
+              className="w-56  inline-flex items-center justify-center  h-12 px-6 font-medium tracking-wide text-green-700 transition duration-200 rounded shadow-md  hover:bg-gray-700 hover:border-2 hover:border-gray-900 hover:text-white focus:shadow-outline focus:outline-none mb-4 bg-white"
+              onClick={() => setModal(!modal)}
+            >
+              סגור
+            </button>
+          </div>
+        </div>
+      )}
+      <div className="pt-36 flex flex-col items-center">
         <h1 className="text-5xl flex justify-center mb-10 font-semibold text-gray-900">
           אגף ה{department}
         </h1>
+        <button
+          className="w-56  inline-flex items-center justify-center  h-12 px-6 font-medium tracking-wide text-green-700 transition duration-200 rounded shadow-md  hover:bg-gray-700 hover:border-2 hover:border-gray-900 hover:text-white focus:shadow-outline focus:outline-none mb-4"
+          onClick={() => setModal(!modal)}
+        >
+          הצג עובדים באגף
+        </button>
       </div>
       <div className="mt-5 sm:flex-row md:flex-row lf:flex-row flex flex-col sm:items-start md:items-start lg:items-start items-center ">
-        <div className="p-10 w-5/6 ">
+        <div className="p-10  ">
           {postData?.map((post, index) => {
             return (
               <div
@@ -53,30 +101,6 @@ function Department() {
               </div>
             );
           })}
-        </div>
-        <div className="sm:w-1/6 md:w-1/6 lg:w-1/6">
-          <h1 className="text-center text-xl font-bold mt-10">עובדים באגף</h1>
-          <div className="flex flex-col  ml-5 border-2 border-gray-400/50 rounded-lg px-4 md:h-5/6 sm:h-5/6 lg:h-5/6 mb-4 overflow-scroll scrollbar-hide ">
-            {userData?.map((user, index) => {
-              return (
-                <Link
-                  to="/companyuser"
-                  key={index}
-                  className="bg-slate-100 my-2 rounded-2xl h-16 p-8 md:p-0 dark:bg-slate-800 flex flex-row-reverse justify-around items-center border-black/50 border-2 "
-                  state={{ email: user.email }}
-                >
-                  <h1 className="w-2/3 font-semibold text-blue-800 text-xl pr-2 overflow-hidden scrollbar-hide">
-                    {user.fullname}
-                  </h1>
-                  <img
-                    className="w-12  h-12 rounded-full  object-fill"
-                    src={user.image}
-                    alt="Sunset in the mountains"
-                  />
-                </Link>
-              );
-            })}
-          </div>
         </div>
       </div>
     </div>
