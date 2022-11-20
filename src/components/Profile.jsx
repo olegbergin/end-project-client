@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { BsFillPhoneFill } from "react-icons/bs";
 import { MdEmail } from "react-icons/md";
 import { FaBirthdayCake } from "react-icons/fa";
+import { FaFileContract } from "react-icons/fa";
 
 export const Profile = () => {
   const monthNames = [
@@ -85,9 +86,13 @@ export const Profile = () => {
                       <FaBirthdayCake /> : {updatedBirthday}
                     </span>
                   </div>
-                  <div>
-                    <a href={theUser?.contract} target="_blank">
-                      חוזה העסקה
+                  <div className="mb-1  mx-3 p-2 rounded-lg font-semibold">
+                    <a
+                      className="flex items-center text-xl"
+                      href={theUser?.contract}
+                      target="_blank"
+                    >
+                      <FaFileContract /> : חוזה העסקה
                     </a>
                   </div>
                 </div>
