@@ -41,8 +41,10 @@ function DepartmentPostEdit() {
     const formData = new FormData()
     formData.append('file', data.image[0])
     formData.append('upload_preset', "oo2ebqls")
-    axios.post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload", formData)
-      .then((response) => axios
+    axios
+      .post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload", formData)
+      .then((response) => 
+       axios
         .post(`${url}/departmentedit`, {
           title: data.title,
           department: data.department,
