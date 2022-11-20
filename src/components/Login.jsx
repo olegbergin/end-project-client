@@ -10,8 +10,8 @@ import {
   updateRole,
   updateEmail,
 } from "../redux/userSlice";
-
 import { useNavigate } from "react-router-dom";
+
 
 const schema = yup.object().shape({
   email: yup.string().required(),
@@ -35,7 +35,7 @@ export const Login = () => {
 
   const onSubmit = async (data) => {
     axios
-      .post("http://localhost:5000/auth/login", {
+      .post(`${process.env.REACT_APP_SERVER}/auth/login`, {
         email: data.email,
         password: data.password,
       })

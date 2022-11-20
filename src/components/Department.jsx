@@ -5,6 +5,8 @@ import { useState } from "react";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 
+
+
 function Department() {
   const [postData, setpostData] = useState();
   const [userData, setuserData] = useState();
@@ -14,7 +16,7 @@ function Department() {
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/departments/data", {
+      .post(`${process.env.REACT_APP_SERVER}/departments/data`, {
         department: department,
       })
       .then((res) => setpostData(res.data));
@@ -22,7 +24,7 @@ function Department() {
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/auth/userbydepartment", {
+      .post(`${process.env.REACT_APP_SERVER}/auth/userbydepartment`, {
         department: department,
       })
       .then((res) => setuserData(res.data));

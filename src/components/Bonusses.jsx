@@ -3,11 +3,13 @@ import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 
+
+
 const Bonusses = () => {
   const [bonuses, setBonuses] = useState();
   useEffect(() => {
     axios
-      .post("http://localhost:5000/bonuses/get")
+      .post(`${process.env.REACT_APP_SERVER}/bonuses/get`)
       .then((res) => setBonuses(res.data));
   }, []);
 

@@ -3,11 +3,13 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Calendar from "./Calendar";
 
+
+
 export const Home = () => {
   const [events, setEvents] = useState();
   useEffect(() => {
     axios
-      .post("http://localhost:5000/departments/data", { department: "ראשי" })
+      .post(`${process.env.REACT_APP_SERVER}/departments/data`, { department: "ראשי" })
       .then((res) => setEvents(res.data));
   }, []);
   return (

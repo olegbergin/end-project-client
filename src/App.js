@@ -21,8 +21,9 @@ import { AddDepartments } from "./components/AddDepartment";
 import { PropsProfile } from "./components/PropsProfile";
 // import ScrollToTop from "./components/ScrollToTop";
 
+
 function App() {
-  const socket = io.connect(`http://localhost:5000`, {
+  const socket = io.connect(`${process.env.REACT_APP_SERVER}`, {
     transports: ["websocket"],
   });
 

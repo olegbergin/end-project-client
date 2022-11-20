@@ -6,7 +6,9 @@ import { useEffect } from "react";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 
-const url = "http://localhost:5000/departments";
+
+
+const url = `${process.env.REACT_APP_SERVER}/departments`;
 
 const schema = yup.object().shape({
   department: yup.string().required(),
@@ -61,7 +63,7 @@ function DepartmentPostEdit() {
     elemant.preventDefault();
     try {
       await axios
-        .delete(`http://localhost:5000/departments/delete/${deletepost}`)
+        .delete(`${process.env.REACT_APP_SERVER}/departments/delete/${deletepost}`)
         .then((res) => console.log(res.data));
         
     } catch (error) {
@@ -74,7 +76,7 @@ function DepartmentPostEdit() {
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/name/getnames")
+      .post(`${process.env.REACT_APP_SERVER}/name/getnames`)
       .then((res) => setDepartmentNames(res.data));
   }, []);
 
