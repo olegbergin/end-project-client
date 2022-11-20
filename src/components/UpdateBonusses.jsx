@@ -7,31 +7,26 @@ import * as yup from "yup";
 
 const url = "http://localhost:5000/bonuses";
 
-const schema = yup
-  .object()
-  .shape({
-    // title: yup.string().required(),
-    // description: yup.string().required(),
-    // image:yup.string().required(),
-    // link: yup.string().required(),
-    // linktitle: yup.string().required(),
-  });
-  
+const schema = yup.object().shape({
+  title: yup.string().required(),
+  description: yup.string().required(),
+  // image:yup.string().required(),
+  link: yup.string().required(),
+  linktitle: yup.string().required(),
+});
 
 const UpdateBonusses = () => {
   const [deletebonus, setDeletebonus] = useState("");
   const [image, setImage] = useState("");
 
-  const {
-      register,
-      handleSubmit, 
-      reset
-     } =useForm({ mode: "all", resolver: yupResolver(schema)});
-
+  const { register, handleSubmit, reset,} = useForm({
+    mode: "all",
+    resolver: yupResolver(schema),
+  });
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
-    
+
     const formData = new FormData();
     formData.append("file", image);
     formData.append("upload_preset", "oo2ebqls");
@@ -89,7 +84,6 @@ const UpdateBonusses = () => {
                     min: 1,
                     maxLength: 80,
                   })}
-                  // onChange={(e) => setTitle(e.target.value)}
                 />
               </div>
               <div className="mb-1 sm:mb-2">
@@ -103,13 +97,12 @@ const UpdateBonusses = () => {
                   type="text"
                   className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1"
                   placeholder="description"
-                  {...register("desctiption", {
+                  {...register("description", {
                     required: true,
                     max: 80,
                     min: 1,
                     maxLength: 80,
                   })}
-                  // onChange={(e) => setDescription(e.target.value)}
                 />
               </div>
               <div className="mb-1 sm:mb-2">
@@ -150,7 +143,6 @@ const UpdateBonusses = () => {
                     min: 1,
                     maxLength: 80,
                   })}
-                  // onChange={(e) => setLink(e.target.value)}
                 />
               </div>
               <div className="mb-1 sm:mb-2">
@@ -165,14 +157,9 @@ const UpdateBonusses = () => {
                   required
                   type="text"
                   className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1"
-                  name="Linktitle"
-                  {...register("desctiption", {
+                  {...register("linktitle", {
                     required: true,
-                    max: 80,
-                    min: 1,
-                    maxLength: 80,
                   })}
-                  // onChange={(e) => setLinktitle(e.target.value)}
                 />
               </div>
 
@@ -186,18 +173,15 @@ const UpdateBonusses = () => {
                 <input
                   required
                   type="date"
-                  
                   className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1"
-                  name="date"
                   {...register("date", {
                     required: true,
                   })}
-                  // onChange={(e) => setDate(e.target.value)}
                 />
               </div>
               <div className="mt-4 mb-2 sm:mb-4 text-center">
                 <input
-                 value="הוסף הטבה"
+                  value="הוסף הטבה"
                   type="submit"
                   className="w-56 h-12 px-6 font-medium tracking-wide text-green-700 transition duration-200 rounded shadow-md  hover:bg-gray-700 hover:border-2 hover:border-gray-900 hover:text-white focus:shadow-outline focus:outline-none mb-4"
                 />
@@ -212,7 +196,7 @@ const UpdateBonusses = () => {
             <form onSubmit={handledelete}>
               <div className="mb-1 sm:mb-2">
                 <label
-                  htmlFor="email"
+                  htmlFor=""
                   className="flex  text-blue-900 text-sm font-semibold "
                 >
                   שם ההטבה שתרצה למחוק:
