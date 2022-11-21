@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
+import { BsPeopleFill } from "react-icons/bs";
 
 function Department() {
   const [postData, setpostData] = useState();
@@ -30,7 +31,7 @@ function Department() {
   }, [department]);
 
   return (
-    <div className="flex flex-col items-center bg-gray-200">
+    <div className="flex flex-col items-center bg-gray-200 min-h-screen">
       {modal && (
         <div className="fixed bg-black bg-opacity-25 backdrop-blur-sm inset-0  flex flex-col items-center">
           <div className="w-screen min-h-screen pt-32 flex flex-col items-center ">
@@ -101,12 +102,13 @@ function Department() {
         <h1 className="text-5xl flex justify-center mb-10 font-semibold text-gray-900">
           אגף ה{department}
         </h1>
-        <button
-          className="inline-flex items-center justify-center  h-12 px-6 font-medium border-2 border-black rounded-lg bg-gray-600 text-white hover:bg-gray-900 mb-4 transition duration-300"
+        <label className="mb-2 font-bold" htmlFor="">
+          עובדים באגף
+        </label>
+        <BsPeopleFill
+          className="text-4xl text-blue-700 cursor-pointer"
           onClick={() => setModal(!modal)}
-        >
-          הצג עובדים באגף
-        </button>
+        />
       </div>
       <div className="mt-5 sm:flex-row md:flex-row lf:flex-row flex flex-col sm:items-start md:items-start lg:items-start items-center ">
         <div className="p-10">
