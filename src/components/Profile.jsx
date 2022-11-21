@@ -27,14 +27,14 @@ export const Profile = () => {
   const email = useSelector((state) => state.user.email);
   const day = new Date(theUser?.birthday).getDate();
   const month = new Date(theUser?.birthday).getMonth();
-  const theBirthday =`${day},${month}`;
+  const theBirthday = `${day},${month}`;
   const updatedBirthday = `${day} ב${monthNames[month]}`;
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    const Today = `${new Date().getDate()},${new Date().getMonth()}`
-    Today === theBirthday ? setShow(true) : setShow(false)
-  })
+    const Today = `${new Date().getDate()},${new Date().getMonth()}`;
+    Today === theBirthday ? setShow(true) : setShow(false);
+  }, [show, theBirthday]);
   const setTheStatus = async (e) => {
     const requestObj = {
       email: email,
@@ -50,7 +50,6 @@ export const Profile = () => {
       .post(`${process.env.REACT_APP_SERVER}/auth/findUser`, { email: email })
       .then((res) => setTheUser(res.data));
   }, [email, status]);
-
 
   return (
     <section className="pt-16 min-h-screen flex items-center bg-gray-200">
@@ -103,8 +102,12 @@ export const Profile = () => {
                       <FaFileContract /> : חוזה העסקה
                     </a>
                   </div>
-                 { show && <div className="mb-1  mx-3 p-2 rounded-lg font-bold text-pink-500 text-6xl">מזל טוב {theUser?.fullname}!</div>}  
-              </div>
+                  {show && (
+                    <div className="mb-1  mx-3 p-2 rounded-lg font-bold text-pink-500 text-6xl">
+                      מזל טוב {theUser?.fullname}!
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
             <div className="mt-10 py-10 border-t  text-center">

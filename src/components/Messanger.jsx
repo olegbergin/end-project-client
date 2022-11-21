@@ -95,7 +95,7 @@ export const Messanger = (props) => {
                 value={inputValue}
                 type="text"
                 placeholder="רשום הודעה"
-                className=" bg-gray-200 rounded-xl w-72 placeholder:pr-4"
+                className=" bg-gray-200 outline-0 w-72 placeholder:pr-4 pr-4"
                 onChange={(e) => setMessage(e.target.value)}
               />
             </form>
