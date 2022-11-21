@@ -20,6 +20,8 @@ import { Home } from "./components/Home";
 import { AddDepartments } from "./components/AddDepartment";
 import { PropsProfile } from "./components/PropsProfile";
 // import ScrollToTop from "./components/ScrollToTop";
+import { BrowserRouter as Switch} from "react-router-dom";
+import PageNoteFound from "./components/PageNotFound";
 
 
 function App() {
@@ -103,6 +105,7 @@ function App() {
           <Route path="calendar" element={<Calendar />} />
           <Route path="calendar" element={<Calendar />} />
           <Route path="companyuser" element={<PropsProfile />} />
+          <Route path="*" element={<PageNoteFound />} />
         </Routes>
       )}
       {role === "ADMIN" && (
@@ -116,10 +119,12 @@ function App() {
           <Route path="bonusses" element={<Bonusses />} />
           <Route path="calendar" element={<Calendar />} />
           <Route path="companyuser" element={<PropsProfile />} />
+          <Route path="*" element={<PageNoteFound />} />
         </Routes>
       )}
       {role === "SUPERADMIN" && (
         <Routes>
+          {/* <Switch> */}
           <Route path="/" element={<Home />} />
           <Route path="profile" element={<Profile />} />
           <Route path="department" element={<Department />} />
@@ -132,6 +137,9 @@ function App() {
           <Route path="bonusses" element={<Bonusses />} />
           <Route path="departmentedit" element={<AddDepartments />} />
           <Route path="companyuser" element={<PropsProfile />} />
+          <Route path="*" element={<PageNoteFound />} />
+          {/* <Route components={PageNoteFound}/> */}
+          {/* </Switch> */}
         </Routes>
       )}
     </div>
