@@ -1,14 +1,18 @@
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import Calendar from "./Calendar";
 
 export const Home = () => {
   const [events, setEvents] = useState();
+
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(!open);
   };
+  const [allUsers, setAllUsers] = useState();
+  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     axios
@@ -16,6 +20,9 @@ export const Home = () => {
         department: "ראשי",
       })
       .then((res) => setEvents(res.data));
+    axios
+      .get(`${process.env.REACT_APP_SERVER}/auth/users`)
+      .then((res) => setAllUsers(res.data));
   }, []);
 
   const usersBirth = [];
@@ -27,8 +34,57 @@ export const Home = () => {
   
   return (
     <div className="bg-gray-200 min-h-screen">
+      {modal && (
+        <div className="fixed bg-black bg-opacity-25 backdrop-blur-sm inset-0  flex flex-col items-center">
+          <div className="w-screen min-h-screen pt-32 flex flex-col items-center ">
+            <ul className="flex flex-col divide divide-y h-96 overflow-scroll scrollbar-hide border-2 rounded-lg mb-2 bg-white">
+              {allUsers?.map((user, i) => {
+                return (
+                  <Link to="/companyuser" key={i} state={{ email: user.email }}>
+                    <li className="flex flex-row p-2">
+                      <div className="select-none cursor-pointer flex flex-1 items-center p-4">
+                        <div className="flex flex-col w-10 h-10 justify-center items-center mr-4">
+                          <div className="block relative">
+                            <img
+                              alt="profil"
+                              src={user.image}
+                              className="mx-auto object-cover rounded-full h-10 w-10 "
+                            />
+                          </div>
+                        </div>
+                        <div className="flex-1 pl-1 mr-16">
+                          <div className="font-medium dark:text-white">
+                            {user.fullname}
+                          </div>
+                          <div className="text-gray-600 dark:text-gray-200 text-sm">
+                            {user.department}
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </Link>
+                );
+              })}
+            </ul>
+            <button
+              className="inline-flex items-center justify-center  h-12 px-6 font-medium border-2 border-black rounded-lg bg-gray-600 text-white hover:bg-gray-900 mb-4 transition duration-300"
+              onClick={() => setModal(!modal)}
+            >
+              סגור
+            </button>
+          </div>
+        </div>
+      )}
       <div className="pt-28 w-screen">
-        <h1 className="text-4xl font-bold text-center  ">אירועים אחרונים</h1>
+        <div className="flex items-center flex-col">
+          <h1 className="text-4xl font-bold text-center  ">אירועים אחרונים</h1>
+          <button
+            className="inline-flex items-center justify-center  h-12 px-6 font-medium border-2 border-black rounded-lg bg-gray-600 text-white hover:bg-gray-900 mb-4 transition duration-300 mt-5"
+            onClick={() => setModal(!modal)}
+          >
+            הצג עובדים
+          </button>
+        </div>
         <div className="p-10">
         <div className="w-screen  flex flex-col items-center">
           <button onClick={handleOpen}>הצג</button>
