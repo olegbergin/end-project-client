@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
+import { AiOutlineDown } from "react-icons/ai";
+import { AiOutlineUp } from "react-icons/ai";
+import { AiOutlineSend } from "react-icons/ai";
 
 export const Messanger = (props) => {
   const userName = useSelector((state) => state.user.fullname);
@@ -30,36 +33,35 @@ export const Messanger = (props) => {
     userName && (
       <div>
         {!arrow && (
-          <div className="bg-gray-700 border-2 border-black m-2 bottom-0 p-1  rounded-md right-0 fixed flex justify-center items-center z-50">
-            <h1
-              className="text-center text-white font-semibold cursor-pointer"
+          <div className="bg-gray-800 shadow-lg shadow-black/80  m-2 bottom-0 p-2  rounded-full right-0 fixed flex justify-center items-center z-50 ">
+            <AiOutlineUp
+              className="text-center text-white font-semibold cursor-pointer text-2xl"
               onClick={() => {
                 setArrow(true);
               }}
-            >
-              פתח צא'ט
-            </h1>
+            />
           </div>
         )}
         {arrow && (
-          <div className="w-80 h-96 bottom-0 right-0 fixed border-t-2 border-l-2 border-white rounded-md bg-gray-700 z-40 flex flex-col justify-between items-center">
-            <h1
-              className="text-center text-gray-900 font-semibold cursor-pointer p-1 text-xs border-2 border-gray-900 rounded-xl mt-2 flex justify-center items-center"
-              onClick={() => setArrow(false)}
-            >
-              סגור צא'ט
-            </h1>
+          <div className="w-80 h-96 bottom-0 right-0 fixed  shadow-lg shadow-black  bg-gray-200 z-40 flex flex-col justify-between items-center rounded-3xl mr-3 mb-3">
+            <div className="flex items-center justify-between w-full bg-gray-800 p-3  rounded-t-3xl">
+              <AiOutlineDown
+                onClick={() => setArrow(false)}
+                className="mr-4 text-white text-2xl "
+              />
+              <h1 className="ml-4 text-white">סגור צא'ט</h1>
+            </div>
             <div>
-              <div className="w-80 h-80 overflow-scroll scrollbar-hide">
+              <div className="w-80 h-72  overflow-scroll scrollbar-hide">
                 {messageList.map((message, index) => {
                   return message.name === userName ? (
                     <div
                       key={index}
                       className="w-80 inline-flex justify-start break-all"
                     >
-                      <div className="bg-indigo-800 px-3 rounded-lg mt-2 ml-2">
-                        <p className="text-md italic text-white/80">אתה</p>
-                        <h1 className="text-lg text-white/80">
+                      <div className=" mr-2">
+                        <p className="text-sm italic font-bold">אתה</p>
+                        <h1 className="text-lg tracking-wide bg-white px-5 py-2 rounded-lg ml-2 ">
                           {message.message}
                         </h1>
                       </div>
@@ -69,9 +71,13 @@ export const Messanger = (props) => {
                       key={index}
                       className="w-80 inline-flex justify-end break-all"
                     >
-                      <div className="bg-white px-3 rounded-lg mt-2 ml-2">
-                        <p className="text-md italic">{message.name}</p>
-                        <h1 className="text-lg">{message.message}</h1>
+                      <div className="ml-2">
+                        <p className="text-sm italic font-bold">
+                          {message.name}
+                        </p>
+                        <h1 className="text-lg tracking-wide bg-gray-500 px-5 py-2 rounded-lg mr-2 ">
+                          {message.message}
+                        </h1>
                       </div>
                     </div>
                   );
@@ -79,17 +85,17 @@ export const Messanger = (props) => {
                 <div ref={endMessage}></div>
               </div>
             </div>
-            <form action="" onSubmit={HandleSubmit}>
-              <button
-                type="submit"
-                className="w-14 bg-blue-900 text-white border-l-2 border-l-black"
-              >
-                שלח
-              </button>
+            <form
+              action=""
+              className="w-full h-full rounded-b-2xl flex items-center justify-center border-t-2 border-gray-500"
+              onSubmit={HandleSubmit}
+            >
+              <AiOutlineSend type="submit" />
               <input
                 value={inputValue}
                 type="text"
-                className="w-64 bg-gray-400"
+                placeholder="רשום הודעה"
+                className=" bg-gray-200 rounded-xl w-72 placeholder:pr-4"
                 onChange={(e) => setMessage(e.target.value)}
               />
             </form>
