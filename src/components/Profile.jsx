@@ -35,6 +35,7 @@ export const Profile = () => {
     const Today = `${new Date().getDate()},${new Date().getMonth()}`;
     Today === theBirthday ? setShow(true) : setShow(false);
   }, [show, theBirthday]);
+
   const setTheStatus = async (e) => {
     const requestObj = {
       email: email,

@@ -12,7 +12,7 @@ const Bonusses = () => {
   }, []);
 
   return (
-    <div className="bg-gray-200">
+    <div className="bg-gray-200 min-h-screen">
       <div className="pt-32  text-center">
         <h1 className="text-3xl font-bold text-black mb-10">הטבות</h1>
         <p className="text-black">
