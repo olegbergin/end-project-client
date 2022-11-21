@@ -89,7 +89,6 @@ export const Login = () => {
                   התחברות
                 </h3>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                  {/* autoComplete="off" */}
                   <div className="mb-1 sm:mb-2">
                     <label
                       htmlFor="name"
