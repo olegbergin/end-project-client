@@ -3,9 +3,12 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
-      fontFamily:{
-        "varela" : ['Varela Round', 'sans-serif']
-      }
+      fontFamily: {
+        varela: ["Varela Round", "sans-serif"],
+      },
+      spacing: {
+        150: "40rem",
+      },
     },
   },
   plugins: [require("tailwindcss-rtl"), require("tailwind-scrollbar-hide")],

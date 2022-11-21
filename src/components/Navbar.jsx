@@ -1,23 +1,24 @@
 import image from "../images/dimona-logo.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../redux/userSlice";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
-
 
 export const Navbar = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const role = useSelector((state) => state.user.role);
   const [departmentNames, setDepartmentNames] = useState();
-
+  const [current, setCurrent] = useState("");
+  const location = useLocation().pathname;
+  const page = location.slice(1, location.length);
   useEffect(() => {
     axios
       .post(`${process.env.REACT_APP_SERVER}/name/getnames`)
       .then((res) => setDepartmentNames(res.data));
-  }, []);
+    setCurrent(page);
+  }, [page]);
 
   return (
     <div className="bg-gray-800 w-screen fixed z-50">
@@ -57,17 +58,26 @@ export const Navbar = (props) => {
                     אגפים
                   </button>
                   {props.isOpen && (
-                    <div className=" text-white absolute bg-gray-900 w-44 border-2 border-black text-center mt-12 rounded-md z-10">
+                    <div className=" text-white absolute bg-gray-900 w-44 border-2 border-black text-center mt-12 z-10">
                       {departmentNames?.map((theName, index) => {
                         return (
                           theName.theName !== "ראשי" && (
-                            <div key={index} className="p-2">
+                            <div
+                              key={index}
+                              className={
+                                current !== theName.theName
+                                  ? "p-2 hover:scale-105 transition duration-150"
+                                  : "p-2 hover:scale-105 transition duration-150 text-green-700"
+                              }
+                              onClick={() => setCurrent(theName.theName)}
+                            >
                               <Link
                                 to="department"
                                 state={{ department: theName.theName }}
                               >
                                 {theName.theName}
                               </Link>
+                              <hr />
                             </div>
                           )
                         );
@@ -76,13 +86,34 @@ export const Navbar = (props) => {
                   )}
                 </div>
               </div>
-              <div className="text-green-700 font-semibold mx-3">
+              <div
+                className={
+                  current !== "bonusses"
+                    ? "text-white font-semibold mx-3"
+                    : "text-green-700 font-semibold mx-3"
+                }
+                onClick={() => setCurrent("bonusses")}
+              >
                 <Link to="bonusses">הטבות</Link>
               </div>
-              <div className="text-white font-semibold mx-3">
+              <div
+                className={
+                  current !== "profile"
+                    ? "text-white font-semibold mx-3"
+                    : "text-green-700 font-semibold mx-3"
+                }
+                onClick={() => setCurrent("profile")}
+              >
                 <Link to="profile">הפרופיל שלי</Link>
               </div>
-              <div className="text-white font-semibold mx-3">
+              <div
+                className={
+                  current !== "terms"
+                    ? "text-white font-semibold mx-3"
+                    : "text-green-700 font-semibold mx-3"
+                }
+                onClick={() => setCurrent("terms")}
+              >
                 <Link to="terms">תקנון </Link>
               </div>
               {role === "SUPERADMIN" && (
@@ -95,19 +126,45 @@ export const Navbar = (props) => {
                   </button>
                   {props.anotherOpen && (
                     <div className=" text-white absolute bg-gray-900 w-44 border-2 border-black text-center mt-10 rounded-md z-10">
-                      <div className="p-2">
+                      <div
+                        className={
+                          current !== "register" ? "p-2" : "text-green-700 p-2"
+                        }
+                        onClick={() => setCurrent("register")}
+                      >
                         <Link to="register"> הרשמה</Link>
                       </div>
                       <hr />
-                      <div className="p-2">
+                      <div
+                        className={
+                          current !== "department_edit"
+                            ? "p-2"
+                            : "text-green-700 p-2"
+                        }
+                        onClick={() => setCurrent("department_edit")}
+                      >
                         <Link to="department_edit"> עריכת אירוע</Link>
                       </div>
                       <hr />
-                      <div className="p-2">
+                      <div
+                        className={
+                          current !== "updatebonusses"
+                            ? "p-2"
+                            : "text-green-700 p-2"
+                        }
+                        onClick={() => setCurrent("updatebonusses")}
+                      >
                         <Link to="updatebonusses">עריכת הטבות</Link>
                       </div>
                       <hr />
-                      <div className="p-2">
+                      <div
+                        className={
+                          current !== "departmentedit"
+                            ? "p-2"
+                            : "text-green-700 p-2"
+                        }
+                        onClick={() => setCurrent("departmentedit")}
+                      >
                         <Link to="departmentedit">עריכת אגפים</Link>
                       </div>
                     </div>
@@ -115,7 +172,14 @@ export const Navbar = (props) => {
                 </div>
               )}
               {role === "ADMIN" && (
-                <div className="text-white font-semibold mx-3">
+                <div
+                  className={
+                    current !== "department_edit"
+                      ? "text-white font-semibold mx-3"
+                      : "text-green-700 font-semibold mx-3"
+                  }
+                  onClick={() => setCurrent("department_edit")}
+                >
                   <Link to="department_edit"> עריכת אירוע</Link>
                 </div>
               )}
@@ -131,11 +195,19 @@ export const Navbar = (props) => {
               <span className="block w-8 h-1 bg-gray-600"></span>
               <div className="flex justify-center">
                 {props.hamburgerOpen && (
-                  <div className=" text-white absolute bg-gray-900 w-44 border-2 border-black text-center mt-10 rounded-md z-10">
+                  <div className=" text-white absolute bg-gray-900 w-44 border-2 border-black text-center mt-4 z-10">
                     {departmentNames?.map((theName, index) => {
                       return (
                         theName.theName !== "ראשי" && (
-                          <div key={index} className="p-2">
+                          <div
+                            key={index}
+                            className={
+                              current !== theName.theName
+                                ? "p-2"
+                                : "text-green-700 p-2"
+                            }
+                            onClick={() => setCurrent(theName.theName)}
+                          >
                             <Link
                               to="department"
                               state={{ department: theName.theName }}
@@ -146,31 +218,84 @@ export const Navbar = (props) => {
                         )
                       );
                     })}
-                    <div className="p-2">
+                    <div
+                      className={
+                        current !== "profile" ? "p-2" : "text-green-700 p-2"
+                      }
+                      onClick={() => setCurrent("profile")}
+                    >
                       <Link to="profile">הפרופיל שלי</Link>
                     </div>
-                    <div className="p-2">
+                    <div
+                      className={
+                        current !== "terms" ? "p-2" : "text-green-700 p-2"
+                      }
+                      onClick={() => setCurrent("terms")}
+                    >
                       <Link to="terms">תקנון</Link>
                     </div>
-                    <div className="p-2">
+                    <div
+                      className={
+                        current !== "bonusses" ? "p-2" : "text-green-700 p-2"
+                      }
+                      onClick={() => setCurrent("bonusses")}
+                    >
                       <Link to="bonusses">הטבות</Link>
                     </div>
 
                     {role === "SUPERADMIN" && (
                       <div>
-                        <div className="p-2">
+                        <div
+                          className={
+                            current !== "register"
+                              ? "p-2"
+                              : "text-green-700 p-2"
+                          }
+                          onClick={() => setCurrent("register")}
+                        >
                           <Link to="register">הרשמה</Link>
                         </div>
-                        <div className="p-2">
+                        <div
+                          className={
+                            current !== "department_edit"
+                              ? "p-2"
+                              : "text-green-700 p-2"
+                          }
+                          onClick={() => setCurrent("department_edit")}
+                        >
                           <Link to="department_edit">הוספת אירוע</Link>
                         </div>
-                        <div className="p-2">
+                        <div
+                          className={
+                            current !== "updatebonusses"
+                              ? "p-2"
+                              : "text-green-700 p-2"
+                          }
+                          onClick={() => setCurrent("updatebonusses")}
+                        >
                           <Link to="updatebonusses">עריכת הטבות</Link>
+                        </div>
+                        <div
+                          className={
+                            current !== "departmentedit"
+                              ? "p-2"
+                              : "text-green-700 p-2"
+                          }
+                          onClick={() => setCurrent("departmentedit")}
+                        >
+                          <Link to="departmentedit">עריכת אגפים</Link>
                         </div>
                       </div>
                     )}
                     {role === "ADMIN" && (
-                      <div className="p-2">
+                      <div
+                        className={
+                          current !== "department_edit"
+                            ? "p-2"
+                            : "text-green-700 p-2"
+                        }
+                        onClick={() => setCurrent("department_edit")}
+                      >
                         <Link to="department_edit">הוספת אירוע</Link>
                       </div>
                     )}

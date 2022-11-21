@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { redirect, Route, Routes } from "react-router";
+import { redirect, Route, Routes, useLocation } from "react-router";
 import { AdminRegister } from "./components/AdminRegister";
 import Department from "./components/Department";
 import DepartmentPostEdit from "./components/DepartmentPostEdit";
@@ -19,8 +19,6 @@ import jwt_decode from "jwt-decode";
 import { Home } from "./components/Home";
 import { AddDepartments } from "./components/AddDepartment";
 import { PropsProfile } from "./components/PropsProfile";
-// import ScrollToTop from "./components/ScrollToTop";
-
 
 function App() {
   const socket = io.connect(`${process.env.REACT_APP_SERVER}`, {
@@ -34,6 +32,8 @@ function App() {
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
 
   const [anotherOpen, setAnotherOpen] = useState(false);
+
+  const { pathname } = useLocation();
 
   const role = useSelector((state) => state.user.role);
   // USER / ADMIN / SUPERADMIN
@@ -54,6 +54,10 @@ function App() {
     socket.emit("join_room");
     // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   useEffect(() => {
     socket.on("back", (message) => {
