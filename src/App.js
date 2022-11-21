@@ -20,7 +20,6 @@ import { Home } from "./components/Home";
 import { AddDepartments } from "./components/AddDepartment";
 import { PropsProfile } from "./components/PropsProfile";
 // import ScrollToTop from "./components/ScrollToTop";
-import { BrowserRouter as Switch} from "react-router-dom";
 import PageNoteFound from "./components/PageNotFound";
 
 
@@ -124,7 +123,6 @@ function App() {
       )}
       {role === "SUPERADMIN" && (
         <Routes>
-          {/* <Switch> */}
           <Route path="/" element={<Home />} />
           <Route path="profile" element={<Profile />} />
           <Route path="department" element={<Department />} />
@@ -138,8 +136,6 @@ function App() {
           <Route path="departmentedit" element={<AddDepartments />} />
           <Route path="companyuser" element={<PropsProfile />} />
           <Route path="*" element={<PageNoteFound />} />
-          {/* <Route components={PageNoteFound}/> */}
-          {/* </Switch> */}
         </Routes>
       )}
     </div>
