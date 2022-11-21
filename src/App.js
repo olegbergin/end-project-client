@@ -19,6 +19,9 @@ import jwt_decode from "jwt-decode";
 import { Home } from "./components/Home";
 import { AddDepartments } from "./components/AddDepartment";
 import { PropsProfile } from "./components/PropsProfile";
+import PageNoteFound from "./components/PageNotFound";
+
+
 
 function App() {
   const socket = io.connect(`${process.env.REACT_APP_SERVER}`, {
@@ -107,6 +110,7 @@ function App() {
           <Route path="calendar" element={<Calendar />} />
           <Route path="calendar" element={<Calendar />} />
           <Route path="companyuser" element={<PropsProfile />} />
+          <Route path="*" element={<PageNoteFound />} />
         </Routes>
       )}
       {role === "ADMIN" && (
@@ -120,6 +124,7 @@ function App() {
           <Route path="bonusses" element={<Bonusses />} />
           <Route path="calendar" element={<Calendar />} />
           <Route path="companyuser" element={<PropsProfile />} />
+          <Route path="*" element={<PageNoteFound />} />
         </Routes>
       )}
       {role === "SUPERADMIN" && (
@@ -136,6 +141,7 @@ function App() {
           <Route path="bonusses" element={<Bonusses />} />
           <Route path="departmentedit" element={<AddDepartments />} />
           <Route path="companyuser" element={<PropsProfile />} />
+          <Route path="*" element={<PageNoteFound />} />
         </Routes>
       )}
     </div>
