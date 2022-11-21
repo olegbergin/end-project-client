@@ -5,8 +5,6 @@ import { useState } from "react";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 
-
-
 function Department() {
   const [postData, setpostData] = useState();
   const [userData, setuserData] = useState();
@@ -85,12 +83,12 @@ function Department() {
         </button>
       </div>
       <div className="mt-5 sm:flex-row md:flex-row lf:flex-row flex flex-col sm:items-start md:items-start lg:items-start items-center ">
-        <div className="p-10  ">
+        <div className="p-10">
           {postData?.map((post, index) => {
             return (
               <div
                 key={index}
-                className="lg:flex-row md:flex-row sm:flex-row my-10 flex flex-col items-center  bg-white p-2 border-2 border-gray-700 rounded-lg"
+                className=" m-10 lg:flex-row md:flex-row sm:flex-row flex flex-col items-center  bg-white p-2 border-2 border-gray-700  p-5"
               >
                 <img src={post.image} alt="" className="w-40 " />
                 <div className="flex flex-col md:pr-10 lg:pr-10 space-y-3 justify-center items-center">
