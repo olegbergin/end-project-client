@@ -13,6 +13,7 @@ export const Home = () => {
   };
   const [allUsers, setAllUsers] = useState();
   const [modal, setModal] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     axios
@@ -38,33 +39,58 @@ export const Home = () => {
         <div className="fixed bg-black bg-opacity-25 backdrop-blur-sm inset-0  flex flex-col items-center">
           <div className="w-screen min-h-screen pt-32 flex flex-col items-center ">
             <ul className="flex flex-col divide divide-y h-96 overflow-scroll scrollbar-hide border-2 rounded-lg mb-2 bg-white">
-              {allUsers?.map((user, i) => {
-                return (
-                  <Link to="/companyuser" key={i} state={{ email: user.email }}>
-                    <li className="flex flex-row p-2">
-                      <div className="select-none cursor-pointer flex flex-1 items-center p-4">
-                        <div className="flex flex-col w-10 h-10 justify-center items-center mr-4">
-                          <div className="block relative">
-                            <img
-                              alt="profil"
-                              src={user.image}
-                              className="mx-auto object-cover rounded-full h-10 w-10 "
-                            />
+              <div className="h-12 flex justify-center">
+                <input
+                  type="text"
+                  className="rounded-lg bg-gray-100 mt-1  hover:scale-105 h-10 "
+                  placeholder="חפש מישהו..."
+                  onChange={(event) => {
+                    setSearchTerm(event.target.value);
+                  }}
+                />
+              </div>
+              {allUsers
+                ?.filter((user) => {
+                  if (
+                    searchTerm === "" ||
+                    user.fullname
+                      .toLowerCase()
+                      .includes(searchTerm.toLowerCase())
+                  ) {
+                    return user;
+                  } else return null;
+                })
+                .map((user, i) => {
+                  return (
+                    <Link
+                      to="/companyuser"
+                      key={i}
+                      state={{ email: user.email }}
+                    >
+                      <li className="flex flex-row p-2">
+                        <div className="select-none cursor-pointer flex flex-1 items-center p-4">
+                          <div className="flex flex-col w-10 h-10 justify-center items-center mr-4">
+                            <div className="block relative">
+                              <img
+                                alt="profil"
+                                src={user.image}
+                                className="mx-auto object-cover rounded-full h-10 w-10 "
+                              />
+                            </div>
+                          </div>
+                          <div className="flex-1 pl-1 mr-16">
+                            <div className="font-medium dark:text-white">
+                              {user.fullname}
+                            </div>
+                            <div className="text-gray-600 dark:text-gray-200 text-sm">
+                              {user.department}
+                            </div>
                           </div>
                         </div>
-                        <div className="flex-1 pl-1 mr-16">
-                          <div className="font-medium dark:text-white">
-                            {user.fullname}
-                          </div>
-                          <div className="text-gray-600 dark:text-gray-200 text-sm">
-                            {user.department}
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  </Link>
-                );
-              })}
+                      </li>
+                    </Link>
+                  );
+                })}
             </ul>
             <button
               className="inline-flex items-center justify-center  h-12 px-6 font-medium border-2 border-black rounded-lg bg-gray-600 text-white hover:bg-gray-900 mb-4 transition duration-300"

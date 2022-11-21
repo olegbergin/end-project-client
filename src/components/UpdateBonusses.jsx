@@ -5,8 +5,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-
-
 const url = `${process.env.REACT_APP_SERVER}/bonuses`;
 
 const schema = yup.object().shape({
@@ -21,7 +19,7 @@ const UpdateBonusses = () => {
   const [deletebonus, setDeletebonus] = useState("");
   const [image, setImage] = useState("");
 
-  const { register, handleSubmit, reset,  } = useForm({
+  const { register, handleSubmit, reset } = useForm({
     mode: "all",
     resolver: yupResolver(schema),
   });
