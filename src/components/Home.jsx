@@ -30,8 +30,9 @@ export const Home = () => {
     axios
       .get(`${process.env.REACT_APP_SERVER}/auth/users`, usersBirth)
       .then((res) => console.log(res.data));
+    // eslint-disable-next-line
   }, []);
-  
+
   return (
     <div className="bg-gray-200 min-h-screen">
       {modal && (
@@ -86,20 +87,20 @@ export const Home = () => {
           </button>
         </div>
         <div className="p-10">
-        <div className="w-screen  flex flex-col items-center">
-          <button onClick={handleOpen}>הצג</button>
-          {open ? (
-        <ul className="menu">
-          <li className="menu-item">
-            <button>Menu 1</button>
-          </li>
-          <li className="menu-item">
-            <button>Menu 2</button>
-          </li>
-        </ul>
-      ) : null}
-          {open ? <div>חוגגים החודש</div> : <div>חוגגים החודש</div>}
-        </div>
+          <div className="w-screen  flex flex-col items-center">
+            <button onClick={handleOpen}>הצג</button>
+            {open ? (
+              <ul className="menu">
+                <li className="menu-item">
+                  <button>Menu 1</button>
+                </li>
+                <li className="menu-item">
+                  <button>Menu 2</button>
+                </li>
+              </ul>
+            ) : null}
+            {open ? <div>חוגגים החודש</div> : <div>חוגגים החודש</div>}
+          </div>
           {events?.map((post, index) => {
             return (
               <div
