@@ -1,8 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
 
-
-
 export const AddDepartments = () => {
   const [departmentName, setDepartmentName] = useState();
   const [departmentName1, setDepartmentName1] = useState();
@@ -26,8 +24,8 @@ export const AddDepartments = () => {
   };
 
   return (
-    <div className="mt-24 w-screen bg-gray-200">
-      <div className="flex flex-col items-center ">
+    <div className="pt-24 w-screen bg-gray-200 min-h-screen">
+      <div className="flex flex-col lg:flex-row md:flex-row justify-center items-center lg:mt-24 md:mt-24">
         <div className="flex flex-col w-96 bg-white p-10 m-10 items-center justify-center">
           <h1 className="text-center font-bold text-xl mb-5">הוסף אגף לאתר</h1>
           <input
