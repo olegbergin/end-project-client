@@ -35,7 +35,7 @@ function Department() {
         <div className="fixed bg-black bg-opacity-25 backdrop-blur-sm inset-0  flex flex-col items-center">
           <div className="w-screen min-h-screen pt-32 flex flex-col items-center ">
             <ul className="flex flex-col divide divide-y h-96 overflow-scroll scrollbar-hide border-2 rounded-lg mb-2 bg-white">
-            <div className="h-12 flex justify-center">
+              <div className="h-12 flex justify-center">
                 <input
                   type="text"
                   className="rounded-lg bg-gray-100 mt-1  hover:scale-105 h-10 "

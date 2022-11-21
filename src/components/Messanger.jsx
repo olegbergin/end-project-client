@@ -47,7 +47,7 @@ export const Messanger = (props) => {
             <div className="flex items-center justify-between w-full bg-gray-800 p-3  rounded-t-3xl">
               <AiOutlineDown
                 onClick={() => setArrow(false)}
-                className="mr-4 text-white text-2xl "
+                className="mr-4 text-white text-2xl cursor-pointer"
               />
               <h1 className="ml-4 text-white">סגור צא'ט</h1>
             </div>
