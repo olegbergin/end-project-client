@@ -7,7 +7,11 @@ This is the clinte side repository. [to the server repository](https://github.co
 
  
 ## Table of content
-
+- [dimona emloyee site](#dimona-emloyee-site)
+  - [Running the project](#running-the-project)
+  - [Screenshot](#screenshot)
+  - [Technologies](#technologies)
+    
 
 ## Running the project
 1. Clone the repo.
@@ -16,8 +20,8 @@ This is the clinte side repository. [to the server repository](https://github.co
 4. Run `npm start`.
 5. Navigate to `http://localhost:3000`.
 
-## Screenshot
-![screenshot](https://github.com/noammery/end-project-client/blob/master/src/images/screenshot.png)
+## screenshot
+ <p align="center"><img src="https://github.com/noammery/end-project-client/blob/master/src/images/screenshot.png" width="300" /></p>
 
 ## Technologies:
 * ReactJS
