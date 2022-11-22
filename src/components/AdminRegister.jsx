@@ -305,7 +305,7 @@ export const AdminRegister = () => {
               </form>
             </div>
 
-            <div className=" bg-white rounded shadow-2x1 mt-20 p-5 flex flex-col items-center justify-center">
+            <div className=" bg-white rounded shadow-2x1 mt-20 p-10 flex flex-col items-center justify-center">
               <h3 className="mb-4 text-xl font-semibold sm:text-center sm:mb-6 sm:text-2xl">
                 מחיקת משתמשים:
               </h3>
@@ -342,7 +342,6 @@ export const AdminRegister = () => {
                   />
                 </div>
               </form>
-
             </div>
           </div>
         </div>
