@@ -5,7 +5,9 @@ This site was created as the final project in our fullstack course.
 
 This is the clinte side repository. [to the server repository](https://github.com/noammery/end-project-server)
 
- 
+[to the deployed site](https://dimona-end-project.netlify.app/)
+
+
 ## Table of content
 - [dimona emloyee site](#dimona-emloyee-site)
   - [Running the project](#running-the-project)
@@ -29,4 +31,7 @@ This is the clinte side repository. [to the server repository](https://github.co
 * JWT
 * Tailwind
 * socket.IO
+* Axios
+* React-hook-form
+* Yup
 
