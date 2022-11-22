@@ -69,9 +69,9 @@ export const Navbar = (props) => {
                                   ? "p-2 hover:scale-105 transition duration-150"
                                   : "p-2 hover:scale-105 transition duration-150 text-green-700"
                               }
-                              onClick={() => setCurrent(theName.theName)}
                             >
                               <Link
+                                onClick={() => setCurrent(theName.theName)}
                                 to="department"
                                 state={{ department: theName.theName }}
                               >
@@ -92,9 +92,10 @@ export const Navbar = (props) => {
                     ? "text-white font-semibold mx-3"
                     : "text-green-700 font-semibold mx-3"
                 }
-                onClick={() => setCurrent("bonusses")}
               >
-                <Link to="bonusses">הטבות</Link>
+                <Link onClick={() => setCurrent("bonusses")} to="bonusses">
+                  הטבות
+                </Link>
               </div>
               <div
                 className={
@@ -102,9 +103,10 @@ export const Navbar = (props) => {
                     ? "text-white font-semibold mx-3"
                     : "text-green-700 font-semibold mx-3"
                 }
-                onClick={() => setCurrent("profile")}
               >
-                <Link to="profile">הפרופיל שלי</Link>
+                <Link onClick={() => setCurrent("profile")} to="profile">
+                  הפרופיל שלי
+                </Link>
               </div>
               <div
                 className={
@@ -112,9 +114,10 @@ export const Navbar = (props) => {
                     ? "text-white font-semibold mx-3"
                     : "text-green-700 font-semibold mx-3"
                 }
-                onClick={() => setCurrent("terms")}
               >
-                <Link to="terms">תקנון </Link>
+                <Link onClick={() => setCurrent("terms")} to="terms">
+                  תקנון{" "}
+                </Link>
               </div>
               {role === "SUPERADMIN" && (
                 <div className="flex justify-center">
@@ -130,9 +133,14 @@ export const Navbar = (props) => {
                         className={
                           current !== "register" ? "p-2" : "text-green-700 p-2"
                         }
-                        onClick={() => setCurrent("register")}
                       >
-                        <Link to="register"> עריכת משתמשים</Link>
+                        <Link
+                          onClick={() => setCurrent("register")}
+                          to="register"
+                        >
+                          {" "}
+                          עריכת משתמשים
+                        </Link>
                       </div>
                       <hr />
                       <div
@@ -141,9 +149,14 @@ export const Navbar = (props) => {
                             ? "p-2"
                             : "text-green-700 p-2"
                         }
-                        onClick={() => setCurrent("department_edit")}
                       >
-                        <Link to="department_edit"> עריכת אירוע</Link>
+                        <Link
+                          onClick={() => setCurrent("department_edit")}
+                          to="department_edit"
+                        >
+                          {" "}
+                          עריכת אירוע
+                        </Link>
                       </div>
                       <hr />
                       <div
@@ -152,9 +165,13 @@ export const Navbar = (props) => {
                             ? "p-2"
                             : "text-green-700 p-2"
                         }
-                        onClick={() => setCurrent("updatebonusses")}
                       >
-                        <Link to="updatebonusses">עריכת הטבות</Link>
+                        <Link
+                          onClick={() => setCurrent("updatebonusses")}
+                          to="updatebonusses"
+                        >
+                          עריכת הטבות
+                        </Link>
                       </div>
                       <hr />
                       <div
@@ -163,9 +180,23 @@ export const Navbar = (props) => {
                             ? "p-2"
                             : "text-green-700 p-2"
                         }
-                        onClick={() => setCurrent("departmentedit")}
                       >
-                        <Link to="departmentedit">עריכת אגפים</Link>
+                        <Link
+                          onClick={() => setCurrent("departmentedit")}
+                          to="departmentedit"
+                        >
+                          עריכת אגפים
+                        </Link>
+                      </div>
+                      <hr />
+                      <div
+                        className={
+                          current !== "speech" ? "p-2" : "text-green-700 p-2"
+                        }
+                      >
+                        <Link onClick={() => setCurrent("speech")} to="speech">
+                          עריכת דבר ר.העיר
+                        </Link>
                       </div>
                     </div>
                   )}
@@ -178,9 +209,13 @@ export const Navbar = (props) => {
                       ? "text-white font-semibold mx-3"
                       : "text-green-700 font-semibold mx-3"
                   }
-                  onClick={() => setCurrent("department_edit")}
                 >
-                  <Link to="department_edit"> עריכת אירוע</Link>
+                  <Link
+                    onClick={() => setCurrent("department_edit")}
+                    to="department_edit"
+                  >
+                    עריכת אירוע
+                  </Link>
                 </div>
               )}
             </div>
@@ -206,10 +241,10 @@ export const Navbar = (props) => {
                                 ? "p-2"
                                 : "text-green-700 p-2"
                             }
-                            onClick={() => setCurrent(theName.theName)}
                           >
                             <Link
                               to="department"
+                              onClick={() => setCurrent(theName.theName)}
                               state={{ department: theName.theName }}
                             >
                               {theName.theName}
@@ -222,25 +257,31 @@ export const Navbar = (props) => {
                       className={
                         current !== "profile" ? "p-2" : "text-green-700 p-2"
                       }
-                      onClick={() => setCurrent("profile")}
                     >
-                      <Link to="profile">הפרופיל שלי</Link>
+                      <Link onClick={() => setCurrent("profile")} to="profile">
+                        הפרופיל שלי
+                      </Link>
                     </div>
                     <div
                       className={
                         current !== "terms" ? "p-2" : "text-green-700 p-2"
                       }
-                      onClick={() => setCurrent("terms")}
                     >
-                      <Link to="terms">תקנון</Link>
+                      <Link onClick={() => setCurrent("terms")} to="terms">
+                        תקנון
+                      </Link>
                     </div>
                     <div
                       className={
                         current !== "bonusses" ? "p-2" : "text-green-700 p-2"
                       }
-                      onClick={() => setCurrent("bonusses")}
                     >
-                      <Link to="bonusses">הטבות</Link>
+                      <Link
+                        onClick={() => setCurrent("bonusses")}
+                        to="bonusses"
+                      >
+                        הטבות
+                      </Link>
                     </div>
 
                     {role === "SUPERADMIN" && (
@@ -251,9 +292,13 @@ export const Navbar = (props) => {
                               ? "p-2"
                               : "text-green-700 p-2"
                           }
-                          onClick={() => setCurrent("register")}
                         >
-                          <Link to="register">עריכת משתמשים</Link>
+                          <Link
+                            onClick={() => setCurrent("register")}
+                            to="register"
+                          >
+                            עריכת משתמשים
+                          </Link>
                         </div>
                         <div
                           className={
@@ -261,9 +306,13 @@ export const Navbar = (props) => {
                               ? "p-2"
                               : "text-green-700 p-2"
                           }
-                          onClick={() => setCurrent("department_edit")}
                         >
-                          <Link to="department_edit">עריכת אירוע</Link>
+                          <Link
+                            onClick={() => setCurrent("department_edit")}
+                            to="department_edit"
+                          >
+                            עריכת אירוע
+                          </Link>
                         </div>
                         <div
                           className={
@@ -271,9 +320,13 @@ export const Navbar = (props) => {
                               ? "p-2"
                               : "text-green-700 p-2"
                           }
-                          onClick={() => setCurrent("updatebonusses")}
                         >
-                          <Link to="updatebonusses">עריכת הטבות</Link>
+                          <Link
+                            onClick={() => setCurrent("updatebonusses")}
+                            to="updatebonusses"
+                          >
+                            עריכת הטבות
+                          </Link>
                         </div>
                         <div
                           className={
@@ -281,9 +334,25 @@ export const Navbar = (props) => {
                               ? "p-2"
                               : "text-green-700 p-2"
                           }
-                          onClick={() => setCurrent("departmentedit")}
                         >
-                          <Link to="departmentedit">עריכת אגפים</Link>
+                          <Link
+                            onClick={() => setCurrent("departmentedit")}
+                            to="departmentedit"
+                          >
+                            עריכת אגפים
+                          </Link>
+                        </div>
+                        <div
+                          className={
+                            current !== "speech" ? "p-2" : "text-green-700 p-2"
+                          }
+                        >
+                          <Link
+                            onClick={() => setCurrent("speech")}
+                            to="speech"
+                          >
+                            עריכת דבר ר.העיר
+                          </Link>
                         </div>
                       </div>
                     )}
@@ -294,9 +363,13 @@ export const Navbar = (props) => {
                             ? "p-2"
                             : "text-green-700 p-2"
                         }
-                        onClick={() => setCurrent("department_edit")}
                       >
-                        <Link to="department_edit">עריכת אירוע</Link>
+                        <Link
+                          onClick={() => setCurrent("department_edit")}
+                          to="department_edit"
+                        >
+                          עריכת אירוע
+                        </Link>
                       </div>
                     )}
                   </div>

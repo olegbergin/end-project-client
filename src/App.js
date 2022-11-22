@@ -20,8 +20,7 @@ import { Home } from "./components/Home";
 import { AddDepartments } from "./components/AddDepartment";
 import { PropsProfile } from "./components/PropsProfile";
 import PageNoteFound from "./components/PageNotFound";
-
-
+import { Speech } from "./components/Speech";
 
 function App() {
   const socket = io.connect(`${process.env.REACT_APP_SERVER}`, {
@@ -142,6 +141,7 @@ function App() {
           <Route path="departmentedit" element={<AddDepartments />} />
           <Route path="companyuser" element={<PropsProfile />} />
           <Route path="*" element={<PageNoteFound />} />
+          <Route path="speech" element={<Speech />} />
         </Routes>
       )}
     </div>

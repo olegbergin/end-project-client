@@ -161,6 +161,14 @@ export const Home = () => {
             </div>
           </div>
         </div>
+        <div className="p-10 ">
+          <h1 className="text-2xl font-bold m-auto mb-4 w-11/12">
+            דבר ראש העיר
+          </h1>
+          <div className="border-2 border-black/30 rounded-md w-11/12 m-auto break-all">
+            <p className="p-2">{allUsers && allUsers[0]?.speech}</p>
+          </div>
+        </div>
         <div className="p-10">
           {events?.map((post, index) => {
             return (

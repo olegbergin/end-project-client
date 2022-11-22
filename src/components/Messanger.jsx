@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { AiOutlineDown } from "react-icons/ai";
-import { AiOutlineUp } from "react-icons/ai";
+import { AiOutlineMessage } from "react-icons/ai";
 import { AiOutlineSend } from "react-icons/ai";
 
 export const Messanger = (props) => {
@@ -34,7 +34,7 @@ export const Messanger = (props) => {
       <div>
         {!arrow && (
           <div className="bg-gray-800 shadow-lg shadow-black/80  m-2 bottom-0 p-2  rounded-full right-0 fixed flex justify-center items-center z-50 ">
-            <AiOutlineUp
+            <AiOutlineMessage
               className="text-center text-white font-semibold cursor-pointer text-2xl"
               onClick={() => {
                 setArrow(true);

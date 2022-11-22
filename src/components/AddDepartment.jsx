@@ -26,7 +26,7 @@ export const AddDepartments = () => {
   return (
     <div className="pt-24 w-screen bg-gray-200 min-h-screen">
       <div className="flex flex-col lg:flex-row md:flex-row justify-center items-center lg:mt-24 md:mt-24">
-        <div className="flex flex-col w-96 bg-white p-10 m-10 items-center justify-center">
+        <div className="flex flex-col lg:w-96 w-82 bg-white p-10 m-10 items-center justify-center">
           <h1 className="text-center font-bold text-xl mb-5">הוסף אגף לאתר</h1>
           <input
             type="text"
@@ -41,7 +41,7 @@ export const AddDepartments = () => {
             צור אגף
           </button>
         </div>
-        <div className="flex flex-col w-96 bg-white p-10 m-10 items-center justify-center">
+        <div className="flex flex-col lg:w-96 w-82 bg-white p-10 m-10 items-center justify-center">
           <h1 className="text-center font-bold text-xl mb-5">מחק אגף מהאתר</h1>
           <input
             type="text"

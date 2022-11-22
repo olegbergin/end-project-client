@@ -113,7 +113,7 @@ function Department() {
             return (
               <div
                 key={index}
-                className=" m-10 lg:flex-row md:flex-row sm:flex-row flex flex-col items-center  bg-white p-2 border-2 border-gray-700  p-5"
+                className=" m-10 lg:flex-row md:flex-row sm:flex-row flex flex-col items-center  bg-white rounded-xl border-2 border-gray-700  p-5"
               >
                 <img src={post.image} alt="" className="w-40 " />
                 <div className="flex flex-col md:pr-10 lg:pr-10 space-y-3 justify-center items-center">
