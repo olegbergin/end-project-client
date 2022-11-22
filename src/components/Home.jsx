@@ -61,9 +61,7 @@ export const Home = () => {
                         </div>
                       </div>
                       <div className="flex-1 pl-1 mr-16">
-                        <div className="font-medium dark:text-white">
-                          {user.fullname}
-                        </div>
+                        <div className="font-medium ">{user.fullname}</div>
                       </div>
                     </div>
                   </li>
@@ -121,10 +119,8 @@ export const Home = () => {
                             </div>
                           </div>
                           <div className="flex-1 pl-1 mr-16">
-                            <div className="font-medium dark:text-white">
-                              {user.fullname}
-                            </div>
-                            <div className="text-gray-600 dark:text-gray-200 text-sm">
+                            <div className="font-medium">{user.fullname}</div>
+                            <div className="text-gray-600 text-black/50 text-sm">
                               {user.department}
                             </div>
                           </div>
@@ -174,11 +170,16 @@ export const Home = () => {
               >
                 <img src={post.image} alt="" className="w-56 mb-5" />
                 <div className="flex flex-col pr-10 space-y-3 justify-center">
-                  <h1 className="text-xl font-bold">{post.title}</h1>
-                  <h1 className="text-lg font-semibold w-5/6">
-                    {post.description}
+                  <h1 className="text-xl font-bold ">{post.title}</h1>
+                  <h1 className="text-lg w-5/6">{post.description}</h1>
+                  <h1 className="text-xs text-black/60">
+                    {`
+                    ${new Date(post.date).getFullYear()}/${
+                      new Date(post.date).getMonth() + 1
+                    }/${new Date(post.date).getDate()}
+                    
+                      `}
                   </h1>
-                  <h1 className="text-xs text-black/60 ">{post.date}</h1>
                 </div>
               </div>
             );

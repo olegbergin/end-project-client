@@ -132,7 +132,7 @@ export const Navbar = (props) => {
                         }
                         onClick={() => setCurrent("register")}
                       >
-                        <Link to="register"> הרשמה</Link>
+                        <Link to="register"> עריכת משתמשים</Link>
                       </div>
                       <hr />
                       <div
@@ -253,7 +253,7 @@ export const Navbar = (props) => {
                           }
                           onClick={() => setCurrent("register")}
                         >
-                          <Link to="register">הרשמה</Link>
+                          <Link to="register">עריכת משתמשים</Link>
                         </div>
                         <div
                           className={
@@ -263,7 +263,7 @@ export const Navbar = (props) => {
                           }
                           onClick={() => setCurrent("department_edit")}
                         >
-                          <Link to="department_edit">הוספת אירוע</Link>
+                          <Link to="department_edit">עריכת אירוע</Link>
                         </div>
                         <div
                           className={
@@ -296,7 +296,7 @@ export const Navbar = (props) => {
                         }
                         onClick={() => setCurrent("department_edit")}
                       >
-                        <Link to="department_edit">הוספת אירוע</Link>
+                        <Link to="department_edit">עריכת אירוע</Link>
                       </div>
                     )}
                   </div>

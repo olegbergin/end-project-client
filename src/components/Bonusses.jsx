@@ -6,9 +6,9 @@ import { useEffect } from "react";
 const Bonusses = () => {
   const [bonuses, setBonuses] = useState();
   useEffect(() => {
-    axios
-      .post(`${process.env.REACT_APP_SERVER}/bonuses/get`)
-      .then((res) => setBonuses(res.data));
+    axios.post(`${process.env.REACT_APP_SERVER}/bonuses/get`).then((res) => {
+      setBonuses(res.data);
+    });
   }, []);
 
   return (

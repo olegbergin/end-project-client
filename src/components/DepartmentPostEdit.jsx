@@ -50,7 +50,7 @@ function DepartmentPostEdit() {
             image: response.data.secure_url,
             publish: data.publish,
           })
-          .then((res) => console.log(res.data))
+          .then((res) => alert(res.data.message))
           .then(reset())
       );
   };
@@ -62,7 +62,7 @@ function DepartmentPostEdit() {
         .delete(
           `${process.env.REACT_APP_SERVER}/departments/delete/${deletepost}`
         )
-        .then((res) => console.log(res.data));
+        .then((res) => alert(res.data.message));
     } catch (error) {
       console.log(error);
     }

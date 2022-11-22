@@ -42,7 +42,7 @@ const UpdateBonusses = () => {
             linktitle: data.linktitle,
             date: data.date,
           })
-          .then((res) => console.log(res.data))
+          .then((res) => alert(res.data.message))
           .then(reset())
       );
   };
@@ -52,7 +52,7 @@ const UpdateBonusses = () => {
     try {
       await axios
         .delete(`${process.env.REACT_APP_SERVER}/bonuses/delete/${deletebonus}`)
-        .then((res) => console.log(res.data));
+        .then((res) => alert(res.data.message));
     } catch (error) {
       console.log(error);
     }

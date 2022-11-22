@@ -9,7 +9,7 @@ export const AddDepartments = () => {
       .post(`${process.env.REACT_APP_SERVER}/name/setname`, {
         theName: departmentName,
       })
-      .then((res) => console.log(res.data + "נוצרה בהצלחה"));
+      .then((res) => alert(res.data.message));
     setDepartmentName("");
   };
   const handleDeleteSubmit = () => {
@@ -19,7 +19,7 @@ export const AddDepartments = () => {
           theName: departmentName1,
         },
       })
-      .then((res) => console.log(res.data + "נמחק"));
+      .then((res) => alert(res.data.message));
     setDepartmentName1("");
   };
 

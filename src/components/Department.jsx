@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import { BsPeopleFill } from "react-icons/bs";
+import { AiFillCloseCircle } from "react-icons/ai";
 
 function Department() {
   const [postData, setpostData] = useState();
@@ -76,10 +77,8 @@ function Department() {
                             </div>
                           </div>
                           <div className="flex-1 pl-1 mr-16">
-                            <div className="font-medium dark:text-white">
-                              {user.fullname}
-                            </div>
-                            <div className="text-gray-600 dark:text-gray-200 text-sm">
+                            <div className="font-medium ">{user.fullname}</div>
+                            <div className="text-gray-600 text-sm">
                               {department}
                             </div>
                           </div>
@@ -89,12 +88,10 @@ function Department() {
                   );
                 })}
             </ul>
-            <button
-              className="inline-flex items-center justify-center  h-12 px-6 font-medium border-2 border-black rounded-lg bg-gray-600 text-white hover:bg-gray-900 mb-4 transition duration-300"
+            <AiFillCloseCircle
+              className="text-5xl text-red-600 cursor-pointer"
               onClick={() => setModal(!modal)}
-            >
-              סגור
-            </button>
+            />
           </div>
         </div>
       )}
@@ -124,7 +121,12 @@ function Department() {
                   <h1 className="text-lg font-semibold w-5/6">
                     {post.description}
                   </h1>
-                  <h1 className="text-xs text-black/60 ">{post.date}</h1>
+                  <h1 className="text-xs text-black/60 ">{`
+                    ${new Date(post.date).getFullYear()}/${
+                    new Date(post.date).getMonth() + 1
+                  }/${new Date(post.date).getDate()}
+                    
+                      `}</h1>
                 </div>
               </div>
             );
