@@ -17,6 +17,7 @@ This is the clinte side repository. [to the server repository](https://github.co
 5. Navigate to `http://localhost:3000`.
 
 ## Screenshot
+![screenshot](https://github.com/noammery/end-project-client/blob/master/src/images/screenshot.png)
 
 ## Technologies:
 * ReactJS
