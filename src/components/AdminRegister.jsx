@@ -313,10 +313,10 @@ export const AdminRegister = () => {
                     htmlFor=""
                     className="flex justify-center text-blue-900 text-xs  font-semibold "
                   >
-                    שם המשתמש שתרצה למחוק:
+                    כתובת האימייל של המשתמש שתרצה למחוק:
                   </label>
                   <input
-                    placeholder="שם המשתמש המדויק"
+                    placeholder="הכנס כתובת אימייל..."
                     required
                     type="text"
                     className="border-2 rounded p-2 w-44"
