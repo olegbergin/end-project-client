@@ -12,7 +12,6 @@ import {
 } from "../redux/userSlice";
 import { useNavigate } from "react-router-dom";
 
-
 const schema = yup.object().shape({
   email: yup.string().required(),
   password: yup
@@ -46,10 +45,10 @@ export const Login = () => {
         dispatch(updateRole(decoded.role));
         dispatch(updateName(decoded.fullname));
         dispatch(updateEmail(decoded.id));
-      });
-
+        navigate("/profile");
+      })
+      .catch((e) => alert("אימייל ו / או סיסמא שגויים"));
     reset();
-    navigate("/profile");
   };
 
   return (
@@ -118,6 +117,7 @@ export const Login = () => {
                       {...register("password")}
                       placeholder="password"
                       className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
+                      type="password"
                     />
                     {errors?.password && (
                       <p className="text-red-600">
