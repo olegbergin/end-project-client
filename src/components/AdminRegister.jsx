@@ -304,47 +304,45 @@ export const AdminRegister = () => {
                 </div>
               </form>
             </div>
-            <div className="flex flex-col justify-center mt-10 items-center">
-              <h1 className="max-w-lg  font-sans text-3xl font-bold tracking-tight  sm:text-4xl sm:leading-none">
-                מחיקת משתמש מהמערכת
-              </h1>
-              <div className=" bg-white rounded shadow-2x1 mt-5 p-5 flex flex-col items-center justify-center">
-                <form onSubmit={handledelete}>
-                  <div className="mb-1 sm:mb-2 flex flex-col items-center">
-                    <label
-                      htmlFor=""
-                      className="flex justify-center text-blue-900 text-xs  font-semibold "
-                    >
-                      שם המשתמש שתרצה למחוק:
-                    </label>
-                    <input
-                      value={deleteUser}
-                      placeholder="שם המשתמש המדויק"
-                      required
-                      type="text"
-                      className="border-2 rounded p-2 w-44"
-                      id="deletebonus"
-                      name="deletebonus"
-                      {...register("deletebonus", {
-                        required: true,
-                        max: 80,
-                        min: 1,
-                        maxLength: 80,
-                      })}
-                      onChange={(elemant) =>
-                        setDeleteUser(elemant.target.value)
-                      }
-                    />
-                  </div>
-                  <div className="mt-4 mb-2 sm:mb-4 text-center">
-                    <input
-                      value="מחק משתמש"
-                      type="submit"
-                      className="w-44 cursor-pointer h-12 px-6 font-medium tracking-wide text-green-700 transition duration-200 rounded shadow-md  hover:bg-gray-700 hover:border-2 hover:border-gray-900 hover:text-white focus:shadow-outline focus:outline-none mb-4"
-                    />
-                  </div>
-                </form>
-              </div>
+
+            <div className=" bg-white rounded shadow-2x1 mt-20 p-5 flex flex-col items-center justify-center">
+              <h3 className="mb-4 text-xl font-semibold sm:text-center sm:mb-6 sm:text-2xl">
+                מחיקת משתמשים:
+              </h3>
+              <form onSubmit={handledelete}>
+                <div className="mb-1 sm:mb-2 flex flex-col items-center">
+                  <label
+                    htmlFor=""
+                    className="flex justify-center text-blue-900 text-xs  font-semibold "
+                  >
+                    כתובת האימייל של המשתמש שתרצה למחוק:
+                  </label>
+                  <input
+                    value={deleteUser}
+                    placeholder="הכנס כתובת אימייל..."
+                    required
+                    type="text"
+                    className="border-2 rounded p-2 w-44"
+                    id="deletebonus"
+                    name="deletebonus"
+                    {...register("deletebonus", {
+                      required: true,
+                      max: 80,
+                      min: 1,
+                      maxLength: 80,
+                    })}
+                    onChange={(elemant) => setDeleteUser(elemant.target.value)}
+                  />
+                </div>
+                <div className="mt-4 mb-2 sm:mb-4 text-center">
+                  <input
+                    value="מחק משתמש"
+                    type="submit"
+                    className="w-44 cursor-pointer h-12 px-6 font-medium tracking-wide text-green-700 transition duration-200 rounded shadow-md  hover:bg-gray-700 hover:border-2 hover:border-gray-900 hover:text-white focus:shadow-outline focus:outline-none mb-4"
+                  />
+                </div>
+              </form>
+
             </div>
           </div>
         </div>
