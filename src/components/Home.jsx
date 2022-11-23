@@ -189,7 +189,11 @@ export const Home = () => {
                   key={index}
                   className="lg:flex-row md:flex-row sm:flex-row my-10 flex flex-col items-center  p-2 rounded-3xl bg-opacity-50 shadow-md shadow-black/70 bg-gray-300"
                 >
-                  <img src={post.image} alt="" className="w-48 rounded-md " />
+                  <img
+                    src={post.image}
+                    alt=""
+                    className="w-48 rounded-md object-cover"
+                  />
                   <div className="flex flex-col pr-10 space-y-3 justify-center">
                     <h1 className="text-xl font-bold ">{post.title}</h1>
                     <h1 className="text-lg w-5/6">{post.description}</h1>
