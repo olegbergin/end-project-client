@@ -4,9 +4,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import {  useSelector } from 'react-redux';
-
-
 
 const url = `${process.env.REACT_APP_SERVER}/bonuses`;
 
@@ -25,7 +22,7 @@ const UpdateBonusses = () => {
   const token = useSelector((state) => state.user.token);
 
 
-  const { register, handleSubmit, reset,  } = useForm({
+  const { register, handleSubmit, reset } = useForm({
     mode: "all",
     resolver: yupResolver(schema),
   });
@@ -48,7 +45,7 @@ const UpdateBonusses = () => {
             linktitle: data.linktitle,
             date: data.date,
           }, { headers: { 'Authorization': `Bearer ${token}` } })
-          .then((res) => console.log(res.data))
+          .then((res) => alert(res.data.message))
           .then(reset())
       );
   };
@@ -58,7 +55,7 @@ const UpdateBonusses = () => {
     try {
       await axios
         .delete(`${process.env.REACT_APP_SERVER}/bonuses/delete/${deletebonus}`, { headers: { 'Authorization': `Bearer ${token}` } })
-        .then((res) => console.log(res.data));
+        .then((res) => alert(res.data.message));
     } catch (error) {
       console.log(error);
     }

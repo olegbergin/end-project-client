@@ -5,9 +5,6 @@ import { BsFillPhoneFill } from "react-icons/bs";
 import { MdEmail } from "react-icons/md";
 import { FaBirthdayCake } from "react-icons/fa";
 import { FaFileContract } from "react-icons/fa";
-import { useSelector } from 'react-redux';
-
-
 
 export const Profile = () => {
   const monthNames = [
@@ -29,9 +26,16 @@ export const Profile = () => {
   const email = useSelector((state) => state.user.email);
   const day = new Date(theUser?.birthday).getDate();
   const month = new Date(theUser?.birthday).getMonth();
+  const theBirthday = `${day},${month}`;
   const updatedBirthday = `${day} ב${monthNames[month]}`;
   const token = useSelector((state) => state.user.token);
 
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    const Today = `${new Date().getDate()},${new Date().getMonth()}`;
+    Today === theBirthday ? setShow(true) : setShow(false);
+  }, [show, theBirthday]);
 
   const setTheStatus = async (e) => {
     const requestObj = {
@@ -100,6 +104,11 @@ export const Profile = () => {
                       <FaFileContract /> : חוזה העסקה
                     </a>
                   </div>
+                  {show && (
+                    <div className="mb-1  mx-3 p-2 rounded-lg font-bold text-pink-500 text-6xl">
+                      מזל טוב {theUser?.fullname}!
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

@@ -1,11 +1,9 @@
 import image from "../images/dimona-logo.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../redux/userSlice";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
-
 
 export const Navbar = (props) => {
   const dispatch = useDispatch();
@@ -14,13 +12,15 @@ export const Navbar = (props) => {
   const [departmentNames, setDepartmentNames] = useState();
   const token = useSelector((state) => state.user.token);
 
-
+  const [current, setCurrent] = useState("");
+  const location = useLocation().pathname;     
+  const page = location.slice(1, location.length);
   useEffect(() => {
     axios
       .post(`${process.env.REACT_APP_SERVER}/name/getnames`, { headers: { 'Authorization': `Bearer ${token}` } })
       .then((res) => setDepartmentNames(res.data));
-// eslint-disable-next-line
-  }, []);
+    setCurrent(page);
+  }, [page]);
 
   return (
     <div className="bg-gray-800 w-screen fixed z-50">
@@ -60,17 +60,26 @@ export const Navbar = (props) => {
                     אגפים
                   </button>
                   {props.isOpen && (
-                    <div className=" text-white absolute bg-gray-900 w-44 border-2 border-black text-center mt-12 rounded-md z-10">
+                    <div className=" text-white absolute bg-gray-900 w-44 border-2 border-black text-center mt-12 z-10">
                       {departmentNames?.map((theName, index) => {
                         return (
                           theName.theName !== "ראשי" && (
-                            <div key={index} className="p-2">
+                            <div
+                              key={index}
+                              className={
+                                current !== theName.theName
+                                  ? "p-2 hover:scale-105 transition duration-150"
+                                  : "p-2 hover:scale-105 transition duration-150 text-green-700"
+                              }
+                            >
                               <Link
+                                onClick={() => setCurrent(theName.theName)}
                                 to="department"
                                 state={{ department: theName.theName }}
                               >
                                 {theName.theName}
                               </Link>
+                              <hr />
                             </div>
                           )
                         );
@@ -79,14 +88,38 @@ export const Navbar = (props) => {
                   )}
                 </div>
               </div>
-              <div className="text-green-700 font-semibold mx-3">
-                <Link to="bonusses">הטבות</Link>
+              <div
+                className={
+                  current !== "bonusses"
+                    ? "text-white font-semibold mx-3"
+                    : "text-green-700 font-semibold mx-3"
+                }
+              >
+                <Link onClick={() => setCurrent("bonusses")} to="bonusses">
+                  הטבות
+                </Link>
               </div>
-              <div className="text-white font-semibold mx-3">
-                <Link to="profile">הפרופיל שלי</Link>
+              <div
+                className={
+                  current !== "profile"
+                    ? "text-white font-semibold mx-3"
+                    : "text-green-700 font-semibold mx-3"
+                }
+              >
+                <Link onClick={() => setCurrent("profile")} to="profile">
+                  הפרופיל שלי
+                </Link>
               </div>
-              <div className="text-white font-semibold mx-3">
-                <Link to="terms">תקנון </Link>
+              <div
+                className={
+                  current !== "terms"
+                    ? "text-white font-semibold mx-3"
+                    : "text-green-700 font-semibold mx-3"
+                }
+              >
+                <Link onClick={() => setCurrent("terms")} to="terms">
+                  תקנון{" "}
+                </Link>
               </div>
               {role === "SUPERADMIN" && (
                 <div className="flex justify-center">
@@ -98,28 +131,93 @@ export const Navbar = (props) => {
                   </button>
                   {props.anotherOpen && (
                     <div className=" text-white absolute bg-gray-900 w-44 border-2 border-black text-center mt-10 rounded-md z-10">
-                      <div className="p-2">
-                        <Link to="register"> הרשמה</Link>
+                      <div
+                        className={
+                          current !== "register" ? "p-2" : "text-green-700 p-2"
+                        }
+                      >
+                        <Link
+                          onClick={() => setCurrent("register")}
+                          to="register"
+                        >
+                          {" "}
+                          עריכת משתמשים
+                        </Link>
                       </div>
                       <hr />
-                      <div className="p-2">
-                        <Link to="department_edit"> עריכת אירוע</Link>
+                      <div
+                        className={
+                          current !== "department_edit"
+                            ? "p-2"
+                            : "text-green-700 p-2"
+                        }
+                      >
+                        <Link
+                          onClick={() => setCurrent("department_edit")}
+                          to="department_edit"
+                        >
+                          {" "}
+                          עריכת אירוע
+                        </Link>
                       </div>
                       <hr />
-                      <div className="p-2">
-                        <Link to="updatebonusses">עריכת הטבות</Link>
+                      <div
+                        className={
+                          current !== "updatebonusses"
+                            ? "p-2"
+                            : "text-green-700 p-2"
+                        }
+                      >
+                        <Link
+                          onClick={() => setCurrent("updatebonusses")}
+                          to="updatebonusses"
+                        >
+                          עריכת הטבות
+                        </Link>
                       </div>
                       <hr />
-                      <div className="p-2">
-                        <Link to="departmentedit">עריכת אגפים</Link>
+                      <div
+                        className={
+                          current !== "departmentedit"
+                            ? "p-2"
+                            : "text-green-700 p-2"
+                        }
+                      >
+                        <Link
+                          onClick={() => setCurrent("departmentedit")}
+                          to="departmentedit"
+                        >
+                          עריכת אגפים
+                        </Link>
+                      </div>
+                      <hr />
+                      <div
+                        className={
+                          current !== "speech" ? "p-2" : "text-green-700 p-2"
+                        }
+                      >
+                        <Link onClick={() => setCurrent("speech")} to="speech">
+                          עריכת דבר ר.העיר
+                        </Link>
                       </div>
                     </div>
                   )}
                 </div>
               )}
               {role === "ADMIN" && (
-                <div className="text-white font-semibold mx-3">
-                  <Link to="department_edit"> עריכת אירוע</Link>
+                <div
+                  className={
+                    current !== "department_edit"
+                      ? "text-white font-semibold mx-3"
+                      : "text-green-700 font-semibold mx-3"
+                  }
+                >
+                  <Link
+                    onClick={() => setCurrent("department_edit")}
+                    to="department_edit"
+                  >
+                    עריכת אירוע
+                  </Link>
                 </div>
               )}
             </div>
@@ -134,13 +232,21 @@ export const Navbar = (props) => {
               <span className="block w-8 h-1 bg-gray-600"></span>
               <div className="flex justify-center">
                 {props.hamburgerOpen && (
-                  <div className=" text-white absolute bg-gray-900 w-44 border-2 border-black text-center mt-10 rounded-md z-10">
+                  <div className=" text-white absolute bg-gray-900 w-44 border-2 border-black text-center mt-4 z-10">
                     {departmentNames?.map((theName, index) => {
                       return (
                         theName.theName !== "ראשי" && (
-                          <div key={index} className="p-2">
+                          <div
+                            key={index}
+                            className={
+                              current !== theName.theName
+                                ? "p-2"
+                                : "text-green-700 p-2"
+                            }
+                          >
                             <Link
                               to="department"
+                              onClick={() => setCurrent(theName.theName)}
                               state={{ department: theName.theName }}
                             >
                               {theName.theName}
@@ -149,32 +255,123 @@ export const Navbar = (props) => {
                         )
                       );
                     })}
-                    <div className="p-2">
-                      <Link to="profile">הפרופיל שלי</Link>
+                    <div
+                      className={
+                        current !== "profile" ? "p-2" : "text-green-700 p-2"
+                      }
+                    >
+                      <Link onClick={() => setCurrent("profile")} to="profile">
+                        הפרופיל שלי
+                      </Link>
                     </div>
-                    <div className="p-2">
-                      <Link to="terms">תקנון</Link>
+                    <div
+                      className={
+                        current !== "terms" ? "p-2" : "text-green-700 p-2"
+                      }
+                    >
+                      <Link onClick={() => setCurrent("terms")} to="terms">
+                        תקנון
+                      </Link>
                     </div>
-                    <div className="p-2">
-                      <Link to="bonusses">הטבות</Link>
+                    <div
+                      className={
+                        current !== "bonusses" ? "p-2" : "text-green-700 p-2"
+                      }
+                    >
+                      <Link
+                        onClick={() => setCurrent("bonusses")}
+                        to="bonusses"
+                      >
+                        הטבות
+                      </Link>
                     </div>
 
                     {role === "SUPERADMIN" && (
                       <div>
-                        <div className="p-2">
-                          <Link to="register">הרשמה</Link>
+                        <div
+                          className={
+                            current !== "register"
+                              ? "p-2"
+                              : "text-green-700 p-2"
+                          }
+                        >
+                          <Link
+                            onClick={() => setCurrent("register")}
+                            to="register"
+                          >
+                            עריכת משתמשים
+                          </Link>
                         </div>
-                        <div className="p-2">
-                          <Link to="department_edit">הוספת אירוע</Link>
+                        <div
+                          className={
+                            current !== "department_edit"
+                              ? "p-2"
+                              : "text-green-700 p-2"
+                          }
+                        >
+                          <Link
+                            onClick={() => setCurrent("department_edit")}
+                            to="department_edit"
+                          >
+                            עריכת אירוע
+                          </Link>
                         </div>
-                        <div className="p-2">
-                          <Link to="updatebonusses">עריכת הטבות</Link>
+                        <div
+                          className={
+                            current !== "updatebonusses"
+                              ? "p-2"
+                              : "text-green-700 p-2"
+                          }
+                        >
+                          <Link
+                            onClick={() => setCurrent("updatebonusses")}
+                            to="updatebonusses"
+                          >
+                            עריכת הטבות
+                          </Link>
+                        </div>
+                        <div
+                          className={
+                            current !== "departmentedit"
+                              ? "p-2"
+                              : "text-green-700 p-2"
+                          }
+                        >
+                          <Link
+                            onClick={() => setCurrent("departmentedit")}
+                            to="departmentedit"
+                          >
+                            עריכת אגפים
+                          </Link>
+                        </div>
+                        <div
+                          className={
+                            current !== "speech" ? "p-2" : "text-green-700 p-2"
+                          }
+                        >
+                          <Link
+                            onClick={() => setCurrent("speech")}
+                            to="speech"
+                          >
+                            עריכת דבר ר.העיר
+                          </Link>
                         </div>
                       </div>
                     )}
                     {role === "ADMIN" && (
-                      <div className="p-2">
-                        <Link to="department_edit">הוספת אירוע</Link>
+                      <div
+                        className={
+                          current !== "department_edit"
+                            ? "p-2"
+                            : "text-green-700 p-2"
+                        }
+                      >
+                        <Link
+                          onClick={() => setCurrent("department_edit")}
+                          to="department_edit"
+                        >
+                          עריכת אירוע
+                        </Link>
                       </div>
                     )}
                   </div>

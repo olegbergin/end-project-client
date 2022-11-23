@@ -3,11 +3,9 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
-import { yupResolver } from '@hookform/resolvers/yup';
+import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import {  useSelector } from 'react-redux';
-
-
 
 const url = `${process.env.REACT_APP_SERVER}/departments`;
 
@@ -26,11 +24,9 @@ const schema = yup.object().shape({
 });
 
 function DepartmentPostEdit() {
-
   const [deletepost, setDeletepost] = useState("");
   const [departmentNames, setDepartmentNames] = useState();
   const token = useSelector((state) => state.user.token);
-
 
 
   const {
@@ -40,42 +36,41 @@ function DepartmentPostEdit() {
     formState: { errors },
   } = useForm({ mode: "all", resolver: yupResolver(schema) });
 
-
   const onSubmit = async (data, e) => {
-    e.preventDefault()
-    const formData = new FormData()
-    formData.append('file', data.image[0])
-    formData.append('upload_preset', "oo2ebqls")
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("file", data.image[0]);
+    formData.append("upload_preset", "oo2ebqls");
     axios
       .post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload", formData, { headers: { 'Authorization': `Bearer ${token}` } })
-      .then((response) => 
-       axios
-        .post(`${url}/departmentedit`, {
-          title: data.title,
-          department: data.department,
-          description: data.description,
-          date: new Date(data.date),
-          image: response.data.secure_url,
-          publish: data.publish
-        }, { headers: { 'Authorization': `Bearer ${token}` } })
-        .then((res) => console.log(res.data))
-        .then(reset()))
-  }
+      .then((response) =>
+        axios
+          .post(`${url}/departmentedit`, {
+            title: data.title,
+            department: data.department,
+            description: data.description,
+            date: new Date(data.date),
+            image: response.data.secure_url,
+            publish: data.publish,
+          }, { headers: { 'Authorization': `Bearer ${token}` } })
+          .then((res) => alert(res.data.message))
+          .then(reset())
+      );
+  };
 
   const handledelete = async (elemant) => {
     elemant.preventDefault();
     try {
       await axios
-        .delete(`${process.env.REACT_APP_SERVER}/departments/delete/${deletepost}`, { headers: { 'Authorization': `Bearer ${token}` } })
-        .then((res) => console.log(res.data));
-        
+        .delete(
+          `${process.env.REACT_APP_SERVER}/departments/delete/${deletepost}`, { headers: { 'Authorization': `Bearer ${token}` } }
+        )
+        .then((res) => alert(res.data.message));
     } catch (error) {
       console.log(error);
     }
-    setDeletepost('')
+    setDeletepost("");
   };
-
-
 
   useEffect(() => {
     axios
@@ -130,9 +125,7 @@ function DepartmentPostEdit() {
             {...register("title")}
           />
           {errors?.title && (
-            <p className="text-red-600">
-              {errors?.title?.message || "Error!"}
-            </p>
+            <p className="text-red-600">{errors?.title?.message || "Error!"}</p>
           )}
           <label
             htmlFor=""
@@ -166,9 +159,7 @@ function DepartmentPostEdit() {
             {...register("date")}
           />
           {errors?.date && (
-            <p className="text-red-600">
-              {errors?.date?.message || "Error!"}
-            </p>
+            <p className="text-red-600">{errors?.date?.message || "Error!"}</p>
           )}
           <label
             htmlFor=""
@@ -184,12 +175,10 @@ function DepartmentPostEdit() {
             })}
             accept="image/png/jpeg/svg/gif/jpg"
             {...register("image")}
-          // onChange={(e) => setImage(e.target.files[0])}
+            // onChange={(e) => setImage(e.target.files[0])}
           />
           {errors?.image && (
-            <p className="text-red-600">
-              {errors?.image?.message || "Error!"}
-            </p>
+            <p className="text-red-600">{errors?.image?.message || "Error!"}</p>
           )}
           <label
             htmlFor=""
@@ -201,16 +190,14 @@ function DepartmentPostEdit() {
             // className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1"
             type="checkbox"
             {...register("publish")}
-
           />
-        
+
           <div className="text-center">
             <input
               type="submit"
               className="w-56    h-12 px-6 font-medium tracking-wide text-green-700 transition duration-200 rounded shadow-md  hover:bg-gray-700 hover:border-2 hover:border-gray-900 hover:text-white focus:shadow-outline focus:outline-none mb-4"
               value="הוסף אירוע"
             />
-
           </div>
         </form>
         <div className="m-10">
