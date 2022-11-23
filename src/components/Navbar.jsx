@@ -11,7 +11,7 @@ export const Navbar = (props) => {
   const role = useSelector((state) => state.user.role);
   const [departmentNames, setDepartmentNames] = useState();
   const [current, setCurrent] = useState("");
-  const location = useLocation().pathname;
+  const location = useLocation().pathname;     
   const page = location.slice(1, location.length);
   useEffect(() => {
     axios
