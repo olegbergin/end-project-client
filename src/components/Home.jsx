@@ -2,16 +2,20 @@ import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import Calendar from "./Calendar";
+import {  useSelector } from 'react-redux';
 
 
 
 export const Home = () => {
   const [events, setEvents] = useState();
+  const token = useSelector((state) => state.user.token);
+
+
   useEffect(() => {
     axios
-      .post(`${process.env.REACT_APP_SERVER}/departments/data`, { department: "ראשי" })
+      .post(`${process.env.REACT_APP_SERVER}/departments/data`, { department: "ראשי" }, { headers: { 'Authorization': `Bearer ${token}` } })
       .then((res) => setEvents(res.data));
-  }, []);
+  }, [token]);
   return (
     <div className="bg-gray-200 min-h-screen">
       <div className="pt-28 w-screen">

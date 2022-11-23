@@ -14,7 +14,7 @@ import { io } from "socket.io-client";
 import { Messanger } from "./components/Messanger";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { updateEmail, updateName, updateRole } from "./redux/userSlice";
+import { updateEmail, updateName, updateRole, updateToken } from "./redux/userSlice";
 import jwt_decode from "jwt-decode";
 import { Home } from "./components/Home";
 import { AddDepartments } from "./components/AddDepartment";
@@ -43,6 +43,7 @@ function App() {
   useEffect(() => {
     const storage = localStorage.getItem("myToken");
     if (storage) {
+      dispatch(updateToken(storage));
       const decoded = jwt_decode(storage);
       dispatch(updateRole(decoded.role));
       dispatch(updateEmail(decoded.id));

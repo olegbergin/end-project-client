@@ -12,11 +12,14 @@ export const Navbar = (props) => {
   const navigate = useNavigate();
   const role = useSelector((state) => state.user.role);
   const [departmentNames, setDepartmentNames] = useState();
+  const token = useSelector((state) => state.user.token);
+
 
   useEffect(() => {
     axios
-      .post(`${process.env.REACT_APP_SERVER}/name/getnames`)
+      .post(`${process.env.REACT_APP_SERVER}/name/getnames`, { headers: { 'Authorization': `Bearer ${token}` } })
       .then((res) => setDepartmentNames(res.data));
+// eslint-disable-next-line
   }, []);
 
   return (

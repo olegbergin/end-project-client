@@ -5,6 +5,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+import {  useSelector } from 'react-redux';
 
 
 
@@ -28,6 +29,8 @@ function DepartmentPostEdit() {
 
   const [deletepost, setDeletepost] = useState("");
   const [departmentNames, setDepartmentNames] = useState();
+  const token = useSelector((state) => state.user.token);
+
 
 
   const {
@@ -44,7 +47,7 @@ function DepartmentPostEdit() {
     formData.append('file', data.image[0])
     formData.append('upload_preset', "oo2ebqls")
     axios
-      .post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload", formData)
+      .post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload", formData, { headers: { 'Authorization': `Bearer ${token}` } })
       .then((response) => 
        axios
         .post(`${url}/departmentedit`, {
@@ -54,7 +57,7 @@ function DepartmentPostEdit() {
           date: new Date(data.date),
           image: response.data.secure_url,
           publish: data.publish
-        })
+        }, { headers: { 'Authorization': `Bearer ${token}` } })
         .then((res) => console.log(res.data))
         .then(reset()))
   }
@@ -63,7 +66,7 @@ function DepartmentPostEdit() {
     elemant.preventDefault();
     try {
       await axios
-        .delete(`${process.env.REACT_APP_SERVER}/departments/delete/${deletepost}`)
+        .delete(`${process.env.REACT_APP_SERVER}/departments/delete/${deletepost}`, { headers: { 'Authorization': `Bearer ${token}` } })
         .then((res) => console.log(res.data));
         
     } catch (error) {
@@ -76,9 +79,9 @@ function DepartmentPostEdit() {
 
   useEffect(() => {
     axios
-      .post(`${process.env.REACT_APP_SERVER}/name/getnames`)
+      .post(`${process.env.REACT_APP_SERVER}/name/getnames`, { headers: { 'Authorization': `Bearer ${token}` } })
       .then((res) => setDepartmentNames(res.data));
-  }, []);
+  }, [token]);
 
   return (
     <div className="bg-gray-200 min-h-screen mt-24 w-screen">
