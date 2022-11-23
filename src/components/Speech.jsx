@@ -6,7 +6,9 @@ export const Speech = () => {
   const handleSubmit = () => {
     speech
       ? axios
-          .post("http://localhost:5000/auth/speech", { speech: speech })
+          .post(`${process.env.REACT_APP_SERVER}/auth/speech`, {
+            speech: speech,
+          })
           .then((res) => alert(res.data.message))
       : alert("אנא הזן טקסט");
   };
