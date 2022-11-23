@@ -1,19 +1,8 @@
 import React from "react";
-import { useState } from "react";
-import axios from "axios";
-import { useEffect } from "react";
-import {  useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
 const Bonusses = () => {
-  const [bonuses, setBonuses] = useState();
-  const token = useSelector((state) => state.user.token);
-
-
-  useEffect(() => {
-    axios.post(`${process.env.REACT_APP_SERVER}/bonuses/get`, { headers: { 'Authorization': `Bearer ${token}` } }).then((res) => {
-      setBonuses(res.data);
-    });
-  }, [token]);
+  const bonuses = useSelector((state) => state.bonuse.bonuses);
 
   return (
     <div className="bg-gray-200 min-h-screen">

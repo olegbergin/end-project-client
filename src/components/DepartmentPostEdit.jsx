@@ -5,7 +5,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import {  useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
 const url = `${process.env.REACT_APP_SERVER}/departments`;
 
@@ -28,7 +28,6 @@ function DepartmentPostEdit() {
   const [departmentNames, setDepartmentNames] = useState();
   const token = useSelector((state) => state.user.token);
 
-
   const {
     register,
     reset,
@@ -45,14 +44,18 @@ function DepartmentPostEdit() {
       .post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload", formData)
       .then((response) =>
         axios
-          .post(`${url}/departmentedit`, {
-            title: data.title,
-            department: data.department,
-            description: data.description,
-            date: new Date(data.date),
-            image: response.data.secure_url,
-            publish: data.publish,
-          }, { headers: { 'Authorization': `Bearer ${token}` } })
+          .post(
+            `${url}/departmentedit`,
+            {
+              title: data.title,
+              department: data.department,
+              description: data.description,
+              date: new Date(data.date),
+              image: response.data.secure_url,
+              publish: data.publish,
+            },
+            { headers: { Authorization: `Bearer ${token}` } }
+          )
           .then((res) => alert(res.data.message))
           .then(reset())
       );
@@ -63,7 +66,8 @@ function DepartmentPostEdit() {
     try {
       await axios
         .delete(
-          `${process.env.REACT_APP_SERVER}/departments/delete/${deletepost}`, { headers: { 'Authorization': `Bearer ${token}` } }
+          `${process.env.REACT_APP_SERVER}/departments/delete/${deletepost}`,
+          { headers: { Authorization: `Bearer ${token}` } }
         )
         .then((res) => alert(res.data.message));
     } catch (error) {
@@ -74,7 +78,9 @@ function DepartmentPostEdit() {
 
   useEffect(() => {
     axios
-      .post(`${process.env.REACT_APP_SERVER}/name/getnames`, { headers: { 'Authorization': `Bearer ${token}` } })
+      .post(`${process.env.REACT_APP_SERVER}/name/getnames`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((res) => setDepartmentNames(res.data));
   }, [token]);
 
@@ -180,18 +186,27 @@ function DepartmentPostEdit() {
           {errors?.image && (
             <p className="text-red-600">{errors?.image?.message || "Error!"}</p>
           )}
-          <label
-            htmlFor=""
-            className="flex  text-blue-900 text-sm font-semibold "
-          >
-            עדכן את כלל העובדים ?
-          </label>
-          <input
-            // className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1"
-            type="checkbox"
-            {...register("publish")}
-          />
-
+          <div className="flex justify-between mb-5 items-center">
+            <div>
+              <label
+                htmlFor=""
+                className="flex  text-blue-900 text-md font-semibold "
+              >
+                עדכן את כלל העובדים ?
+              </label>
+              <label
+                htmlFor=""
+                className="flex  text-red-700 font-bold text-sm "
+              >
+                לסמן רק במקרה הצורך!
+              </label>
+            </div>
+            <input
+              className="border-gray-300 rounded h-5 w-5"
+              type="checkbox"
+              {...register("publish")}
+            />
+          </div>
           <div className="text-center">
             <input
               type="submit"
