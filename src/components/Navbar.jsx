@@ -20,7 +20,7 @@ export const Navbar = (props) => {
       .post(`${process.env.REACT_APP_SERVER}/name/getnames`, { headers: { 'Authorization': `Bearer ${token}` } })
       .then((res) => setDepartmentNames(res.data));
     setCurrent(page);
-  }, [page]);
+  }, [page, token]);
 
   return (
     <div className="bg-gray-800 w-screen fixed z-50">
