@@ -57,7 +57,9 @@ function App() {
   useEffect(() => {
     setLoading(true);
     axios
-      .post(`${process.env.REACT_APP_SERVER}/department/get`)
+      .post(`${process.env.REACT_APP_SERVER}/departments/get`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((res) => dispatch(updatePosts(res.data)));
 
     const storage = localStorage.getItem("myToken");
