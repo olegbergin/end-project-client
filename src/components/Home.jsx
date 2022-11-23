@@ -6,6 +6,7 @@ import Calendar from "./Calendar";
 import { FaBirthdayCake } from "react-icons/fa";
 import { BsPeopleFill } from "react-icons/bs";
 import { AiFillCloseCircle } from "react-icons/ai";
+import image from "../images/dimona-logo.png";
 
 export const Home = () => {
   const [events, setEvents] = useState();
@@ -42,7 +43,7 @@ export const Home = () => {
     });
   }, []);
   return (
-    <div className="bg-gray-200 min-h-screen">
+    <div className=" bg-gray-200  min-h-screen">
       {open && (
         <div className="fixed bg-black bg-opacity-25 backdrop-blur-sm inset-0 pt-32 flex flex-col items-center z-40">
           <ul className="flex flex-col divide divide-y max-h-96 overflow-scroll scrollbar-hide border-2 rounded-lg mb-2 bg-white">
@@ -138,31 +139,48 @@ export const Home = () => {
         </div>
       )}
       <div className="pt-28 w-screen">
-        <div className="flex items-center flex-col">
-          <h1 className="text-4xl font-bold text-center  ">ראשי</h1>
-          <div className="w-full flex items-center justify-around pt-10">
-            <div className="flex items-center justify-center flex-col">
-              <label className="mb-2 font-bold" htmlFor="">
-                עובדים בחברה
-              </label>
-              <BsPeopleFill
-                className="text-4xl text-blue-700 cursor-pointer"
-                onClick={() => setModal(!modal)}
+        <div className="flex items-center flex-col ">
+          <div className="h-screen flex flex-col w-screen  justify-center  items-center">
+            <div className="flex w-screen items-center justify-center">
+              <img
+                src={image}
+                alt=""
+                id="company logo"
+                className="w-32 ml-20 hidden lg:block md:block"
               />
+              <div>
+                <h1 className="text-4xl font-bold  lg:pl-32 md:pl-32 pl-16">
+                  אתר הרווחה הרשמי
+                </h1>
+                <h1 className="text-4xl font-bold  lg:pr-40 md:pr-40 pr-32 mt-5">
+                  עיריית דימונה{" "}
+                </h1>
+              </div>
             </div>
-            <div className="flex items-center justify-center flex-col">
-              <label className="mb-2 font-bold" htmlFor="">
-                ימי הולדת החודש
-              </label>
-              <FaBirthdayCake
-                className="text-4xl text-blue-700 cursor-pointer"
-                onClick={handleOpen}
-              />
+            <div className="w-full flex items-center justify-around pt-20">
+              <div className="flex items-center justify-center flex-col">
+                <BsPeopleFill
+                  className="text-4xl text-blue-700 cursor-pointer"
+                  onClick={() => setModal(!modal)}
+                />
+                <label className="mt-2 font-bold" htmlFor="">
+                  עובדים בחברה
+                </label>
+              </div>
+              <div className="flex items-center justify-center flex-col">
+                <FaBirthdayCake
+                  className="text-4xl text-blue-700 cursor-pointer"
+                  onClick={handleOpen}
+                />
+                <label className="mt-2 font-bold" htmlFor="">
+                  ימי הולדת החודש
+                </label>
+              </div>
             </div>
           </div>
         </div>
         <div className="p-10 ">
-          <h1 className="text-2xl font-bold m-auto mb-4 w-11/12">
+          <h1 className="text-5xl font-bold m-auto mb-10 w-11/12">
             דבר ראש העיר
           </h1>
           <div className="w-11/12 m-auto break-all ">
@@ -170,9 +188,7 @@ export const Home = () => {
           </div>
         </div>
         <div className="p-10">
-          <h1 className="text-4xl font-bold text-center  underline">
-            אירועים אחרונים
-          </h1>
+          <h1 className="text-4xl font-bold text-center">אירועים אחרונים</h1>
           {events?.map((post, index) => {
             return (
               <div
@@ -196,7 +212,7 @@ export const Home = () => {
             );
           })}
         </div>
-        <></>
+        <h1 className="text-4xl font-bold text-center">לוח שנה</h1>
         <Calendar />
       </div>
     </div>
