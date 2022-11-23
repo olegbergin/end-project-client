@@ -133,7 +133,7 @@ export const Home = () => {
       )}
       <div className="pt-28 w-screen">
         <div className="flex items-center flex-col ">
-          <div className="h-screen flex flex-col w-screen  justify-center  items-center">
+          <div className="md:h-screen lg:h-screen h-lessThenAPage flex flex-col w-screen  justify-center  items-center">
             <div className="flex w-screen items-center justify-center">
               <img
                 src={image}
@@ -141,16 +141,16 @@ export const Home = () => {
                 id="company logo"
                 className="w-32 ml-20 hidden lg:block md:block"
               />
-              <div>
-                <h1 className="text-4xl font-bold  lg:pl-32 md:pl-32 pl-16">
+              <div className="font-homeTitle">
+                <h1 className="lg:text-6xl md:text-6xl text-3xl font-bold  lg:pl-32 md:pl-32 pb-10">
                   אתר הרווחה הרשמי
                 </h1>
-                <h1 className="text-4xl font-bold  lg:pr-40 md:pr-40 pr-32 mt-5">
-                  עיריית דימונה{" "}
+                <h1 className="lg:text-6xl md:text-6xl text-3xl font-bold  lg:pr-40 md:pr-40  mt-5 pr-10">
+                  לעובדי עיריית דימונה
                 </h1>
               </div>
             </div>
-            <div className="w-full flex items-center justify-around pt-20">
+            <div className="w-full flex items-center justify-around pt-32">
               <div className="flex items-center justify-center flex-col">
                 <BsPeopleFill
                   className="text-4xl text-blue-700 cursor-pointer"
