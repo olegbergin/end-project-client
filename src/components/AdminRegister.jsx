@@ -4,7 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import {  useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
 const schema = yup.object().shape({
   email: yup.string().required(),
@@ -26,7 +26,6 @@ export const AdminRegister = () => {
   const [deleteUser, setDeleteUser] = useState("");
   const token = useSelector((state) => state.user.token);
 
-
   const {
     register,
     handleSubmit,
@@ -36,7 +35,9 @@ export const AdminRegister = () => {
 
   useEffect(() => {
     axios
-      .post(`${process.env.REACT_APP_SERVER}/name/getnames`, { headers: { 'Authorization': `Bearer ${token}` } })
+      .post(`${process.env.REACT_APP_SERVER}/name/getnames`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((res) => setDepartmentNames(res.data));
   }, [token]);
 
@@ -50,19 +51,23 @@ export const AdminRegister = () => {
       .post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload", formData)
       .then((response) =>
         axios
-          .post(`${process.env.REACT_APP_SERVER}/auth/registration`, {
-            email: data.email,
-            password: data.password,
-            fullname: data.fullname,
-            phone: data.phone,
-            sex: data.sex,
-            adress: data.adress,
-            birthday: new Date(data.birthday),
-            department: data.department,
-            role: data.role,
-            image: response.data.secure_url,
-            contract: data.contract,
-          }, { headers: { 'Authorization': `Bearer ${token}` } })
+          .post(
+            `${process.env.REACT_APP_SERVER}/auth/registration`,
+            {
+              email: data.email,
+              password: data.password,
+              fullname: data.fullname,
+              phone: data.phone,
+              sex: data.sex,
+              adress: data.adress,
+              birthday: new Date(data.birthday),
+              department: data.department,
+              role: data.role,
+              image: response.data.secure_url,
+              contract: data.contract,
+            },
+            { headers: { Authorization: `Bearer ${token}` } }
+          )
           .then((res) => {
             alert(res.data.message);
           })
@@ -74,7 +79,9 @@ export const AdminRegister = () => {
     elemant.preventDefault();
     try {
       await axios
-        .delete(`http://localhost:5000/auth/delete/${deleteUser}`, { headers: { 'Authorization': `Bearer ${token}` } })
+        .delete(`${process.env.REACT_APP_SERVER}/auth/delete/${deleteUser}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
         .then((res) => alert(res.data.message));
     } catch (error) {
       alert("משתמש לא נמצא");
