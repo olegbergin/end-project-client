@@ -41,11 +41,7 @@ function DepartmentPostEdit() {
     formData.append("file", data.image[0]);
     formData.append("upload_preset", "oo2ebqls");
     axios
-      .post(
-        "https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload",
-        formData,
-        { headers: { Authorization: `Bearer ${token}` } }
-      )
+      .post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload", formData)
       .then((response) =>
         axios
           .post(
