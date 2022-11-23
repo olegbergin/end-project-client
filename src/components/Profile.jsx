@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import axios from "axios";
 import { useEffect } from "react";
+import {  useSelector } from 'react-redux';
 import { BsFillPhoneFill } from "react-icons/bs";
 import { MdEmail } from "react-icons/md";
 import { FaBirthdayCake } from "react-icons/fa";
@@ -29,6 +29,8 @@ export const Profile = () => {
   const month = new Date(theUser?.birthday).getMonth();
   const theBirthday = `${day},${month}`;
   const updatedBirthday = `${day} ב${monthNames[month]}`;
+  const token = useSelector((state) => state.user.token);
+
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -42,15 +44,15 @@ export const Profile = () => {
       status: e,
     };
     axios
-      .post(`${process.env.REACT_APP_SERVER}/auth/status`, requestObj)
+      .post(`${process.env.REACT_APP_SERVER}/auth/status`, requestObj, { headers: { 'Authorization': `Bearer ${token}` } })
       .then((res) => console.log(res.data));
   };
 
   useEffect(() => {
     axios
-      .post(`${process.env.REACT_APP_SERVER}/auth/findUser`, { email: email })
+      .post(`${process.env.REACT_APP_SERVER}/auth/findUser`, { email: email }, { headers: { 'Authorization': `Bearer ${token}` } })
       .then((res) => setTheUser(res.data));
-  }, [email, status]);
+  }, [email, status, token]);
 
   return (
     <section className="pt-16 min-h-screen flex items-center bg-gray-200">
@@ -122,8 +124,8 @@ export const Profile = () => {
                       theUser?.status === "לא נמצא"
                         ? "font-semibold text-2xl mb-5 text-red-500"
                         : theUser?.status === "בעבודה"
-                        ? "font-semibold text-2xl mb-5 text-green-700"
-                        : "font-semibold text-2xl mb-5 "
+                          ? "font-semibold text-2xl mb-5 text-green-700"
+                          : "font-semibold text-2xl mb-5 "
                     }
                   >
                     {theUser?.status}

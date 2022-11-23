@@ -3,12 +3,16 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Calendar from "./Calendar";
+import {  useSelector } from 'react-redux';
 import { FaBirthdayCake } from "react-icons/fa";
 import { BsPeopleFill } from "react-icons/bs";
 import { AiFillCloseCircle } from "react-icons/ai";
 
 export const Home = () => {
   const [events, setEvents] = useState();
+  const token = useSelector((state) => state.user.token);
+
+
   const [monthlyBirthday, setMonthlyBirthday] = useState([]);
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
@@ -23,9 +27,9 @@ export const Home = () => {
     axios
       .post(`${process.env.REACT_APP_SERVER}/departments/data`, {
         department: "ראשי",
-      })
+      }, { headers: { 'Authorization': `Bearer ${token}` } })
       .then((res) => setEvents(res.data));
-    axios.get(`${process.env.REACT_APP_SERVER}/auth/users`).then((res) => {
+    axios.get(`${process.env.REACT_APP_SERVER}/auth/users`, { headers: { 'Authorization': `Bearer ${token}` } }).then((res) => {
       setAllUsers(res.data);
       for (let i = 0; i < res.data.length; i++) {
         const birthdayMonth = `${new Date(res.data[i].birthday).getMonth()}`;
@@ -40,7 +44,7 @@ export const Home = () => {
           ]);
       }
     });
-  }, []);
+  }, [token]);
   return (
     <div className="bg-gray-200 min-h-screen">
       {open && (

@@ -5,6 +5,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import {  useSelector } from 'react-redux';
 
 const url = `${process.env.REACT_APP_SERVER}/departments`;
 
@@ -25,6 +26,8 @@ const schema = yup.object().shape({
 function DepartmentPostEdit() {
   const [deletepost, setDeletepost] = useState("");
   const [departmentNames, setDepartmentNames] = useState();
+  const token = useSelector((state) => state.user.token);
+
 
   const {
     register,
@@ -39,7 +42,7 @@ function DepartmentPostEdit() {
     formData.append("file", data.image[0]);
     formData.append("upload_preset", "oo2ebqls");
     axios
-      .post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload", formData)
+      .post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload", formData, { headers: { 'Authorization': `Bearer ${token}` } })
       .then((response) =>
         axios
           .post(`${url}/departmentedit`, {
@@ -49,7 +52,7 @@ function DepartmentPostEdit() {
             date: new Date(data.date),
             image: response.data.secure_url,
             publish: data.publish,
-          })
+          }, { headers: { 'Authorization': `Bearer ${token}` } })
           .then((res) => alert(res.data.message))
           .then(reset())
       );
@@ -60,7 +63,7 @@ function DepartmentPostEdit() {
     try {
       await axios
         .delete(
-          `${process.env.REACT_APP_SERVER}/departments/delete/${deletepost}`
+          `${process.env.REACT_APP_SERVER}/departments/delete/${deletepost}`, { headers: { 'Authorization': `Bearer ${token}` } }
         )
         .then((res) => alert(res.data.message));
     } catch (error) {
@@ -71,9 +74,9 @@ function DepartmentPostEdit() {
 
   useEffect(() => {
     axios
-      .post(`${process.env.REACT_APP_SERVER}/name/getnames`)
+      .post(`${process.env.REACT_APP_SERVER}/name/getnames`, { headers: { 'Authorization': `Bearer ${token}` } })
       .then((res) => setDepartmentNames(res.data));
-  }, []);
+  }, [token]);
 
   return (
     <div className="bg-gray-200 min-h-screen mt-24 w-screen">

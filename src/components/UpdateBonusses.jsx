@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
+import {  useSelector } from 'react-redux';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -16,8 +17,11 @@ const schema = yup.object().shape({
 });
 
 const UpdateBonusses = () => {
+  
   const [deletebonus, setDeletebonus] = useState("");
   const [image, setImage] = useState("");
+  const token = useSelector((state) => state.user.token);
+
 
   const { register, handleSubmit, reset } = useForm({
     mode: "all",
@@ -31,7 +35,7 @@ const UpdateBonusses = () => {
     formData.append("file", image);
     formData.append("upload_preset", "oo2ebqls");
     axios
-      .post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload", formData)
+      .post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload", formData, { headers: { 'Authorization': `Bearer ${token}` } })
       .then((response) =>
         axios
           .post(`${url}/update`, {
@@ -41,7 +45,7 @@ const UpdateBonusses = () => {
             link: data.link,
             linktitle: data.linktitle,
             date: data.date,
-          })
+          }, { headers: { 'Authorization': `Bearer ${token}` } })
           .then((res) => alert(res.data.message))
           .then(reset())
       );
@@ -51,7 +55,7 @@ const UpdateBonusses = () => {
     elemant.preventDefault();
     try {
       await axios
-        .delete(`${process.env.REACT_APP_SERVER}/bonuses/delete/${deletebonus}`)
+        .delete(`${process.env.REACT_APP_SERVER}/bonuses/delete/${deletebonus}`, { headers: { 'Authorization': `Bearer ${token}` } })
         .then((res) => alert(res.data.message));
     } catch (error) {
       console.log(error);

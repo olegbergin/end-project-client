@@ -5,6 +5,7 @@ import { useLocation } from "react-router";
 import { BsFillPhoneFill } from "react-icons/bs";
 import { MdEmail } from "react-icons/md";
 import { FaBirthdayCake } from "react-icons/fa";
+import {  useSelector } from 'react-redux';
 
 
 
@@ -29,14 +30,16 @@ export const PropsProfile = () => {
   const day = new Date(theUser?.birthday).getDate();
   const month = new Date(theUser?.birthday).getMonth();
   const updatedBirthday = `${day} ב${monthNames[month]}`;
+  const token = useSelector((state) => state.user.token);
+
 
   useEffect(() => {
     axios
       .post(`${process.env.REACT_APP_SERVER}/auth/findUser`, {
         email: email,
-      })
+      }, { headers: { 'Authorization': `Bearer ${token}` } })
       .then((res) => setTheUser(res.data));
-  }, [email]);
+  }, [email, token]);
   return (
     <section className="pt-16 min-h-screen flex items-center bg-gray-200">
       <div className="w-full  px-4 m-auto ">

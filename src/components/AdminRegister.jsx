@@ -4,6 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import {  useSelector } from 'react-redux';
 
 const schema = yup.object().shape({
   email: yup.string().required(),
@@ -23,6 +24,8 @@ export const AdminRegister = () => {
   const [image, setImage] = useState("");
   const [departmentNames, setDepartmentNames] = useState();
   const [deleteUser, setDeleteUser] = useState("");
+  const token = useSelector((state) => state.user.token);
+
 
   const {
     register,
@@ -33,9 +36,9 @@ export const AdminRegister = () => {
 
   useEffect(() => {
     axios
-      .post(`${process.env.REACT_APP_SERVER}/name/getnames`)
+      .post(`${process.env.REACT_APP_SERVER}/name/getnames`, { headers: { 'Authorization': `Bearer ${token}` } })
       .then((res) => setDepartmentNames(res.data));
-  }, []);
+  }, [token]);
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
@@ -44,7 +47,7 @@ export const AdminRegister = () => {
     formData.append("upload_preset", "oo2ebqls");
 
     axios
-      .post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload", formData)
+      .post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload", formData, { headers: { 'Authorization': `Bearer ${token}` } })
       .then((response) =>
         axios
           .post(`${process.env.REACT_APP_SERVER}/auth/registration`, {
@@ -59,7 +62,7 @@ export const AdminRegister = () => {
             role: data.role,
             image: response.data.secure_url,
             contract: data.contract,
-          })
+          }, { headers: { 'Authorization': `Bearer ${token}` } })
           .then((res) => {
             alert(res.data.message);
           })
@@ -71,7 +74,7 @@ export const AdminRegister = () => {
     elemant.preventDefault();
     try {
       await axios
-        .delete(`http://localhost:5000/auth/delete/${deleteUser}`)
+        .delete(`http://localhost:5000/auth/delete/${deleteUser}`, { headers: { 'Authorization': `Bearer ${token}` } })
         .then((res) => alert(res.data.message));
     } catch (error) {
       alert("משתמש לא נמצא");

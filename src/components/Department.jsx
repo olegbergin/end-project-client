@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
+import {  useSelector } from 'react-redux';
 import { BsPeopleFill } from "react-icons/bs";
 import { AiFillCloseCircle } from "react-icons/ai";
 
@@ -13,23 +14,25 @@ function Department() {
   const location = useLocation();
   const { department } = location.state;
   const [modal, setModal] = useState(false);
+  const token = useSelector((state) => state.user.token);
+
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     axios
       .post(`${process.env.REACT_APP_SERVER}/departments/data`, {
         department: department,
-      })
+      }, { headers: { 'Authorization': `Bearer ${token}` } })
       .then((res) => setpostData(res.data));
-  }, [department]);
+  }, [department,token]);
 
   useEffect(() => {
     axios
       .post(`${process.env.REACT_APP_SERVER}/auth/userbydepartment`, {
         department: department,
-      })
+      }, { headers: { 'Authorization': `Bearer ${token}` } })
       .then((res) => setuserData(res.data));
-  }, [department]);
+  }, [department, token]);
 
   return (
     <div className="flex flex-col items-center bg-gray-200 min-h-screen">

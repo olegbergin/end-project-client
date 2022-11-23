@@ -10,15 +10,17 @@ export const Navbar = (props) => {
   const navigate = useNavigate();
   const role = useSelector((state) => state.user.role);
   const [departmentNames, setDepartmentNames] = useState();
+  const token = useSelector((state) => state.user.token);
+
   const [current, setCurrent] = useState("");
   const location = useLocation().pathname;     
   const page = location.slice(1, location.length);
   useEffect(() => {
     axios
-      .post(`${process.env.REACT_APP_SERVER}/name/getnames`)
+      .post(`${process.env.REACT_APP_SERVER}/name/getnames`, { headers: { 'Authorization': `Bearer ${token}` } })
       .then((res) => setDepartmentNames(res.data));
     setCurrent(page);
-  }, [page]);
+  }, [page, token]);
 
   return (
     <div className="bg-gray-800 w-screen fixed z-50">

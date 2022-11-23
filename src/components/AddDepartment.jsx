@@ -1,24 +1,29 @@
 import axios from "axios";
 import { useState } from "react";
+import {  useSelector } from 'react-redux';
 
 export const AddDepartments = () => {
   const [departmentName, setDepartmentName] = useState();
   const [departmentName1, setDepartmentName1] = useState();
+  const token = useSelector((state) => state.user.token);
+
+
   const handleCreateSubmit = () => {
     axios
       .post(`${process.env.REACT_APP_SERVER}/name/setname`, {
         theName: departmentName,
-      })
+      }, { headers: { 'Authorization': `Bearer ${token}` } })
       .then((res) => alert(res.data.message));
     setDepartmentName("");
   };
+
   const handleDeleteSubmit = () => {
     axios
       .delete(`${process.env.REACT_APP_SERVER}/name/deletename`, {
         data: {
           theName: departmentName1,
         },
-      })
+      }, { headers: { 'Authorization': `Bearer ${token}` } })
       .then((res) => alert(res.data.message));
     setDepartmentName1("");
   };
