@@ -57,7 +57,7 @@ function App() {
   useEffect(() => {
     setLoading(true);
     axios
-      .post("http://localhost:5000/departments/get")
+      .post(`${process.env.REACT_APP_SERVER}/department/get`)
       .then((res) => dispatch(updatePosts(res.data)));
 
     const storage = localStorage.getItem("myToken");
