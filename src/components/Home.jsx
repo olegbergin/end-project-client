@@ -1,51 +1,40 @@
-import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Calendar from "./Calendar";
-import {  useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import { FaBirthdayCake } from "react-icons/fa";
 import { BsPeopleFill } from "react-icons/bs";
 import { AiFillCloseCircle } from "react-icons/ai";
 import image from "../images/dimona-logo.png";
 
 export const Home = () => {
-  const [events, setEvents] = useState();
+  const events = useSelector((state) => state.post.posts);
   const token = useSelector((state) => state.user.token);
-
-
   const [monthlyBirthday, setMonthlyBirthday] = useState([]);
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(!open);
   };
-  const [allUsers, setAllUsers] = useState();
   const [modal, setModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const reduxUsers = useSelector((state) => state.profile.profiles);
 
   useEffect(() => {
     const TodaysMonth = `${new Date().getMonth()}`;
-    axios
-      .post(`${process.env.REACT_APP_SERVER}/departments/data`, {
-        department: "ראשי",
-      }, { headers: { 'Authorization': `Bearer ${token}` } })
-      .then((res) => setEvents(res.data));
-    axios.get(`${process.env.REACT_APP_SERVER}/auth/users`, { headers: { 'Authorization': `Bearer ${token}` } }).then((res) => {
-      setAllUsers(res.data);
-      for (let i = 0; i < res.data.length; i++) {
-        const birthdayMonth = `${new Date(res.data[i].birthday).getMonth()}`;
-        birthdayMonth === TodaysMonth &&
-          setMonthlyBirthday((l) => [
-            ...l,
-            {
-              fullname: res.data[i].fullname,
-              image: res.data[i].image,
-              email: res.data[i].email,
-            },
-          ]);
-      }
-    });
-  }, [token]);
+    for (let i = 0; i < reduxUsers.length; i++) {
+      const birthdayMonth = `${new Date(reduxUsers[i].birthday).getMonth()}`;
+      birthdayMonth === TodaysMonth &&
+        setMonthlyBirthday((l) => [
+          ...l,
+          {
+            fullname: reduxUsers[i].fullname,
+            image: reduxUsers[i].image,
+            email: reduxUsers[i].email,
+          },
+        ]);
+    }
+  }, [token, reduxUsers]);
   return (
     <div className=" bg-gray-200  min-h-screen">
       {open && (
@@ -94,7 +83,7 @@ export const Home = () => {
                   }}
                 />
               </div>
-              {allUsers
+              {reduxUsers
                 ?.filter((user) => {
                   if (
                     searchTerm === "" ||
@@ -188,31 +177,33 @@ export const Home = () => {
             דבר ראש העיר
           </h1>
           <div className="w-11/12 m-auto break-all ">
-            <p className="">{allUsers && allUsers[0]?.speech}</p>
+            <p className="">{reduxUsers && reduxUsers[0]?.speech}</p>
           </div>
         </div>
         <div className="p-10">
           <h1 className="text-4xl font-bold text-center">אירועים אחרונים</h1>
           {events?.map((post, index) => {
             return (
-              <div
-                key={index}
-                className="lg:flex-row md:flex-row sm:flex-row my-10 flex flex-col items-center  p-2 rounded-3xl bg-opacity-50 shadow-md shadow-black/70 bg-gray-300"
-              >
-                <img src={post.image} alt="" className="w-48 rounded-md " />
-                <div className="flex flex-col pr-10 space-y-3 justify-center">
-                  <h1 className="text-xl font-bold ">{post.title}</h1>
-                  <h1 className="text-lg w-5/6">{post.description}</h1>
-                  <h1 className="text-xs text-black/60">
-                    {`
+              post.department === "ראשי" && (
+                <div
+                  key={index}
+                  className="lg:flex-row md:flex-row sm:flex-row my-10 flex flex-col items-center  p-2 rounded-3xl bg-opacity-50 shadow-md shadow-black/70 bg-gray-300"
+                >
+                  <img src={post.image} alt="" className="w-48 rounded-md " />
+                  <div className="flex flex-col pr-10 space-y-3 justify-center">
+                    <h1 className="text-xl font-bold ">{post.title}</h1>
+                    <h1 className="text-lg w-5/6">{post.description}</h1>
+                    <h1 className="text-xs text-black/60">
+                      {`
                     ${new Date(post.date).getFullYear()}/${
-                      new Date(post.date).getMonth() + 1
-                    }/${new Date(post.date).getDate()}
+                        new Date(post.date).getMonth() + 1
+                      }/${new Date(post.date).getDate()}
                     
                       `}
-                  </h1>
+                    </h1>
+                  </div>
                 </div>
-              </div>
+              )
             );
           })}
         </div>

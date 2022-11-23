@@ -1,38 +1,19 @@
 import React from "react";
-import axios from "axios";
-import { useEffect } from "react";
 import { useState } from "react";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
-import {  useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import { BsPeopleFill } from "react-icons/bs";
 import { AiFillCloseCircle } from "react-icons/ai";
 
 function Department() {
-  const [postData, setpostData] = useState();
-  const [userData, setuserData] = useState();
+  const userData = useSelector((state) => state.profile.profiles);
   const location = useLocation();
   const { department } = location.state;
   const [modal, setModal] = useState(false);
-  const token = useSelector((state) => state.user.token);
-
   const [searchTerm, setSearchTerm] = useState("");
-
-  useEffect(() => {
-    axios
-      .post(`${process.env.REACT_APP_SERVER}/departments/data`, {
-        department: department,
-      }, { headers: { 'Authorization': `Bearer ${token}` } })
-      .then((res) => setpostData(res.data));
-  }, [department,token]);
-
-  useEffect(() => {
-    axios
-      .post(`${process.env.REACT_APP_SERVER}/auth/userbydepartment`, {
-        department: department,
-      }, { headers: { 'Authorization': `Bearer ${token}` } })
-      .then((res) => setuserData(res.data));
-  }, [department, token]);
+  const posts = useSelector((state) => state.post.posts);
+  console.log(posts);
 
   return (
     <div className="flex flex-col items-center bg-gray-200 min-h-screen">
@@ -63,31 +44,35 @@ function Department() {
                 })
                 .map((user, i) => {
                   return (
-                    <Link
-                      to="/companyuser"
-                      key={i}
-                      state={{ email: user.email }}
-                    >
-                      <li className="flex flex-row p-2">
-                        <div className="select-none cursor-pointer flex flex-1 items-center p-4">
-                          <div className="flex flex-col w-10 h-10 justify-center items-center mr-4">
-                            <div className="block relative">
-                              <img
-                                alt="profil"
-                                src={user.image}
-                                className="mx-auto object-cover rounded-full h-10 w-10 "
-                              />
+                    user.department === department && (
+                      <Link
+                        to="/companyuser"
+                        key={i}
+                        state={{ email: user.email }}
+                      >
+                        <li className="flex flex-row p-2">
+                          <div className="select-none cursor-pointer flex flex-1 items-center p-4">
+                            <div className="flex flex-col w-10 h-10 justify-center items-center mr-4">
+                              <div className="block relative">
+                                <img
+                                  alt="profil"
+                                  src={user.image}
+                                  className="mx-auto object-cover rounded-full h-10 w-10 "
+                                />
+                              </div>
+                            </div>
+                            <div className="flex-1 pl-1 mr-16">
+                              <div className="font-medium ">
+                                {user.fullname}
+                              </div>
+                              <div className="text-gray-600 text-sm">
+                                {department}
+                              </div>
                             </div>
                           </div>
-                          <div className="flex-1 pl-1 mr-16">
-                            <div className="font-medium ">{user.fullname}</div>
-                            <div className="text-gray-600 text-sm">
-                              {department}
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                    </Link>
+                        </li>
+                      </Link>
+                    )
                   );
                 })}
             </ul>
@@ -112,26 +97,28 @@ function Department() {
       </div>
       <div className="mt-5 sm:flex-row md:flex-row lf:flex-row flex flex-col sm:items-start md:items-start lg:items-start items-center ">
         <div className="p-10">
-          {postData?.map((post, index) => {
+          {posts?.map((post, index) => {
             return (
-              <div
-                key={index}
-                className="lg:flex-row md:flex-row sm:flex-row my-10 flex flex-col items-center  p-2 rounded-3xl bg-opacity-50 shadow-md shadow-black/70 bg-gray-300"
-              >
-                <img src={post.image} alt="" className="w-48 rounded-md " />
-                <div className="flex flex-col pr-10 space-y-3 justify-center">
-                  <h1 className="text-xl font-bold ">{post.title}</h1>
-                  <h1 className="text-lg w-5/6">{post.description}</h1>
-                  <h1 className="text-xs text-black/60">
-                    {`
+              post.department === department && (
+                <div
+                  key={index}
+                  className="lg:flex-row md:flex-row sm:flex-row my-10 flex flex-col items-center  p-2 rounded-3xl bg-opacity-50 shadow-md shadow-black/70 bg-gray-300"
+                >
+                  <img src={post.image} alt="" className="w-48 rounded-md " />
+                  <div className="flex flex-col pr-10 space-y-3 justify-center">
+                    <h1 className="text-xl font-bold ">{post.title}</h1>
+                    <h1 className="text-lg w-5/6">{post.description}</h1>
+                    <h1 className="text-xs text-black/60">
+                      {`
                     ${new Date(post.date).getFullYear()}/${
-                      new Date(post.date).getMonth() + 1
-                    }/${new Date(post.date).getDate()}
+                        new Date(post.date).getMonth() + 1
+                      }/${new Date(post.date).getDate()}
                     
                       `}
-                  </h1>
+                    </h1>
+                  </div>
                 </div>
-              </div>
+              )
             );
           })}
         </div>
