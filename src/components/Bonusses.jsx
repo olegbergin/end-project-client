@@ -24,11 +24,11 @@ const Bonusses = () => {
         {bonuses?.map(({ _id, image, title, description, link, linktitle }) => {
           return (
             <div
-              className="max-w-sm rounded-lg shadow-black/50 overflow-hidden shadow-lg mx-10 h-2/3 my-5 bg-white "
+              className="max-w-sm rounded-lg shadow-black/50 overflow-hidden shadow-lg mx-10 h-2/3 my-5 p-5"
               key={_id}
             >
               <img
-                className="lg:h-56  min-w-full object-fill"
+                className="lg:h-56  min-w-full object-fill rounded-lg"
                 src={image}
                 alt="Sunset in the mountains"
               />

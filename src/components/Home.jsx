@@ -139,7 +139,7 @@ export const Home = () => {
       )}
       <div className="pt-28 w-screen">
         <div className="flex items-center flex-col">
-          <h1 className="text-4xl font-bold text-center  ">אירועים אחרונים</h1>
+          <h1 className="text-4xl font-bold text-center  ">ראשי</h1>
           <div className="w-full flex items-center justify-around pt-10">
             <div className="flex items-center justify-center flex-col">
               <label className="mb-2 font-bold" htmlFor="">
@@ -165,18 +165,21 @@ export const Home = () => {
           <h1 className="text-2xl font-bold m-auto mb-4 w-11/12">
             דבר ראש העיר
           </h1>
-          <div className="border-2 border-black/30 rounded-md w-11/12 m-auto break-all">
-            <p className="p-2">{allUsers && allUsers[0]?.speech}</p>
+          <div className="w-11/12 m-auto break-all ">
+            <p className="">{allUsers && allUsers[0]?.speech}</p>
           </div>
         </div>
         <div className="p-10">
+          <h1 className="text-4xl font-bold text-center  underline">
+            אירועים אחרונים
+          </h1>
           {events?.map((post, index) => {
             return (
               <div
                 key={index}
-                className="lg:flex-row md:flex-row sm:flex-row my-10 flex flex-col items-center  bg-white p-2 border-2 border-gray-700 rounded-lg"
+                className="lg:flex-row md:flex-row sm:flex-row my-10 flex flex-col items-center  p-2 rounded-3xl bg-opacity-50 shadow-md shadow-black/70 bg-gray-300"
               >
-                <img src={post.image} alt="" className="w-56 mb-5" />
+                <img src={post.image} alt="" className="w-48 rounded-md " />
                 <div className="flex flex-col pr-10 space-y-3 justify-center">
                   <h1 className="text-xl font-bold ">{post.title}</h1>
                   <h1 className="text-lg w-5/6">{post.description}</h1>
