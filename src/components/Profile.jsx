@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
-import {  useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import { BsFillPhoneFill } from "react-icons/bs";
 import { MdEmail } from "react-icons/md";
 import { FaBirthdayCake } from "react-icons/fa";
@@ -22,8 +22,8 @@ export const Profile = () => {
     "נובמבר",
     "דצמבר",
   ];
+  const users = useSelector((state) => state.profile.profiles);
   const [theUser, setTheUser] = useState();
-  const [status, setStatus] = useState("לא נמצא");
   const email = useSelector((state) => state.user.email);
   const day = new Date(theUser?.birthday).getDate();
   const month = new Date(theUser?.birthday).getMonth();
@@ -34,25 +34,23 @@ export const Profile = () => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
+    for (let i = 0; i < users.length; i++) {
+      users[i].email === email && setTheUser(users[i]);
+    }
+
     const Today = `${new Date().getDate()},${new Date().getMonth()}`;
     Today === theBirthday ? setShow(true) : setShow(false);
-  }, [show, theBirthday]);
+  }, [show, theBirthday, email, users]);
 
   const setTheStatus = async (e) => {
     const requestObj = {
       email: email,
       status: e,
     };
-    axios
-      .post(`${process.env.REACT_APP_SERVER}/auth/status`, requestObj, { headers: { 'Authorization': `Bearer ${token}` } })
-      .then((res) => console.log(res.data));
+    axios.post(`${process.env.REACT_APP_SERVER}/auth/status`, requestObj, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
   };
-
-  useEffect(() => {
-    axios
-      .post(`${process.env.REACT_APP_SERVER}/auth/findUser`, { email: email }, { headers: { 'Authorization': `Bearer ${token}` } })
-      .then((res) => setTheUser(res.data));
-  }, [email, status, token]);
 
   return (
     <section className="pt-16 min-h-screen flex items-center bg-gray-200">
@@ -124,8 +122,8 @@ export const Profile = () => {
                       theUser?.status === "לא נמצא"
                         ? "font-semibold text-2xl mb-5 text-red-500"
                         : theUser?.status === "בעבודה"
-                          ? "font-semibold text-2xl mb-5 text-green-700"
-                          : "font-semibold text-2xl mb-5 "
+                        ? "font-semibold text-2xl mb-5 text-green-700"
+                        : "font-semibold text-2xl mb-5 "
                     }
                   >
                     {theUser?.status}
@@ -135,8 +133,7 @@ export const Profile = () => {
                     name=""
                     id=""
                     onChange={async (e) => {
-                      e.target.value && setStatus(e.target.value);
-                      setTheStatus(e.target.value);
+                      e.target.value && setTheStatus(e.target.value);
                     }}
                     className="text-2xl font-bold mt-5"
                   >
