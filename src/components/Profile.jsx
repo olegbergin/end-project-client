@@ -62,7 +62,7 @@ export const Profile = () => {
                 <img
                   alt="..."
                   src={theUser?.image}
-                  className="w-44 h-44 shadow-xl rounded-full relative"
+                  className="w-44 h-44 shadow-xl rounded-full relative object-cover"
                 />
               </div>
             </div>
