@@ -113,20 +113,20 @@ function Department() {
             return (
               <div
                 key={index}
-                className=" m-10 lg:flex-row md:flex-row sm:flex-row flex flex-col items-center  bg-white rounded-xl border-2 border-gray-700  p-5"
+                className="lg:flex-row md:flex-row sm:flex-row my-10 flex flex-col items-center  p-2 rounded-3xl bg-opacity-50 shadow-md shadow-black/70 bg-gray-300"
               >
-                <img src={post.image} alt="" className="w-40 " />
-                <div className="flex flex-col md:pr-10 lg:pr-10 space-y-3 justify-center items-center">
-                  <h1 className="text-xl font-bold">{post.title}</h1>
-                  <h1 className="text-lg font-semibold w-5/6">
-                    {post.description}
-                  </h1>
-                  <h1 className="text-xs text-black/60 ">{`
+                <img src={post.image} alt="" className="w-48 rounded-md " />
+                <div className="flex flex-col pr-10 space-y-3 justify-center">
+                  <h1 className="text-xl font-bold ">{post.title}</h1>
+                  <h1 className="text-lg w-5/6">{post.description}</h1>
+                  <h1 className="text-xs text-black/60">
+                    {`
                     ${new Date(post.date).getFullYear()}/${
-                    new Date(post.date).getMonth() + 1
-                  }/${new Date(post.date).getDate()}
+                      new Date(post.date).getMonth() + 1
+                    }/${new Date(post.date).getDate()}
                     
-                      `}</h1>
+                      `}
+                  </h1>
                 </div>
               </div>
             );

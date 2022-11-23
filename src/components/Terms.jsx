@@ -1,12 +1,10 @@
 export const Terms = () => {
   return (
-    <div className="min-h-screen">
-      <div className="mt-28">
-        <h1 className="text-center m-4 text-3xl font-bold text-blue-900">
-          תקנון
-        </h1>
-        <div className="flex  flex-col items-center">
-          <h1 className=" w-5/6 m-4">
+    <div className="min-h-screen bg-gray-200">
+      <div className="pt-28 flex flex-col items-center ">
+        <h1 className="text-center m-4 text-3xl font-bold ">תקנון</h1>
+        <div className="flex  flex-col items-center w-5/6 bg-gray-300 shadow-md shadow-black/50 mb-10 p-5">
+          <h1 className="  m-4 ">
             לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק.
             תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג -
             ולתיעם גדדיש. קוויז דומור ליאמום בלינך רוגצה. לפמעט מוסן מנת. קולהע
@@ -32,7 +30,7 @@ export const Terms = () => {
             וסטיבולום סוליסי טידום בעליק. קונדימנטום קורוס בליקרה, נונסטי קלובר
             בריקנה סטום, לפריקך תצטריק לרטי.
           </h1>
-          <h1 className=" w-5/6 m-4">
+          <h1 className=" m-4">
             לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק.
             תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג -
             ולתיעם גדדיש. קוויז דומור ליאמום בלינך רוגצה. לפמעט מוסן מנת. קולהע
