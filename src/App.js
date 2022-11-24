@@ -95,8 +95,7 @@ function App() {
 
       {!role && (
         <Routes>
-          <Route path="login" element={<Login />} />
-          <Route path="/" element={<Login />} />
+          <Route path="*" element={<Login />} />
         </Routes>
       )}
       {role === "USER" && (

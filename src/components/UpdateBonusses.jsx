@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
-import {  useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -11,19 +11,24 @@ const url = `${process.env.REACT_APP_SERVER}/bonuses`;
 const schema = yup.object().shape({
   title: yup.string().required(),
   description: yup.string().required(),
-  // image:yup.string().required(),
   link: yup.string().required(),
   linktitle: yup.string().required(),
+  image: yup.mixed().test("file", "You need to provide a file", (value) => {
+    if (value.length > 0) {
+      return true;
+    }
+    return false;
+  })
 });
 
 const UpdateBonusses = () => {
-  
+
   const [deletebonus, setDeletebonus] = useState("");
-  const [image, setImage] = useState("");
+  // const [image, setImage] = useState("");
   const token = useSelector((state) => state.user.token);
 
 
-  const { register, handleSubmit, reset } = useForm({
+  const { register, handleSubmit, reset, formState: { errors }, } = useForm({
     mode: "all",
     resolver: yupResolver(schema),
   });
@@ -32,7 +37,7 @@ const UpdateBonusses = () => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("file", image);
+    formData.append("file", data.image[0]);
     formData.append("upload_preset", "oo2ebqls");
     axios
       .post("https://api.cloudinary.com/v1_1/dd5csvtjc/image/upload", formData)
@@ -82,13 +87,13 @@ const UpdateBonusses = () => {
                   type="text"
                   placeholder="title"
                   className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1"
-                  {...register("title", {
-                    required: true,
-                    max: 80,
-                    min: 1,
-                    maxLength: 80,
-                  })}
+                  {...register("title")}
                 />
+                {errors?.title && (
+                  <p className="text-red-600">
+                    {errors?.title?.message || "Error!"}
+                  </p>
+                )}
               </div>
               <div className="mb-1 sm:mb-2">
                 <label
@@ -101,13 +106,13 @@ const UpdateBonusses = () => {
                   type="text"
                   className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1"
                   placeholder="description"
-                  {...register("description", {
-                    required: true,
-                    max: 80,
-                    min: 1,
-                    maxLength: 80,
-                  })}
+                  {...register("description")}
                 />
+                {errors?.description && (
+                  <p className="text-red-600">
+                    {errors?.description?.message || "Error!"}
+                  </p>
+                )}
               </div>
               <div className="mb-1 sm:mb-2">
                 <label
@@ -122,11 +127,11 @@ const UpdateBonusses = () => {
                   placeholder="הוסף תמונה"
                   className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1"
                   accept="image/png/jpeg/svg/gif/jpg"
-                  {...register("image", {
-                    required: true,
-                  })}
-                  onChange={(e) => setImage(e.target.files[0])}
+                  {...register("image")}
                 />
+                {errors?.image && (
+                  <p className="text-red-600">{errors?.image?.message || "Error!"}</p>
+                )}
               </div>
               <div className="mb-1 sm:mb-2">
                 <label
@@ -141,13 +146,13 @@ const UpdateBonusses = () => {
                   type="text"
                   className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1"
                   name="Link"
-                  {...register("link", {
-                    required: true,
-                    max: 80,
-                    min: 1,
-                    maxLength: 80,
-                  })}
+                  {...register("link")}
                 />
+                {errors?.link && (
+                  <p className="text-red-600">
+                    {errors?.link?.message || "Error!"}
+                  </p>
+                )}
               </div>
               <div className="mb-1 sm:mb-2">
                 <label
@@ -161,10 +166,13 @@ const UpdateBonusses = () => {
                   required
                   type="text"
                   className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1"
-                  {...register("linktitle", {
-                    required: true,
-                  })}
+                  {...register("linktitle")}
                 />
+                {errors?.linktitle && (
+                  <p className="text-red-600">
+                    {errors?.linktitle?.message || "Error!"}
+                  </p>
+                )}
               </div>
 
               <div className="mb-1 sm:mb-2">
@@ -178,10 +186,13 @@ const UpdateBonusses = () => {
                   required
                   type="date"
                   className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1"
-                  {...register("date", {
-                    required: true,
-                  })}
+                  {...register("date")}
                 />
+                {errors?.date && (
+                  <p className="text-red-600">
+                    {errors?.date?.message || "Error!"}
+                  </p>
+                )}
               </div>
               <div className="mt-4 mb-2 sm:mb-4 text-center">
                 <input
