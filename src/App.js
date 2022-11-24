@@ -54,16 +54,33 @@ function App() {
 
   const dispatch = useDispatch();
 
+  const storage = localStorage.getItem("myToken");
   useEffect(() => {
-    setLoading(true);
-    axios
-      .post(`${process.env.REACT_APP_SERVER}/departments/get`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => dispatch(updatePosts(res.data)));
-
-    const storage = localStorage.getItem("myToken");
     if (storage) {
+      setLoading(true);
+      axios
+        .post(`${process.env.REACT_APP_SERVER}/departments/get`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => dispatch(updatePosts(res.data)));
+      axios
+        .get(`${process.env.REACT_APP_SERVER}/auth/users`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => {
+          dispatch(updateProfiles(res.data));
+        });
+
+      axios
+        .post(`${process.env.REACT_APP_SERVER}/bonuses/get`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => {
+          dispatch(updateTheBonusses(res.data));
+        });
+
+      socket.emit("join_room");
+      setLoading(false);
       dispatch(updateToken(storage));
       const decoded = jwt_decode(storage);
       dispatch(updateRole(decoded.role));
@@ -72,27 +89,9 @@ function App() {
     } else {
       redirect("/login");
     }
-    axios
-      .get(`${process.env.REACT_APP_SERVER}/auth/users`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => {
-        dispatch(updateProfiles(res.data));
-      });
-
-    axios
-      .post(`${process.env.REACT_APP_SERVER}/bonuses/get`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => {
-        dispatch(updateTheBonusses(res.data));
-      });
-
-    socket.emit("join_room");
-    setLoading(false);
 
     // eslint-disable-next-line
-  }, []);
+  }, [storage]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
