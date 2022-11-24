@@ -68,7 +68,7 @@ export const Profile = () => {
             </div>
             <div className="text-center mt-3 ">
               <h3 className="text-3xl font-semibold leading-normal">
-                ברוך הבא: {theUser?.fullname}
+                היי, {theUser?.fullname}
               </h3>
               <div className="text-xl leading-normal mb-2 font-bold">
                 אגף: {theUser?.department}
