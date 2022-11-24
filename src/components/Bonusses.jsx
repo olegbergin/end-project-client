@@ -1,34 +1,23 @@
 import React from "react";
-import { useState } from "react";
-import axios from "axios";
-import { useEffect } from "react";
-import {  useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
 const Bonusses = () => {
-  const [bonuses, setBonuses] = useState();
-  const token = useSelector((state) => state.user.token);
-
-
-  useEffect(() => {
-    axios.post(`${process.env.REACT_APP_SERVER}/bonuses/get`, { headers: { 'Authorization': `Bearer ${token}` } }).then((res) => {
-      setBonuses(res.data);
-    });
-  }, [token]);
+  const bonuses = useSelector((state) => state.bonuse.bonuses);
 
   return (
     <div className="bg-gray-200 min-h-screen">
       <div className="pt-32  text-center">
-        <h1 className="text-3xl font-bold text-black mb-10">הטבות</h1>
-        <p className="text-black">
+        <h1 className="text-5xl font-bold text-black mb-10">הטבות</h1>
+        <p className="text-black font-bold lg:text-2xl text-lg p-2">
           ברוכים הבאים לאזור ההטבות. בעמוד זה יפורטו ההטבות אשר מגיעות לכם/ן
           ופירוטן.
         </p>
       </div>
-      <div className="flex flex-wrap w-screen justify-center mt-20">
+      <div className="flex flex-col w-screen items-center justify-center mt-20">
         {bonuses?.map(({ _id, image, title, description, link, linktitle }) => {
           return (
             <div
-              className="max-w-sm rounded-lg shadow-black/50 overflow-hidden shadow-lg mx-10 h-2/3 my-5 p-5"
+              className="lg:max-w-md md:max-w-md lg:min-w-md md:min-w-md rounded-lg shadow-black/50 overflow-hidden shadow-lg mx-10 h-2/3 my-5 p-5"
               key={_id}
             >
               <img

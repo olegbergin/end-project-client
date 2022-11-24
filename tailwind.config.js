@@ -2,17 +2,18 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    fontFamily: {
+      homeTitle: "'Suez One', serif",
+    },
     extend: {
-      backgroundImage: {
-        logo: "url('./images/dimona-logo.png')",
-      },
-      backgroundSize: {
-        small: "30%",
-      },
       fontFamily: {
         varela: ["Varela Round", "sans-serif"],
       },
+      minWidth: {
+        md: "28rem",
+      },
       spacing: {
+        lessThenAPage: "60vh",
         150: "40rem",
       },
     },
