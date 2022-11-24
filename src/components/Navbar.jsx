@@ -13,11 +13,13 @@ export const Navbar = (props) => {
   const token = useSelector((state) => state.user.token);
 
   const [current, setCurrent] = useState("");
-  const location = useLocation().pathname;     
+  const location = useLocation().pathname;
   const page = location.slice(1, location.length);
   useEffect(() => {
     axios
-      .post(`${process.env.REACT_APP_SERVER}/name/getnames`, { headers: { 'Authorization': `Bearer ${token}` } })
+      .post(`${process.env.REACT_APP_SERVER}/name/getnames`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((res) => setDepartmentNames(res.data));
     setCurrent(page);
   }, [page, token]);
@@ -390,9 +392,10 @@ export const Navbar = (props) => {
             <div>
               <button
                 className="text-red-700 font-semibold"
-                onClick={() => {
-                  dispatch(logOut());
-                  navigate("/");
+                onClick={async () => {
+                  await dispatch(logOut());
+                  await navigate("/");
+                  window.location.reload();
                 }}
               >
                 התנתק
