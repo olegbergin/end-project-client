@@ -176,12 +176,9 @@ function DepartmentPostEdit() {
           <input
             className=" flex  px-4  transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-purple-400 focus:outline-none focus:shadow-outline md:w-72 lg:w-96 w-72  mb-6 p-1"
             type="file"
-            {...register("image", {
-              required: true,
-            })}
+            
             accept="image/png/jpeg/svg/gif/jpg"
             {...register("image")}
-            // onChange={(e) => setImage(e.target.files[0])}
           />
           {errors?.image && (
             <p className="text-red-600">{errors?.image?.message || "Error!"}</p>
